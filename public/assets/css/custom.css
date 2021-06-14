@@ -1,0 +1,53 @@
+label {
+    width: 100%;
+    font-size: 1rem;
+}
+
+.card-input-element+.card {
+    height: calc(16px + 2*1rem);
+    color: black;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.card-input-element+.card:hover {
+    cursor: pointer;
+    background: #f6f6f6;
+}
+
+.card-input-element:checked+.card {
+    border: 2px solid black;
+    -webkit-transition: border .3s;
+    -o-transition: border .3s;
+    transition: border .3s;
+}
+
+.card-input-element:checked+.card::after {
+    font-size: 24px;
+    -webkit-animation-name: fadeInCheckbox;
+    animation-name: fadeInCheckbox;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.one-time-password {
+    border: none;
+    width: 10.5ch;
+    background:
+        repeating-linear-gradient(90deg,
+        black 0,
+        black 1ch,
+        transparent 0,
+        transparent 1.5ch)
+        0 100%/100% 2px no-repeat;
+    color: black;
+    font: 5ch consolas, monospace;
+    letter-spacing: .5ch;
+}
+.one-time-password:focus {
+    border: none;
+    outline: none;
+    color: black;
+}

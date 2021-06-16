@@ -29,26 +29,22 @@
         >Resend!</a>
     </span>
     <span
-        class="d-inline fw-bold"
+        class="fw-bold d-inline"
         id="counting-before-retry"
-    >Resend in : 00:00</span>
+    >-</span>
 </div>
 
 <script>
     window.addEventListener('recountingTime', event => {
-        countingTime(event.detail.next_time)
+        console.log("called")
+        if (event.detail.next_time >= 1) {
+            console.log("called12")
+            countingTime(event.detail.next_time)
+        }
     })
 
-    @if($user)
-    countingTime(1)
-    @else
-    document
-        .getElementById('resend-button')
-        .classList
-        .remove("d-none")
-    @endif
-
     function countingTime(time) {
+        console.log('calledss')
         let countingSection = document
             .getElementById('counting-before-retry')
         let trySendOTPButton = document
@@ -77,7 +73,3 @@
         }, 1000)
     }
 </script>
-
-
-
-

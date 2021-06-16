@@ -100,7 +100,8 @@
                     <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-0">
                         <a
                             class="dropdown-item rounded-top fw-bold"
-                            href="{{route('profile')}}"
+                            href="#"
+                            onclick="showNotification('error', 'Feature currently not implemented yet!')"
                         >
                             <span class="far fa-user-circle"></span>
                             My Profile

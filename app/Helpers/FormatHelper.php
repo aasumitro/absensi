@@ -1,15 +1,5 @@
 <?php
 
-/**
- *
- * @file    FormatHelper.php
- * @author  A. A. Sumitro
- * @email   hello@aasumitro.id
- * @site    https://aasumitro.id
- * @date    3/2/21 - 3:48 AM
- *
- */
-
 if (! function_exists('shorten_number')) {
     function shorten_number($number, $precision = 3, $divisors = null): string
     {

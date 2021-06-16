@@ -8,7 +8,7 @@
             id="username"
             type="text"
             class="form-control @error('username') is-invalid @enderror"
-            placeholder="e.g. 82271111111 or absensi@oksetda.id"
+            placeholder="e.g. alosuper"
             wire:model="username"
             autofocus
             required
@@ -19,8 +19,5 @@
         </span>
         @enderror
     </div>
-    @if(!$errors->first('username'))
-    <div id="usernameHelp" class="form-text">Use your phone number or email address.</div>
-    @endif
 </div>
 

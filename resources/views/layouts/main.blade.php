@@ -15,7 +15,7 @@
         <main class="content">
             @include('layouts.partials.navbar')
 
-            @yield('module')
+            @yield('content')
         </main>
         @include('layouts.partials.footer')
 

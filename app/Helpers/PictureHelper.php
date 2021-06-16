@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Get the default profile photo URL if no profile photo has been uploaded.
- *
- * @return string
- */
 if (! function_exists('default_profile_picture')) {
     // use this helper function to extract any data
     // as key value array/associative array (array that have index/key with string type)

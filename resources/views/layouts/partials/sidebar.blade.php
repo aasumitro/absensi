@@ -41,6 +41,16 @@
             </div>
         </div>
 
-        @yield('sidebar-menu')
+        @if(auth()->user()->role_id === ROOT_ROLE_ID)
+            @include('components.menu.root')
+        @endif
+
+        @if(auth()->user()->role_id === ADMIN_ROLE_ID)
+            @include('components.menu.admin')
+        @endif
+
+        @if(auth()->user()->role_id === OPERATOR_ROLE_ID)
+            @include('components.menu.operator')
+        @endif
     </div>
 </nav>

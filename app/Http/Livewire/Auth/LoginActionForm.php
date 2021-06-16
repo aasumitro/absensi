@@ -36,6 +36,7 @@ class LoginActionForm extends Component
     {
         if ($this->user) {
             $this->attemptLogin();
+            return;
         }
 
        $this->validateLogin();

@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
            [
                'role_id' => 1,
                'unique_id' => Str::uuid(),
+               'telegram_id' => '585153765',
                'name' => 'A. A. Sumitro',
                'username' => 'aasumiro',
                'email' => 'hello@aasumitro.id',

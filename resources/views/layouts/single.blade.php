@@ -3,7 +3,7 @@
     <head>
         @include('layouts.partials.meta')
 
-        <title>@yield('title') | e-Office by Cleverlabs</title>
+        <title>@yield('title') | OkSetda Absensi</title>
 
         @include('layouts.partials.styles')
 

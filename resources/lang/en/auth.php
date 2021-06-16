@@ -17,4 +17,9 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'combination' => [
+        'password' => 'The verification code you have entered is not valid'
+    ],
+
+    'expired' => "one time password is expired",
 ];

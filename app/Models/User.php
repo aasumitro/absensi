@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\User\HasOTP;
+use App\Traits\User\HasRole;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static where(array $array)
+ */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable, HasRole, HasOTP;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +21,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'unique_id',
+        'fcm_token',
+        'phone_id',
+        'telegram_id',
+        'as',
+        'avatar',
         'name',
+        'username',
         'email',
-        'password',
+        'phone',
+        'status',
+        'passwordless',
+        'passwordless_expiry',
     ];
 
     /**
@@ -28,16 +42,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'passwordless',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

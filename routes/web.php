@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('login', [GrantAccessController::class, 'index']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('logout', [GrantAccessController::class, 'logout'])->name('logout');
+
+//    Route::get('home', [HomeController::class, 'index'])->name('home');
+//    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+//    Route::get('profile/backup', [ProfileController::class, 'backup'])->name('profile.backup');
 });

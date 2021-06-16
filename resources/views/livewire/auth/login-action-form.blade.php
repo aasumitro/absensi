@@ -1,9 +1,9 @@
 <form wire:submit.prevent="submit">
-    @if($show_username_input)
+    @if(!$user)
         @include('pages.auth.components.username-input')
     @endif
 
-    @if($show_password_input)
+    @if($user)
         @include('pages.auth.components.one-time-password-input')
     @endif
 

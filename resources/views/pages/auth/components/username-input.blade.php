@@ -14,11 +14,13 @@
             required
         >
         @error('username')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
         @enderror
     </div>
+    @if(!$errors->first('username'))
     <div id="usernameHelp" class="form-text">Use your phone number or email address.</div>
+    @endif
 </div>
 

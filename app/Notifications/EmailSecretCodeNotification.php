@@ -4,11 +4,10 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Telegram\TelegramChannel;
-use NotificationChannels\Telegram\TelegramMessage;
 
-class TelegramSecretCodeNotification extends Notification implements ShouldQueue
+class EmailSecretCodeNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,7 +18,7 @@ class TelegramSecretCodeNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $secret_code)
+    public function __construct(String $secret_code)
     {
         $this->secret_code = $secret_code;
     }
@@ -32,22 +31,23 @@ class TelegramSecretCodeNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable): array
     {
-        return [TelegramChannel::class];
+        return ['mail'];
     }
 
     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \NotificationChannels\Telegram\TelegramMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toTelegram($notifiable): TelegramMessage
+    public function toMail($notifiable): MailMessage
     {
-        return TelegramMessage::create()
-            ->to($notifiable->telegram_id)
-            ->content(trans(
+        return (new MailMessage)
+            ->subject("Verify code via email address")
+            ->greeting("Hello, $notifiable->name!")
+            ->line(trans(
                 "notify.new_code",
                 ['code' => $this->secret_code]
-            ));
+            ))->line('Thank you for using our application!');
     }
 }

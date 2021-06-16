@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\NewSentSecretCodeViaTelegramEvent;
-use App\Listeners\SentSecretCodeViaTelegramListener;
+use App\Events\SentSecretCodeEvent;
+use App\Listeners\SentSecretCodeListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,18 +17,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        NewSentSecretCodeViaTelegramEvent::class => [
-            SentSecretCodeViaTelegramListener::class
+        SentSecretCodeEvent::class => [
+            SentSecretCodeListener::class
         ]
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
 }

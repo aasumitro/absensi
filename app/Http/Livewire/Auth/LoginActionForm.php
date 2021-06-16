@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Auth;
 
-use App\Events\NewSentSecretCodeViaTelegramEvent;
+use App\Events\SentSecretCodeEvent;
 use App\Models\User;
 use App\Traits\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class LoginActionForm extends Component
@@ -14,71 +15,76 @@ class LoginActionForm extends Component
 
     public $user;
 
-    public $username;
-
-    public $password;
-
-    public $show_username_input;
-
-    public $show_password_input;
-
-    public $resend_hold_time;
-
-    public function mount(): void
-    {
-        $this->show_username_input = true;
-        $this->show_password_input = false;
-        $this->resend_hold_time = null;
-    }
-
-    public function submit()
-    {
-        if ($this->show_username_input) {
-            $this->validate(
-                ['username' => 'required|string|exists:users,username'],
-                ['username.exists' => 'These credential do not match our records.']
-            );
-
-            $this->user = User::where([
-                'username' => $this->username
-            ])->firstOrFail();
-
-            $this->show_username_input = false;
-            $this->show_password_input = true;
-            $this->resend_hold_time = 1;
-
-            event(new NewSentSecretCodeViaTelegramEvent($this->user));
-
-            return;
-        }
-
-        $validatedData = $this->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-
-        $validatedData['remember'] = true;
-        $request = Request();
-        $request->replace($validatedData);
-
-        if ($this->user->codeValid($request->password)) {
-            Auth::login($this->user, $request->remember);
-
-            $this->sendLoginResponse($request);
-        }
-
-        $this->sendFailedLoginResponse($request);
-    }
-
-    public function resend()
-    {
-        $this->resend_hold_time = 1;
-
-        event(new NewSentSecretCodeViaTelegramEvent($this->user));
-    }
+    public $username, $password;
 
     public function render()
     {
         return view('livewire.auth.login-action-form');
+    }
+
+    public function resend()
+    {
+        $this->dispatchBrowserEvent('recountingTime', ['next_time' => 3]);
+
+        event(new SentSecretCodeEvent($this->user));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function submit(): void
+    {
+        if ($this->user) {
+            $this->attemptLogin();
+        }
+
+       $this->validateLogin();
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    private function validateLogin()
+    {
+        $this->validate(
+            ['username' => 'required|string|exists:users,username'],
+            ['username.exists' => 'These credential do not match our records.']
+        );
+
+        $this->user = User::where([
+            'username' => $this->username
+        ])->firstOrFail();
+
+        if (!$this->user->telegram_id && !$this->user->email) {
+            throw ValidationException::withMessages([
+                'username' => "Can't sent secret code, Email or Telegram ID not found!",
+            ]);
+        }
+
+        event(new SentSecretCodeEvent($this->user));
+
+        $this->dispatchBrowserEvent('recountingTime', ['next_time' => 1]);
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    private function attemptLogin()
+    {
+        $validatedData = $this->validate(['username' => 'required', 'password' => 'required']);
+        $validatedData['remember'] = true;
+
+        $request = Request();
+        $request->request->add($validatedData);
+
+        if ($this->user->isCodeValid($request->password)) {
+            Auth::login($this->user, $request->remember);
+
+            $this->user->destroySecretCode();
+
+            return  $this->sendLoginResponse($request);
+        }
+
+        return $this->sendFailedLoginResponse($request);
     }
 }

@@ -40,7 +40,7 @@ trait HasOTP
      * @return bool
      * @throws ValidationException
      */
-    public function codeValid($one_time_password): bool
+    public function isCodeValid($one_time_password)
     {
         if ($this->isCodeExpired()) {
             throw ValidationException::withMessages([

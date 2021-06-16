@@ -35,8 +35,12 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('name');
             $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('email')
+                ->nullable()
+                ->unique();
+            $table->string('phone')
+                ->nullable()
+                ->unique();
             $table->enum('status', [
                 'ACTIVE', 'INACTIVE'
             ])->default('ACTIVE');

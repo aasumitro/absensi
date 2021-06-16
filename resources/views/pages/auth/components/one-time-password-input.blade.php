@@ -2,7 +2,8 @@
     <label for="one-time-password">
         Enter the verification code
         <span class="d-block fw-light">
-            The verification code has been sent via TelegramBot
+            The verification code has been sent,
+            please check your Telegram messenger or Email
         </span>
     </label>
     <input
@@ -34,8 +35,29 @@
 </div>
 
 <script>
-    @if($resend_hold_time)
-        let resendRemainingTime = parseInt(`{{$resend_hold_time}}`) * 60 * 1000
+    window.addEventListener('recountingTime', event => {
+        countingTime(event.detail.next_time)
+    })
+
+    @if($user)
+    countingTime(1)
+    @else
+    document
+        .getElementById('resend-button')
+        .classList
+        .remove("d-none")
+    @endif
+
+    function countingTime(time) {
+        let countingSection = document
+            .getElementById('counting-before-retry')
+        let trySendOTPButton = document
+            .getElementById('resend-button')
+
+        countingSection.classList.remove("d-none")
+        trySendOTPButton.classList.add("d-none")
+
+        let resendRemainingTime = parseInt(time) * 60 * 1000
 
         let counting = setInterval(() => {
             resendRemainingTime -= 1000
@@ -45,11 +67,6 @@
             seconds = (seconds < 10) ? "0" + seconds : seconds
             minutes = (minutes < 10) ? "0" + minutes : minutes
 
-            let countingSection = document
-                .getElementById('counting-before-retry')
-            let trySendOTPButton = document
-                .getElementById('resend-button')
-
             countingSection.innerHTML = `Resend in : ${minutes}:${seconds}`
 
             if (minutes === "00" && seconds === '00') {
@@ -58,12 +75,7 @@
                 trySendOTPButton.classList.remove("d-none")
             }
         }, 1000)
-    @else
-        document
-            .getElementById('resend-button')
-            .classList
-            .remove("d-none")
-    @endif
+    }
 </script>
 
 

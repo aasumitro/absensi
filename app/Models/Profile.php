@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Models\People;
+namespace App\Models;
 
-use App\Models\Department;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class THL extends Model
+class Profile extends Model
 {
-    protected $table = 'thl';
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

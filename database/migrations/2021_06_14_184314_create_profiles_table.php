@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserHasDetailTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserHasDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_has_detail', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->nullable()
@@ -23,13 +23,6 @@ class CreateUserHasDetailTable extends Migration
                 ->nullable()
                 ->constrained('departments')
                 ->onDelete('CASCADE');
-            $table->enum('as_morph', [
-                'NONE',
-                'App\\Models\\ASN',
-                'App\\Models\\THL',
-            ])->default('NONE');
-            $table->integer('at_morph');
-
             $table->timestamps();
         });
     }
@@ -41,6 +34,6 @@ class CreateUserHasDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_has_detail');
+        Schema::dropIfExists('profiles');
     }
 }

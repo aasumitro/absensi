@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Device;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -10,30 +11,18 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait DeviceApiManager
 {
-    protected function credentials(Request $request): array
-    {
-        return $request->only('unique_id', 'password');
-    }
-
-    public function login(Request $request)
+    public static function login(Request $request)
     {
         return Auth::guard('device-api')->setTTL(JWT_TTL_IN_MINUTE)->attempt(
-            $this->credentials($request)
+            $request->only('unique_id', 'password')
         );
     }
 
-    public function generateSessionToken(string $token): array
+    public static function generateSessionToken(Request $request): array
     {
-        $data = (object) JWTAuth::manager()
-            ->getJWTProvider()
-            ->decode($token);
-        $new_session_token = Str::random(32);
-
-        $device = Device::where(
-            "unique_id", $data->payload->unique_id
-        )->firstOrFail();
-
-        $device->session_token = $new_session_token;
+        $uuid = self::decodeJWT($request)->payload->unique_id;
+        $device = Device::where("unique_id", $uuid)->firstOrFail();
+        $device->session_token = Str::random(32);
         $device->save();
 
         return [
@@ -41,5 +30,29 @@ trait DeviceApiManager
             'refresh_time' => $device->refresh_time,
             'refresh_time_mode' => $device->refresh_time_mode
         ];
+    }
+
+    public static function attendUserByToken(Request $request): bool
+    {
+        $user = User::where('unique_id', $request->user_uuid)->firstOrFail();
+
+        if (!$user->isAttendTokenValid($request->token)) {
+            return false;
+        }
+
+        // TODO
+        // call event with queueable to generate user attendance
+        // to sent notify via telegram and destroy attend_token
+
+        return true;
+    }
+
+    private static function decodeJWT(Request $request): object
+    {
+        $jwt = str_replace('Bearer ','',
+            $request->header('authorization'));
+        return (object) JWTAuth::manager()
+            ->getJWTProvider()
+            ->decode($jwt);
     }
 }

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Models\People\ASN;
-use App\Models\People\THL;
+use App\Models\People\Profiles;
+use App\Traits\User\HasAttendToken;
 use App\Traits\User\HasOTP;
 use App\Traits\User\HasRole;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,12 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-/**
- * @method static where(array $array)
- */
 class User extends Authenticatable
 {
-    use Notifiable, HasRole, HasOTP;
+    use Notifiable, HasRole, HasOTP, HasAttendToken;
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +35,8 @@ class User extends Authenticatable
         'status',
         'passwordless',
         'passwordless_expiry',
+        'attend_token',
+        'attend_token_expiry'
     ];
 
     /**
@@ -46,6 +46,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'passwordless',
+        'attend_token',
         'remember_token',
     ];
 
@@ -54,16 +55,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function detail(): ?HasOne
+    public function profile(): HasOne
     {
-        if ($this->as === 'PNS') {
-            return $this->hasOne(ASN::class);
-        }
-
-        if ($this->as === 'THL') {
-            return $this->hasOne(THL::class);
-        }
-
-        return null;
+        return $this->hasOne(Profile::class);
     }
 }

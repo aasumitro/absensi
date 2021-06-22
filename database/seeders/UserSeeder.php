@@ -22,8 +22,17 @@ class UserSeeder extends Seeder
                'telegram_id' => '585153765',
                'name' => 'A. A. Sumitro',
                'username' => 'aasumitro',
-               'email' => 'hello@aasumitro.id',
+               'email' => 'aasumitro@gmail.com',
                'phone' => '82271115593',
+           ]
+        ]);
+
+        $user_id = DB::getPdo()->lastInsertId();
+
+        DB::table('profiles')->insert([
+           [
+               'user_id' => $user_id,
+               'department_id' => 2
            ]
         ]);
     }

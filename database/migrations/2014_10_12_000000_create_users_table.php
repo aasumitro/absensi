@@ -48,6 +48,11 @@ class CreateUsersTable extends Migration
             // one-time-password section
             $table->string('passwordless')->nullable();
             $table->timestamp('passwordless_expiry')->nullable();
+
+            // attend token section
+            $table->string('attend_token')->nullable();
+            $table->timestamp('attend_token_expiry')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -32,7 +32,7 @@ class DepartmentAndDeviceSeeder extends Seeder
                 DB::table('devices')->insert([
                     'department_id' => $department_id,
                     'display' => 'DEVICE',
-                    'name' => "[{$data['name']}] scanner",
+                    'name' => "[RASPY01] KANTOR LT.3",
                     'unique_id' => Str::uuid(),
                     'password' => Hash::make('secret'),
                     'session_token' => Str::random(32)

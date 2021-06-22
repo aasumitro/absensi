@@ -14,8 +14,7 @@ class StreamQrCodeController extends ApiController
 
     public function index(Request $request)
     {
-        $jwt = str_replace('Bearer ','', $request->header('authorization'));
-        $token = $this->generateSessionToken($jwt);
+        $token = DeviceApiManager::generateSessionToken($request);
 
         return ApiResponder::success(
             $token,

@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\DeviceApiScanQrcodeRequest;
 use App\Traits\ApiResponder;
 use App\Traits\DeviceApiManager;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ScanQrCodeController extends ApiController
 {
@@ -14,10 +14,17 @@ class ScanQrCodeController extends ApiController
 
     public function index(DeviceApiScanQrcodeRequest $request)
     {
-        $jwt = str_replace('Bearer ','', $request->header('authorization'));
+        if (DeviceApiManager::attendUserByToken($request)) {
+            return ApiResponder::success(
+                strtoupper("ATTEND_SUCCESS"),
+                'Successfully [attend user by token]',
+                Response::HTTP_CREATED
+            );
+        }
 
-        dd($jwt);
-
-        // todo attendance
+        return ApiResponder::error(
+            strtoupper("ATTEND_FAILED"),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
     }
 }

@@ -8,12 +8,12 @@
             <div class="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div class="text-center text-md-center mb-4 mt-md-0">
                     <img
-                        src="{{asset('assets/img/cleverlabs-logo.png')}}"
+                        src="{{asset('assets/img/oksetda_absensi_250px.png')}}"
                         height="75"
                         alt="cleverlabs-logo"
-                        class="mb-3"
+                        class="mb-4"
                     >
-                    <h1 class="mb-0 h3">OkSetda Absensi</h1>
+                    <h1 class="mb-0 h3">Electronic Attendance</h1>
                     <p>
                         Welcome back, please use your
                         <a href="#" class="fw-bold">credentials</a>

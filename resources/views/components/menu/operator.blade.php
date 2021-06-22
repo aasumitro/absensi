@@ -88,7 +88,7 @@
     {{-- permintaan pengajuan seperti cuti atau sakit dengan lampiran file tertera --}}
     {{-- disini bisa di accept atau di reject tergantung syarat dan ketentuan --}}
     {{-- dan disini operator bisa juga membuat sebuah pejuan baru --}}
-    <li class="nav-item mt-3">
+    <li class="nav-item">
         <span
             class="nav-link  d-flex justify-content-between align-items-center"
             data-bs-toggle="collapse"
@@ -98,7 +98,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-fingerprint"></span>
                 </span>
-                <span class="sidebar-text">Attendance</span>
+                <span class="sidebar-text">Attendances</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>

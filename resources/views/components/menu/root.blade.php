@@ -20,7 +20,7 @@
             <span class="sidebar-text">Home</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item mt-3">
         <span
             class="nav-link  d-flex justify-content-between align-items-center"
             data-bs-toggle="collapse"
@@ -66,21 +66,82 @@
     </li>
 
     <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-    <li class="nav-item {{--Route::is('agendas') ? 'active' : ''--}} ">
-        <a href="{{-- route('agendas') --}}" class="nav-link">
-            <span class="sidebar-icon">
-                <span class="fas fa-calendar-alt"></span>
+    <li class="nav-item">
+        <span
+            class="nav-link  d-flex justify-content-between align-items-center"
+            data-bs-toggle="collapse"
+            data-bs-target="#submenu-references"
+        >
+            <span>
+                <span class="sidebar-icon">
+                    <span class="fas fa-box"></span>
+                </span>
+                <span class="sidebar-text">References</span>
             </span>
-            <span class="sidebar-text">Agendas</span>
-        </a>
+            <span class="link-arrow">
+                <span class="fas fa-chevron-right"></span>
+            </span>
+        </span>
+        <div
+            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
+            role="list"
+            id="submenu-references"
+            aria-expanded="false"
+        >
+            <ul class="flex-column nav">
+                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
+                    <a
+                        class="nav-link"
+                        href="{{-- route('references.absent-types') --}}"
+                    >
+                        <span class="sidebar-text">Absent types</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </li>
-    <li class="nav-item {{--Route::is('announcements') ? 'active' : ''--}} ">
-        <a href="{{-- route('announcements') --}}" class="nav-link">
-            <span class="sidebar-icon">
-                <span class="fas fa-bullhorn"></span>
+
+    <li class="nav-item">
+        <span
+            class="nav-link  d-flex justify-content-between align-items-center"
+            data-bs-toggle="collapse"
+            data-bs-target="#submenu-mobile"
+        >
+            <span>
+                <span class="sidebar-icon">
+                    <span class="fas fa-mobile"></span>
+                </span>
+                <span class="sidebar-text">Mobile Apps</span>
             </span>
-            <span class="sidebar-text">Announcements</span>
-        </a>
+            <span class="link-arrow">
+                <span class="fas fa-chevron-right"></span>
+            </span>
+        </span>
+        <div
+            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
+            role="list"
+            id="submenu-mobile"
+            aria-expanded="false"
+        >
+            <ul class="flex-column nav">
+                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
+                    <a
+                        class="nav-link"
+                        href="{{-- route('references.absent-types') --}}"
+                    >
+                        <span class="sidebar-text">Sliders</span>
+                    </a>
+                </li>
+                <li class="nav-item  {{--Route::is('references.work-times') ? 'active' : ''--}}">
+                    <a
+                        class="nav-link"
+                        href="{{-- route('references.work-times') --}}"
+                    >
+                        <span class="sidebar-text">Announcements</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </li>
 
     <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
@@ -139,65 +200,23 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By office</span>
+                        <span class="sidebar-text">By department</span>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        target="_blank"
+                        href="#"
+                    >
+                        <span class="sidebar-text">By location</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </li>
 
     <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-    <li class="nav-item">
-        <span
-            class="nav-link  d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse"
-            data-bs-target="#submenu-references"
-        >
-            <span>
-                <span class="sidebar-icon">
-                    <span class="fas fa-box"></span>
-                </span>
-                <span class="sidebar-text">References</span>
-            </span>
-            <span class="link-arrow">
-                <span class="fas fa-chevron-right"></span>
-            </span>
-        </span>
-        <div
-            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
-            role="list"
-            id="submenu-references"
-            aria-expanded="false"
-        >
-            <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('references.absent-types') --}}"
-                    >
-                        <span class="sidebar-text">Absent types</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{--Route::is('references.work-times') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('references.work-times') --}}"
-                    >
-                        <span class="sidebar-text">Work times</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{--Route::is('references.shifts') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('references.shifts') --}}"
-                    >
-                        <span class="sidebar-text">Shifts</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
 
     <li class="nav-item">
         <span
@@ -267,14 +286,6 @@
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('employees.positions') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{--route('employees.positions')--}}"
-                    >
-                        <span class="sidebar-text">ASN/PNS</span>
-                    </a>
-                </li>
                 <li class="nav-item {{--Route::is('employees.identities') ? 'active' : ''--}}">
                     <a
                         class="nav-link"
@@ -311,14 +322,6 @@
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('users.roles') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('users.roles') --}}"
-                    >
-                        <span class="sidebar-text">Roles</span>
-                    </a>
-                </li>
                 <li class="nav-item {{--Route::is('users.accounts') ? 'active' : ''--}}">
                     <a
                         class="nav-link"

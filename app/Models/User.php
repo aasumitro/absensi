@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\People\ASN;
+use App\Models\People\THL;
 use App\Traits\User\HasOTP;
 use App\Traits\User\HasRole;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -49,5 +52,18 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function detail(): ?HasOne
+    {
+        if ($this->as === 'PNS') {
+            return $this->hasOne(ASN::class);
+        }
+
+        if ($this->as === 'THL') {
+            return $this->hasOne(THL::class);
+        }
+
+        return null;
     }
 }

@@ -42,10 +42,15 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'device-api' => [
+            'driver' => 'jwt',
+            'provider' => 'devices',
+        ]
     ],
 
     /*
@@ -70,6 +75,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+        'devices' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Device::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

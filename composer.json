@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
-        "dingo/api": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

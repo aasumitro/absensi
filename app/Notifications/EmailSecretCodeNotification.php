@@ -43,7 +43,7 @@ class EmailSecretCodeNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Verify code via email address")
+            ->subject("Verification code via email address")
             ->greeting("Hello, $notifiable->name!")
             ->line(trans(
                 "notify.new_code",

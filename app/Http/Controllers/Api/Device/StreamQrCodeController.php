@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Api\Device;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Traits\ApiResponder;
+use App\Traits\DeviceApiManager;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class StreamQrCodeController extends ApiController
 {
-    public function __construct()
-    {
-        // TODO
-    }
+    use ApiResponder, DeviceApiManager;
 
-    public function index()
+    public function index(Request $request)
     {
-        // TODO
-        // Sent QrCode data to Device
+        $jwt = str_replace('Bearer ','', $request->header('authorization'));
+        $token = $this->generateSessionToken($jwt);
+
+        return ApiResponder::success(
+            $token,
+            'Successfully [device regenerate session]',
+            Response::HTTP_CREATED
+        );
     }
 }

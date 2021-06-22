@@ -3,7 +3,7 @@
         Enter the verification code
         <span class="d-block fw-light">
             The verification code has been sent,
-            please check your Telegram messenger or Email
+            please check your Telegram messenger or Email Address
         </span>
     </label>
     <input

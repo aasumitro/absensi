@@ -24,9 +24,20 @@ class DepartmentAndDeviceSeeder extends Seeder
                 'display' => 'DASHBOARD',
                 'name' => "[{$data['name']}] default",
                 'unique_id' => Str::uuid(),
-                'secret' => Hash::make('secret'),
+                'password' => Hash::make('secret'),
                 'session_token' => Str::random(32)
             ]);
+
+            if ($department_id == 1) {
+                DB::table('devices')->insert([
+                    'department_id' => $department_id,
+                    'display' => 'DEVICE',
+                    'name' => "[{$data['name']}] scanner",
+                    'unique_id' => Str::uuid(),
+                    'password' => Hash::make('secret'),
+                    'session_token' => Str::random(32)
+                ]);
+            }
         }
     }
 

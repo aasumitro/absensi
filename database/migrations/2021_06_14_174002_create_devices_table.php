@@ -24,7 +24,7 @@ class CreateDevicesTable extends Migration
             $table->string('name');
             $table->string('unique_id')
                 ->unique();
-            $table->string('secret');
+            $table->string('password');
 
             $table->enum('refresh_time_mode', ['MINUTES', 'SECONDS'])
                 ->default('MINUTES');

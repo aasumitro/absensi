@@ -48,7 +48,7 @@
                                         <!-- Avatar -->
                                         <img
                                             alt="Image placeholder"
-                                            src="{{asset('assets/vendor/volt/dist/img/team/profile-picture-1.jpg')}}"
+                                            src="{{default_profile_picture("Jose Leos")}}"
                                             class="user-avatar lg-avatar rounded-circle"
                                         >
                                     </div>

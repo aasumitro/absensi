@@ -20,7 +20,7 @@
             <span class="sidebar-text">Home</span>
         </a>
     </li>
-    <li class="nav-item mt-3">
+    <li class="nav-item">
         <span
             class="nav-link  d-flex justify-content-between align-items-center"
             data-bs-toggle="collapse"
@@ -65,9 +65,9 @@
         </div>
     </li>
 
-    <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-    <li class="nav-item">
-        <a href="#" class="nav-link">
+    <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
+    <li class="nav-item {{Route::is('reports.submissions') ? 'active' : ''}}">
+        <a href="{{route('reports.submissions')}}" class="nav-link">
             <span class="sidebar-icon">
                 <span class="fas fa-envelope-open-text"></span>
             </span>
@@ -91,54 +91,53 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('reports.attendances') ? 'show' : '' }}"
             role="list"
             id="submenu-report"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item {{
+                    (Route::is('reports.attendances')
+                    && (last(request()->segments()) === 'summaries'))
+                    ? 'active' : ''
+                }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('reports.attendances', ['type' => 'summaries']) }}"
                     >
                         <span class="sidebar-text">Summaries</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{
+                    (Route::is('reports.attendances')
+                    && (last(request()->segments()) === 'employees'))
+                    ? 'active' : ''
+                }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('reports.attendances', ['type' => 'employees']) }}"
                     >
                         <span class="sidebar-text">By employee</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{
+                    (Route::is('reports.attendances')
+                    && (last(request()->segments()) === 'departments'))
+                    ? 'active' : ''
+                }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('reports.attendances', ['type' => 'departments']) }}"
                     >
                         <span class="sidebar-text">By department</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        target="_blank"
-                        href="#"
-                    >
-                        <span class="sidebar-text">By location</span>
                     </a>
                 </li>
             </ul>
         </div>
     </li>
 
-    <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-
+    <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
     <li class="nav-item">
         <span
             class="nav-link d-flex justify-content-between align-items-center"
@@ -156,70 +155,41 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('offices.*') ? 'show' : '' }}"
             role="list"
             id="submenu-offices"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('offices.departments') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('offices.departments') }}"
                     >
                         <span class="sidebar-text">Departments</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('offices.devices') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('offices.devices') }}"
                     >
                         <span class="sidebar-text">Devices</span>
                     </a>
                 </li>
-            </ul>
-        </div>
-    </li>
-
-    <li class="nav-item">
-        <span
-            class="nav-link d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse"
-            data-bs-target="#submenu-employee"
-        >
-            <span>
-                <span class="sidebar-icon">
-                    <span class="fas fa-user-tie"></span>
-                </span>
-                <span class="sidebar-text">Peoples</span>
-            </span>
-            <span class="link-arrow">
-                <span class="fas fa-chevron-right"></span>
-            </span>
-        </span>
-        <div
-            class="multi-level collapse  {{--Route::is('employees.*') ? 'show' : ''--}}"
-            role="list"
-            id="submenu-employee"
-            aria-expanded="false"
-        >
-            <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('employees.identities') ? 'active' : ''--}}">
+                <li class="nav-item {{ Route::is('offices.peoples') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        href="{{--route('employees.identities')--}}"
+                        href="{{ route('offices.peoples') }}"
                     >
-                        <span class="sidebar-text">THL</span>
+                        <span class="sidebar-text">Peoples</span>
                     </a>
                 </li>
             </ul>
         </div>
     </li>
 
-    <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
+    <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
     <li class="nav-item">
         <span
             class="nav-link d-flex justify-content-between align-items-center"
@@ -237,16 +207,16 @@
             </span>
         </span>
         <div
-            class="multi-level collapse {{--Route::is('users.*') ? 'show' : ''--}}"
+            class="multi-level collapse {{ Route::is('users.*') ? 'show' : '' }}"
             role="list"
             id="submenu-users"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('users.accounts') ? 'active' : ''--}}">
+                <li class="nav-item {{ Route::is('users.accounts') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        href="{{-- route('users.accounts') --}}"
+                        href="{{ route('users.accounts') }}"
                     >
                         <span class="sidebar-text">Accounts</span>
                     </a>
@@ -272,24 +242,24 @@
             </span>
         </span>
         <div
-            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
+            class="multi-level collapse  {{ Route::is('settings.*') ? 'show' : '' }}"
             role="list"
             id="submenu-setting"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
+                <li class="nav-item {{ Route::is('settings.system') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        href="{{-- route('references.absent-types') --}}"
+                        href="{{ route('settings.system') }}"
                     >
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item  {{--Route::is('references.work-times') ? 'active' : ''--}}">
+                <li class="nav-item  {{Route::is('settings.mobile') ? 'active' : ''}}">
                     <a
                         class="nav-link"
-                        href="{{-- route('references.work-times') --}}"
+                        href="{{route('settings.mobile')}}"
                     >
                         <span class="sidebar-text">Mobile</span>
                     </a>
@@ -298,8 +268,7 @@
         </div>
     </li>
 
-
-    <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
+    <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
     <li class="nav-item">
         <a
             href="#"

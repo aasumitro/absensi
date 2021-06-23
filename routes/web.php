@@ -2,6 +2,14 @@
 
 use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
+use App\Http\Controllers\Dash\Root\MobileSettingController;
+use App\Http\Controllers\Dash\Root\Offices\{
+    DepartmentController, DeviceController, PeopleController
+};
+use App\Http\Controllers\Dash\Root\Reports\{
+    AttendanceController, SubmissionController
+};
+use App\Http\Controllers\Dash\Root\SystemSettingController;
 use App\Http\Controllers\Dash\Root\Users\Accounts\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,31 +43,39 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
         // Route::get('dashboard/department', [])->name('');
         // [END-DASHBOARD]
 
-        // [START-REF&MOB]
-        // Route::get('references/absent-types', [])->name('');
-        // Route::get('mobile-apps/sliders', [])->name('');
-        // Route::get('mobile-apps/announcements', [])->name('');
-        // [END--REF&MOB]
-
-        // [START-SUBMISSION]
-        // Route::get('submissions', [])->name('');
-        // [END-SUBMISSION]
-
         // [START-REPORT]
-        // Route::get('reports/summaries', [])->name('');
-        // Route::get('reports/employees', [])->name('');
-        // Route::get('reports/departments', [])->name('');
-        // Route::get('reports/locations', [])->name('');
+         Route::get('reports/submissions', [
+            SubmissionController::class, 'index'
+         ])->name('reports.submissions');
+         Route::get('reports/attendances/{type}', [
+            AttendanceController::class, 'index'
+         ])->name('reports.attendances');
         // [END-REPORT]
 
         // [START-OFFICE]
-        // Route::get('offices/departments', [])->name('');
-        // Route::get('offices/devices', [])->name('');
+        Route::get('offices/departments', [
+            DepartmentController::class, 'index'
+        ])->name('offices.departments');
+        Route::get('offices/devices', [
+            DeviceController::class, 'index'
+        ])->name('offices.devices');
+        Route::get('offices/peoples', [
+            PeopleController::class, 'index'
+        ])->name('offices.peoples');
         // [END-OFFICE]
 
-        // Route::get('peoples/thl', [])->name('');
-        Route::get('users/accounts', [UserAccountController::class, 'index'])->name('users.accounts');
-        // Route::get('settings', [SettingsController::class, 'index'])->name('root.settings');
+        Route::get('users/accounts', [
+            UserAccountController::class, 'index'
+        ])->name('users.accounts');
+
+        // [START-SETTING]
+         Route::get('settings/system', [
+             SystemSettingController::class, 'index'
+         ])->name('settings.system');
+         Route::get('settings/mobile', [
+             MobileSettingController::class, 'index'
+         ])->name('settings.mobile');
+        // [END--SETTING]
     });
 
     Route::middleware('role:admin')->group(function () {

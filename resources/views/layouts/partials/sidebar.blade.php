@@ -8,9 +8,9 @@
             <div class="d-flex align-items-center">
                 <div class="user-avatar lg-avatar me-4">
                     <img
-                        src="{{asset('assets/vendor/volt/dist/img/icons/github.svg')}}"
+                        src="{{default_profile_picture(auth()->user()->username)}}"
                         class="card-img-top rounded-circle border-white"
-                        alt="Bonnie Green"
+                        alt="{{ auth()->user()->username }}"
                     >
                 </div>
                 <div class="d-block">

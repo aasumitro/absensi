@@ -67,85 +67,6 @@
 
     <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
     <li class="nav-item">
-        <span
-            class="nav-link  d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse"
-            data-bs-target="#submenu-references"
-        >
-            <span>
-                <span class="sidebar-icon">
-                    <span class="fas fa-box"></span>
-                </span>
-                <span class="sidebar-text">References</span>
-            </span>
-            <span class="link-arrow">
-                <span class="fas fa-chevron-right"></span>
-            </span>
-        </span>
-        <div
-            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
-            role="list"
-            id="submenu-references"
-            aria-expanded="false"
-        >
-            <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('references.absent-types') --}}"
-                    >
-                        <span class="sidebar-text">Absent types</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
-
-    <li class="nav-item">
-        <span
-            class="nav-link  d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse"
-            data-bs-target="#submenu-mobile"
-        >
-            <span>
-                <span class="sidebar-icon">
-                    <span class="fas fa-mobile"></span>
-                </span>
-                <span class="sidebar-text">Mobile Apps</span>
-            </span>
-            <span class="link-arrow">
-                <span class="fas fa-chevron-right"></span>
-            </span>
-        </span>
-        <div
-            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
-            role="list"
-            id="submenu-mobile"
-            aria-expanded="false"
-        >
-            <ul class="flex-column nav">
-                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('references.absent-types') --}}"
-                    >
-                        <span class="sidebar-text">Sliders</span>
-                    </a>
-                </li>
-                <li class="nav-item  {{--Route::is('references.work-times') ? 'active' : ''--}}">
-                    <a
-                        class="nav-link"
-                        href="{{-- route('references.work-times') --}}"
-                    >
-                        <span class="sidebar-text">Announcements</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
-
-    <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-    <li class="nav-item">
         <a href="#" class="nav-link">
             <span class="sidebar-icon">
                 <span class="fas fa-envelope-open-text"></span>
@@ -334,14 +255,49 @@
         </div>
     </li>
 
-    <li class="nav-item {{-- Route::is('settings') ? 'active' : '' --}}">
-        <a href="{{-- route('settings') --}}" class="nav-link">
-            <span class="sidebar-icon">
-                <span class="fas fa-cog"></span>
+    <li class="nav-item">
+        <span
+            class="nav-link  d-flex justify-content-between align-items-center"
+            data-bs-toggle="collapse"
+            data-bs-target="#submenu-setting"
+        >
+            <span>
+                <span class="sidebar-icon">
+                    <span class="fas fa-cogs"></span>
+                </span>
+                <span class="sidebar-text">Settings</span>
             </span>
-            <span class="sidebar-text">Settings</span>
-        </a>
+            <span class="link-arrow">
+                <span class="fas fa-chevron-right"></span>
+            </span>
+        </span>
+        <div
+            class="multi-level collapse  {{--Route::is('references.*') ? 'show' : ''--}}"
+            role="list"
+            id="submenu-setting"
+            aria-expanded="false"
+        >
+            <ul class="flex-column nav">
+                <li class="nav-item {{--Route::is('references.absent-types') ? 'active' : ''--}}">
+                    <a
+                        class="nav-link"
+                        href="{{-- route('references.absent-types') --}}"
+                    >
+                        <span class="sidebar-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item  {{--Route::is('references.work-times') ? 'active' : ''--}}">
+                    <a
+                        class="nav-link"
+                        href="{{-- route('references.work-times') --}}"
+                    >
+                        <span class="sidebar-text">Mobile</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </li>
+
 
     <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
     <li class="nav-item">

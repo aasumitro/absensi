@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel-notification-channels/telegram": "^0.5.1",
         "laravel/framework": "^8.40",
+        "laravel/horizon": "^5.7",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
         "predis/predis": "^1.1",

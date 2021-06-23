@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\User;
+namespace App\Models\Concerns;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;

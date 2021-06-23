@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait DeviceApiManager
 {
@@ -20,7 +19,8 @@ trait DeviceApiManager
 
     public static function generateSessionToken(Request $request): array
     {
-        $uuid = self::decodeJWT($request)->payload->unique_id;
+        $uuid = decode_jwt_from_request($request)->payload->unique_id;
+
         $device = Device::where("unique_id", $uuid)->firstOrFail();
         $device->session_token = Str::random(32);
         $device->save();
@@ -45,14 +45,5 @@ trait DeviceApiManager
         // to sent notify via telegram and destroy attend_token
 
         return true;
-    }
-
-    private static function decodeJWT(Request $request): object
-    {
-        $jwt = str_replace('Bearer ','',
-            $request->header('authorization'));
-        return (object) JWTAuth::manager()
-            ->getJWTProvider()
-            ->decode($jwt);
     }
 }

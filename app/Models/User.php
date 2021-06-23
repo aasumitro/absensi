@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\People\ASN;
-use App\Models\People\Profiles;
-use App\Traits\User\HasAttendToken;
-use App\Traits\User\HasOTP;
-use App\Traits\User\HasRole;
+use App\Models\Concerns\HasAttendToken;
+use App\Models\Concerns\HasOTP;
+use App\Models\Concerns\HasRole;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;

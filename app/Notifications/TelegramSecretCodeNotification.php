@@ -48,6 +48,9 @@ class TelegramSecretCodeNotification extends Notification implements ShouldQueue
             ->content(trans(
                 "notify.new_code",
                 ['code' => $this->secret_code]
+            ) . ". " . trans(
+                    "notify.ignore_message",
+                    ['platform' => 'your Email Address']
             ));
     }
 }

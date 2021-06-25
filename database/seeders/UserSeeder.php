@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -26,7 +25,8 @@ class UserSeeder extends Seeder
                'email' => 'aasumitro@gmail.com',
                'phone' => '82271115593',
                'attend_token' => \Hash::make('secret'),
-               'attend_token_expiry' => Carbon::now()->addDays(10)
+               'attend_token_expiry' => Carbon::now()->addDays(10),
+               'integration_code' => \Hash::make('ASD123qwe456ZXC')
            ]
         ]);
 

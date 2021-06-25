@@ -36,7 +36,7 @@ trait DeviceApiManager
     {
         $user = User::where('unique_id', $request->user_uuid)->firstOrFail();
 
-        if (!$user->isAttendTokenValid($request->token)) {
+        if (!$user->isAttendTokenValid($request->attend_token)) {
             return false;
         }
 

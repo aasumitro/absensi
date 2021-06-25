@@ -33,7 +33,7 @@ class DepartmentAndDeviceSeeder extends Seeder
                     'department_id' => $department_id,
                     'display' => 'DEVICE',
                     'name' => "[RASPY01] KANTOR LT.3",
-                    'unique_id' => Str::uuid(),
+                    'unique_id' => "8af9cea5-d496-466c-a086-47be13c8b8dd",
                     'password' => Hash::make('secret'),
                     'session_token' => Str::random(32)
                 ]);

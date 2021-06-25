@@ -16,14 +16,14 @@ class ScanQrCodeController extends ApiController
     {
         if (DeviceApiManager::attendUserByToken($request)) {
             return ApiResponder::success(
-                strtoupper("ATTEND_SUCCESS"),
+                "ATTEND_SUCCESS",
                 'Successfully [attend user by token]',
                 Response::HTTP_CREATED
             );
         }
 
         return ApiResponder::error(
-            strtoupper("ATTEND_FAILED"),
+            "ATTEND_FAILED",
             Response::HTTP_UNPROCESSABLE_ENTITY
         );
     }

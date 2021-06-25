@@ -53,6 +53,9 @@ class CreateUsersTable extends Migration
             $table->string('attend_token')->nullable();
             $table->timestamp('attend_token_expiry')->nullable();
 
+            // integration code token
+            $table->string('integration_code')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
            [
                'role_id' => 1,
-               'unique_id' => Str::uuid(),
+               'unique_id' => "60c5ec77-1a73-4b0f-b247-dc61994dbf63",
                'telegram_id' => '585153765',
                'name' => 'A. A. Sumitro',
                'username' => 'aasumitro',

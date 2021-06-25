@@ -16,7 +16,7 @@ class DeviceApiScanQrcodeRequest extends FormRequest
         return [
             'user_uuid' => 'required|exists:users,unique_id',
             'device_uuid' => 'required|exists:devices,unique_id',
-            'token' => 'required'
+            'attend_token' => 'required'
         ];
     }
 }

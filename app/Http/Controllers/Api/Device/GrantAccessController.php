@@ -15,16 +15,16 @@ class GrantAccessController extends ApiController
 
     public function index(DeviceApiLoginRequest $request)
     {
-       if ($token = DeviceApiManager::login($request)) {
-           $data = (object) JWTAuth::manager()->getJWTProvider()->decode($token);
+       if ($jwt = DeviceApiManager::login($request)) {
+           $data = (object) JWTAuth::manager()->getJWTProvider()->decode($jwt);
 
            return ApiResponder::success(
                [
                    'access' => [
-                       'token' => $token,
+                       'token' => $jwt,
                        'expires_in' => $data->exp,
                    ],
-                   'session' => DeviceApiManager::generateSessionToken($token),
+                   'session' => DeviceApiManager::generateSessionToken($jwt),
                    'branch_name' => $data->payload->department,
                    'device_name' => $data->payload->name,
                    'timezone' => [

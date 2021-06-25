@@ -17,9 +17,9 @@ trait DeviceApiManager
         );
     }
 
-    public static function generateSessionToken(Request $request): array
+    public static function generateSessionToken(string $jwt): array
     {
-        $uuid = decode_jwt_from_request($request)->payload->unique_id;
+        $uuid = decode_jwt_from_request($jwt)->payload->unique_id;
 
         $device = Device::where("unique_id", $uuid)->firstOrFail();
         $device->session_token = Str::random(32);

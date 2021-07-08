@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Mobile\Authentications;
 
 use App\Http\Controllers\Api\ApiController;
 
-class PasswordlessController extends ApiController
+class VerifyAccessController extends ApiController
 {
-    // TODO
-    // PasswordLess (one-time-password) validation
+    public function index()
+    {
+
+    }
 }

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\Mobile\Authentications;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Requests\AuthApiGrantRequest;
 
 class GrantAccessController extends ApiController
 {
-    // TODO
-    // Validate user credentials {username or phone or email)
+    public function index(AuthApiGrantRequest $request)
+    {
+        dd($request);
+    }
 }

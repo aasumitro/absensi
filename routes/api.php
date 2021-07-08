@@ -1,8 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\Device\GrantAccessController;
-use App\Http\Controllers\Api\Device\ScanQrCodeController;
-use App\Http\Controllers\Api\Device\StreamQrCodeController;
+use App\Http\Controllers\Api\Device\{
+    GrantAccessController as RaspyMobileGrantAccessController,
+    ScanQrCodeController as RaspyScanQrCodeController,
+    StreamQrCodeController as RaspyStreamQrCodeController
+};
+
+use App\Http\Controllers\Api\Mobile\Authentications\{
+    GrantAccessController as MobileGrantAccessController,
+    VerifyAccessController as MobileVerifyAccessController,
+    RefreshTokenController as MobileRefreshTokenController,
+    LogoutController as MobileLogoutController
+};
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,20 +27,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1/devices')->name('api.device.')->group(function () {
-    Route::post('login', [GrantAccessController::class, 'index'])->name('login');
+    Route::post('login', [
+        RaspyMobileGrantAccessController::class, 'index'
+    ])->name('login');
 
     Route::middleware('auth:device-api')->group(function () {
-        Route::post('scan', [ScanQrCodeController::class, 'index'])->name('scan');
-        Route::get('stream', [StreamQrCodeController::class, 'index'])->name('stream');
+        Route::post('scan', [
+            RaspyScanQrCodeController::class, 'index'
+        ])->name('scan');
+        Route::get('stream', [
+            RaspyStreamQrCodeController::class, 'index'
+        ])->name('stream');
     });
 });
 
 Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
-    //Route::post('login', [])->name('login');
-    //Route::post('login/grant', [])->name('login');
+    Route::post('login/grant', [
+        MobileGrantAccessController::class, 'index'
+    ])->name('auth.login.grant');
+    Route::post('login/verify', [
+        MobileVerifyAccessController::class, 'index'
+    ])->name('auth.login.verify');
 
     Route::middleware('auth:api')->group(function () {
-        // Route::get('logout', [])->name('logout');
+        Route::get('refresh-token', [
+             MobileRefreshTokenController::class, 'index'
+         ])->name('auth.refresh.token');
+        Route::get('logout', [
+             MobileLogoutController::class, 'index'
+         ])->name('auth.logout');
 
         Route::prefix('references')->name('references.')->group(function () {
             // Route::get('absent-type', [])->name('absent_type');
@@ -45,27 +70,16 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
             // Route::get('fcm-token', [])->name('fcm_token');
         });
 
-        // consideration
-        // Route::prefix('messages')->name('messages.')->group(function () {
-            // Route::get('', [])->name('');
-            // Route::get('', [])->name('');
-        // });
-
         Route::prefix('submissions')->name('submissions.')->group(function () {
             // Route::get('/', [])->name('list');
-            // Route::post('/', [])->name('issue');
-        });
-
-        Route::prefix('submissions')->name('submissions.')->group(function () {
-            // Route::get('/', [])->name('list');
-            // Route::post('/', [])->name('issue');
+            // Route::post('/make', [])->name('issue');
         });
 
         Route::prefix('attendances')->name('attendances.')->group(function () {
             // Route::get('/', [])->name('list');
             // Route::post('scan', [])->name('issue');
             // Route::post('take', [])->name('issue');
-            // Route::post('token', [])->name('issue');
+            // Route::get('token', [])->name('issue');
         });
     });
 });

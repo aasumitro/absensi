@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Device;
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\DeviceApiScanQrcodeRequest;
+use App\Http\Requests\Api\DeviceScanQrcodeRequest;
 use App\Traits\ApiResponder;
 use App\Traits\DeviceApiManager;
 use Illuminate\Http\Response;
@@ -12,7 +12,7 @@ class ScanQrCodeController extends ApiController
 {
     use ApiResponder, DeviceApiManager;
 
-    public function index(DeviceApiScanQrcodeRequest $request)
+    public function index(DeviceScanQrcodeRequest $request)
     {
         if (DeviceApiManager::attendUserByToken($request)) {
             return ApiResponder::success(

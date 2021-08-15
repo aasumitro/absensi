@@ -16,7 +16,7 @@ use Illuminate\Validation\ValidationException;
  *
  */
 
-trait HasOTP
+trait HasOneTimePassword
 {
     public function generateSecretCode(): string
     {

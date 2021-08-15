@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAttendToken;
-use App\Models\Concerns\HasOTP;
+use App\Models\Concerns\HasOneTimePassword;
 use App\Models\Concerns\HasRole;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasRole, HasOTP, HasAttendToken;
+    use Notifiable, HasRole, HasOneTimePassword, HasAttendToken;
 
     /**
      * The attributes that are mass assignable.
@@ -56,5 +57,21 @@ class User extends Authenticatable
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [
+            "payload" => [
+                'username' => $this->username,
+                'phone_id' => $this->phone_id,
+                'unique_id' => $this->unique_id,
+            ]
+        ];
     }
 }

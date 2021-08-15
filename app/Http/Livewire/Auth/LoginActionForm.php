@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Actions\CreateAccessCodeAction;
 use App\Events\SentSecretCodeEvent;
-use App\Models\User;
 use App\Traits\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -52,17 +52,7 @@ class LoginActionForm extends Component
             ['username.exists' => 'These credential do not match our records.']
         );
 
-        $this->user = User::where([
-            'username' => $this->username
-        ])->firstOrFail();
-
-        if (!$this->user->telegram_id && !$this->user->email) {
-            throw ValidationException::withMessages([
-                'username' => "Can't sent secret code, Email or Telegram ID not found!",
-            ]);
-        }
-
-        event(new SentSecretCodeEvent($this->user));
+        $this->user = (new CreateAccessCodeAction())->execute($this->username);
 
         $this->dispatchBrowserEvent('recountingTime', ['next_time' => 1]);
     }
@@ -83,7 +73,7 @@ class LoginActionForm extends Component
 
             $this->user->destroySecretCode();
 
-            return  $this->sendLoginResponse($request);
+            return $this->sendLoginResponse($request);
         }
 
         return $this->sendFailedLoginResponse($request);

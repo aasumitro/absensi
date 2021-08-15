@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\Device\{
 use App\Http\Controllers\Api\Mobile\Authentications\{
     GrantAccessController as MobileGrantAccessController,
     VerifyAccessController as MobileVerifyAccessController,
-    RefreshTokenController as MobileRefreshTokenController,
+    //RefreshTokenController as MobileRefreshTokenController,
     LogoutController as MobileLogoutController
 };
 
@@ -50,12 +50,12 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
     ])->name('auth.login.verify');
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('refresh-token', [
-             MobileRefreshTokenController::class, 'index'
-         ])->name('auth.refresh.token');
+        // Route::get('refresh-token', [
+        //     MobileRefreshTokenController::class, 'index'
+        // ])->name('auth.refresh.token');
         Route::get('logout', [
              MobileLogoutController::class, 'index'
-         ])->name('auth.logout');
+        ])->name('auth.logout');
 
         Route::prefix('references')->name('references.')->group(function () {
             // Route::get('absent-type', [])->name('absent_type');

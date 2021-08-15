@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeviceApiLoginRequest extends FormRequest
+class AuthVerifyAccessRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,9 @@ class DeviceApiLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'unique_id' => 'required',
+            'username' => 'required|exists:users,username',
             'password' => 'required',
+            'phone_id' => 'required'
         ];
     }
 }

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers\Api\Mobile\Authentications;
+
+use App\Http\Controllers\Api\ApiController;
+use App\Traits\ApiResponder;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
+class RefreshTokenController extends ApiController
+{
+    use ApiResponder;
+
+    public function index(Request $request)
+    {
+        $token = $request->bearerToken();
+
+        if (!$token) {
+            throw new BadRequestHttpException("Token not provided");
+        }
+
+        return ApiResponder::success(
+            [
+                'token' => auth()->refresh(),
+                'type' => 'bearer',
+                'expires_in' => JWT_TTL_IN_MINUTE
+            ],
+            'Successfully [refresh token]',
+            Response::HTTP_CREATED
+        );
+    }
+}
+
+
+pertimbangan fungsi ini tidak dibuat agar user harus login kembali setelah 30 hari 
+guna memastikan semua aman terkendali seperti hubungan antara email dan akun,
+telegram dan akun dan lain sebagainya

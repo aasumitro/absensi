@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Api\Device;
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\DeviceApiLoginRequest;
+use App\Http\Requests\Api\DeviceLoginRequest;
 use App\Traits\ApiResponder;
 use App\Traits\DeviceApiManager;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class GrantAccessController extends ApiController
 {
     use ApiResponder, DeviceApiManager;
 
-    public function index(DeviceApiLoginRequest $request)
+    public function index(DeviceLoginRequest $request)
     {
        if ($jwt = DeviceApiManager::login($request)) {
-           $data = (object) JWTAuth::manager()->getJWTProvider()->decode($jwt);
+           $data = jwt_decode($jwt);
 
            return ApiResponder::success(
                [

@@ -2,13 +2,37 @@
 
 namespace App\Http\Controllers\Api\Mobile\Authentications;
 
+use App\Actions\CreateAccessCodeAction;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\AuthApiGrantRequest;
+use App\Http\Requests\Api\AuthGrantAccessRequest;
+use App\Traits\ApiResponder;
+use Illuminate\Http\Response;
 
 class GrantAccessController extends ApiController
 {
-    public function index(AuthApiGrantRequest $request)
+    use ApiResponder;
+
+    public function index(AuthGrantAccessRequest $request, CreateAccessCodeAction $action)
     {
-        dd($request);
+        try {
+            $user = $action->execute($request->username);
+
+            return ApiResponder::success(
+                [
+                    'id' => $user->id,
+                    'uuid' => $user->unique_id,
+                    'username' => $user->username
+                ],
+                'Successfully generate access code',
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $exception) {
+            return ApiResponder::error(
+                $exception,
+                Response::HTTP_SERVICE_UNAVAILABLE
+            );
+        }
     }
 }
+
+// API ini untuk validasi username maupun kirim lagi OTP

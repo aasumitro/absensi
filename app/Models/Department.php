@@ -17,6 +17,11 @@ class Department extends Model
         return $this->hasMany(Device::class);
     }
 
+    public function members(): HasMany
+    {
+        return $this->hasMany(Profile::class);
+    }
+
     public function timezone(): BelongsTo
     {
         return $this->belongsTo(Timezone::class);

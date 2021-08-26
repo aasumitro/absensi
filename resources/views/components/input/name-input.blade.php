@@ -1,19 +1,19 @@
 <div class="form-group mb-4">
-    <label for="username">Your username</label>
+    <label for="name">Your name</label>
     <div class="input-group">
-        <span class="input-group-text" id="username">
+        <span class="input-group-text" id="name_icon">
             <span class="fas fa-user"></span>
         </span>
         <input
-            id="username"
+            id="name"
             type="text"
-            class="form-control @error('username') is-invalid @enderror"
-            placeholder="e.g. alosuper"
-            wire:model="username"
+            class="form-control @error('name') is-invalid @enderror"
+            placeholder="e.g. ungke inthesekay"
+            wire:model="name"
             autofocus
             required
         >
-        @error('username')
+        @error('name')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>

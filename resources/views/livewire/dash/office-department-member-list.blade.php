@@ -25,14 +25,19 @@
                     <td>{{ $member->user->unique_id }}</td>
                     <td>{{ $member->user->name }}</td>
                     <td>{{ $member->user->email }}</td>
-                    <td>{{ $member->user->phone }}</td>
+                    <td>(+62) {{ $member->user->phone }}</td>
                     <td>{{ $member->user->status }}</td>
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <span class="icon icon-sm">
-                                        <span class="fas fa-ellipsis-h icon-dark"></span>
-                                    </span>
+                            <button
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="true"
+                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                            >
+                                <span class="icon icon-sm">
+                                    <span class="fas fa-ellipsis-h icon-dark"></span>
+                                </span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" data-popper-placement="bottom-end">

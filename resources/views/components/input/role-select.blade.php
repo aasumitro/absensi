@@ -1,0 +1,26 @@
+<div class="form-group mb-4">
+    <label for="role">Select role</label>
+    <div class="input-group">
+        <span class="input-group-text" id="role_icon">
+            <span class="fas fa-user-tag"></span>
+        </span>
+        <select
+            id="role"
+            class="form-control @error('role') is-invalid @enderror"
+            wire:model="role"
+            required
+        >
+            <option value="0">Please select role</option>
+            @foreach($roles as $role)
+                <option value="{{$role->id}}">{{ucfirst($role->title)}}</option>
+            @endforeach
+        </select>
+
+        @error('role')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+</div>
+

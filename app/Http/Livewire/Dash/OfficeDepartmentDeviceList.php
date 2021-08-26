@@ -22,7 +22,8 @@ class OfficeDepartmentDeviceList extends Component
         ]);
     }
 
-    public function fetchDevices() {
+    private function fetchDevices()
+    {
         return Cache::remember(
             'office_department_device_for_root',
             $this->cache_in_second, function ()

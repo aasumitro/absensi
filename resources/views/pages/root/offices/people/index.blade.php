@@ -15,7 +15,7 @@
             <div class="btn-toolbar mb-2 mb-md-0">
                 <button
                     data-bs-toggle="modal"
-                    data-bs-target="#add-patient"
+                    data-bs-target="#departmentAddMemberModal"
                     type="button"
                     class="btn btn-dark h-75"
                 >Add new Member</button>
@@ -26,4 +26,8 @@
             @livewire('dash.office-department-member-list')
         </div>
     </section>
+@endsection
+
+@section('content-modal')
+    @livewire('dash.office-department-member-create')
 @endsection

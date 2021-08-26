@@ -45,26 +45,24 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('staff.qrcode.*') ? 'show' : '' }}"
             role="list"
             id="submenu-qrcode"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.qrcode.scanner') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.qrcode.scanner')}}"
                     >
                         <span class="sidebar-text">Scanner</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.qrcode.generator') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.qrcode.generator')}}"
                     >
                         <span class="sidebar-text">Generator</span>
                     </a>

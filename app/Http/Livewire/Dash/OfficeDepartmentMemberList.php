@@ -22,7 +22,8 @@ class OfficeDepartmentMemberList extends Component
         ]);
     }
 
-    public function fetchMembers() {
+    public function fetchMembers()
+    {
         return Cache::remember(
             'office_department_member_for_root',
             $this->cache_in_second, function ()

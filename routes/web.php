@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\Web\QrCodeController;
 use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
 use App\Http\Controllers\Dash\Root\MobileSettingController;
+use App\Http\Controllers\Dash\Staff\Qrcode\{
+    QrGeneratorController, QrScannerController
+};
 use App\Http\Controllers\Dash\Root\Offices\{
     DepartmentController, DeviceController, PeopleController
 };
@@ -31,6 +35,15 @@ Route::get('/', function () {
 Route::get('login', [GrantAccessController::class, 'index'])->name('login');
 
 Route::middleware(['auth', 'accepted.role'])->group(function () {
+    Route::prefix('v1/web/qrcode')->name('api.web.')->group(function () {
+        Route::get('stream', [
+            QrCodeController::class, 'stream'
+        ])->name('stream');
+        Route::post('scan', [
+            QrCodeController::class, 'scan'
+        ])->name('scan');
+    });
+
     Route::post('logout', [GrantAccessController::class, 'logout'])->name('logout');
     //Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     //Route::get('profile/backup', [ProfileController::class, 'backup'])->name('profile.backup');
@@ -78,33 +91,39 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
         // [END--SETTING]
     });
 
-    Route::middleware('role:admin')->group(function () {
-        // TODO NEXT
-        // [START-DEPARTMENT]
-        // Route::get('department/peoples', [])->name('');
-        // Route::get('department/devices', [])->name('');
-        // Route::get('department/settings', [])->name('');
-        // [END-DEPARTMENT]
-    });
+    Route::prefix('staff')->group(function () {
+        Route::middleware('role:admin')->group(function () {
+            // TODO NEXT
+            // [START-DEPARTMENT]
+            // Route::get('department/peoples', [])->name('');
+            // Route::get('department/devices', [])->name('');
+            // Route::get('department/settings', [])->name('');
+            // [END-DEPARTMENT]
+        });
 
-    Route::middleware('role:admin,operator')->group(function () {
-        // TODO NEXT
-        // [START-QRCODE]
-        // Route::get('qrcode/scanner', [])->name('');
-        // Route::get('qrcode/generator', [])->name('');
-        // [END-QRCODE]
+        Route::middleware('role:admin,operator')->group(function () {
+            // TODO NEXT
+            // [START-QRCODE]
+            Route::get('qrcode/scanner', [
+                QrScannerController::class, 'index'
+            ])->name('staff.qrcode.scanner');
+            Route::get('qrcode/generator', [
+                QrGeneratorController::class, 'index'
+            ])->name('staff.qrcode.generator');
+            // [END-QRCODE]
 
-        // [START-ATTENDANCE]
-        // Route::get('attendances/excel-file', [])->name('');
-        // Route::get('attendances/manual-input', [])->name('');
-        // Route::get('attendances/verify-submission', [])->name('');
-        // [END-ATTENDANCE]
+            // [START-ATTENDANCE]
+            // Route::get('attendances/excel-file', [])->name('');
+            // Route::get('attendances/manual-input', [])->name('');
+            // Route::get('attendances/verify-submission', [])->name('');
+            // [END-ATTENDANCE]
 
-        // [START-REPORT]
-        // Route::get('reports/summaries', [])->name('');
-        // Route::get('reports/locations', [])->name('');
-        // Route::get('reports/peoples', [])->name('');
-        // Route::get('reports/days', [])->name('');
-        // [END-REPORT]
+            // [START-REPORT]
+            // Route::get('reports/summaries', [])->name('');
+            // Route::get('reports/locations', [])->name('');
+            // Route::get('reports/peoples', [])->name('');
+            // Route::get('reports/days', [])->name('');
+            // [END-REPORT]
+        });
     });
 });

@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Events\SentSecretCodeEvent;
+use App\Events\SecretCodeEvent;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
@@ -21,7 +21,7 @@ class CreateAccessCodeAction
             ]);
         }
 
-        event(new SentSecretCodeEvent($user));
+        event(new SecretCodeEvent($user));
 
         return $user;
     }

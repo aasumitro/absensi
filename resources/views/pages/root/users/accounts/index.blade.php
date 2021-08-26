@@ -15,7 +15,7 @@
             <div class="btn-toolbar mb-2 mb-md-0">
                 <button
                     data-bs-toggle="modal"
-                    data-bs-target="#add-patient"
+                    data-bs-target="#addUserModal"
                     type="button"
                     class="btn btn-dark h-75"
                 >Create new Account</button>
@@ -26,5 +26,8 @@
             @livewire('dash.user-account-list')
         </div>
     </section>
+@endsection
 
+@section('content-modal')
+    @livewire('dash.user-account-create')
 @endsection

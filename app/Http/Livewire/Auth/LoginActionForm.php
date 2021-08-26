@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Auth;
 
 use App\Actions\CreateAccessCodeAction;
-use App\Events\SentSecretCodeEvent;
+use App\Events\SecretCodeEvent;
 use App\Traits\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -26,7 +26,7 @@ class LoginActionForm extends Component
     {
         $this->dispatchBrowserEvent('recountingTime', ['next_time' => 3]);
 
-        event(new SentSecretCodeEvent($this->user));
+        event(new SecretCodeEvent($this->user));
     }
 
     /**

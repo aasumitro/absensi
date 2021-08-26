@@ -22,7 +22,8 @@ class OfficeDepartmentList extends Component
         ]);
     }
 
-    public function fetchDepartments() {
+    private function fetchDepartments()
+    {
         return Cache::remember(
             'office_department_for_root',
             $this->cache_in_second, function ()

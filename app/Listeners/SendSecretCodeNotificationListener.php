@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 
-class SentSecretCodeListener implements ShouldQueue
+class SendSecretCodeNotificationListener implements ShouldQueue
 {
     /**
      * Handle the event.

@@ -22,7 +22,6 @@ class Device extends Model implements AuthenticatableContract, AuthorizableContr
      */
     protected $hidden = [
         'password',
-        'session_token',
     ];
 
     public function department(): BelongsTo

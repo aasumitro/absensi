@@ -31,3 +31,35 @@
 @section('content-modal')
     @livewire('dash.user-account-create')
 @endsection
+
+@section('custom-script')
+    <script>
+        let addUserModal = document.getElementById('addUserModal')
+        let bsAddUserModal = new bootstrap.Modal(addUserModal)
+        let deleteUserModal = document.getElementById('deleteModal')
+        let bsDeleteUserModal = new bootstrap.Modal(deleteUserModal)
+
+        window.addEventListener('openModal', event => {
+            if (event.detail.type === "DESTROY") {
+                bsDeleteUserModal.show()
+            }
+        })
+
+        window.addEventListener('closeModal', event => {
+            if (event.detail.type === "DESTROY") {
+                bsDeleteUserModal.hide()
+            }
+
+            if (event.detail.type === "CREATE") {
+                bsAddUserModal.hide()
+            }
+        })
+
+        window.addEventListener('showNotify', event => {
+            showNotification(
+                event.detail.type,
+                event.detail.message
+            )
+        })
+    </script>
+@endsection

@@ -48,7 +48,9 @@
                                         <span class="fas fa-edit me-2"></span>
                                         Edit
                                     </a>
-                                    <a href="#"  class="dropdown-item text-danger rounded-bottom">
+                                    <a
+                                        wire:click="selectedAccount({{$account}}, 'DESTROY')"
+                                        class="dropdown-item text-danger rounded-bottom">
                                         <span class="fas fa-trash-alt me-2"></span>
                                         Remove
                                     </a>
@@ -74,4 +76,6 @@
             </nav>
         </div>
     </div>
+
+    @include('components.delete-modal')
 </div>

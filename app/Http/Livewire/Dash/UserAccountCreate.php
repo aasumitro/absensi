@@ -2,17 +2,16 @@
 
 namespace App\Http\Livewire\Dash;
 
-use App\Models\Department;
-use App\Models\Profile;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Managers\AccountManager;
+use App\Models\Managers\DepartmentManager;
+use App\Models\Managers\RoleManager;
 use Exception;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class UserAccountCreate extends Component
 {
+    use RoleManager, DepartmentManager, AccountManager;
+
     public $name;
 
     public $email;
@@ -25,13 +24,13 @@ class UserAccountCreate extends Component
 
     public $department;
 
-    private int $cache_in_second = 120;
+    protected int $cache_time = 120;
 
     protected $rules = [
         'name' => 'required|min:6',
-        'email' => 'required|email',
-        'phone' => 'required',
-        'username' => 'required|min:6',
+        'email' => 'required|email|unique:users,email',
+        'phone' => 'required|unique:users,phone',
+        'username' => 'required|min:6|unique:users,username',
         'role' => 'required',
         'department' => 'required',
     ];
@@ -44,42 +43,12 @@ class UserAccountCreate extends Component
         ]);
     }
 
-    private function fetchRoles()
-    {
-        return Cache::remember(
-            'user_account_role_list_except',
-            $this->cache_in_second, function ()
-        {
-            return Role::whereNotIn('id', [4])->get();
-        });
-    }
-
-    private function fetchDepartments()
-    {
-        return Cache::remember(
-            'user_account_department_list',
-            $this->cache_in_second, function ()
-        {
-            return Department::all();
-        });
-    }
-
     public function submit()
     {
         $data = $this->validate();
-        $data['unique_id'] = Str::uuid();
-
-        $new_user = $data;
-        $new_user['role_id'] = $data['role'];
-        unset($new_user['role'], $new_user['department']);
 
         try {
-            $create_new_user = User::create($new_user);
-
-            Profile::create([
-                'user_id' => $create_new_user->id,
-                'department_id' => $data['department']
-            ]);
+            $this->newAccount($data);
 
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',
@@ -87,7 +56,7 @@ class UserAccountCreate extends Component
             ]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('showNotify', [
-                'type' => 'success',
+                'type' => 'error',
                 'message' => "Action <b>[CREATE]</b> failed"
             ]);
         }
@@ -98,8 +67,6 @@ class UserAccountCreate extends Component
             'closeModal',
             ['type' => 'CREATE']
         );
-
-        Cache::forget('users_account_without_member');
 
         $this->reset();
     }

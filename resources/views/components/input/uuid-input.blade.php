@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="unique_id">Your UUID</label>
+    <label for="unique_id">Your UUID {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="unique_id_icon">
             <span class="fas fa-fingerprint"></span>
@@ -9,7 +9,7 @@
             type="text"
             class="form-control @error('unique_id') is-invalid @enderror"
             wire:model="unique_id"
-            readonly
+            {{$isReadOnly ? "readonly" : ""}}
             autofocus
             required
         >

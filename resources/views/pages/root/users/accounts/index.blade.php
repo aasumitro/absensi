@@ -36,12 +36,18 @@
     <script>
         let addUserModal = document.getElementById('addUserModal')
         let bsAddUserModal = new bootstrap.Modal(addUserModal)
+        let editUserModal = document.getElementById('editUserModal')
+        let bsEditUserModal = new bootstrap.Modal(editUserModal)
         let deleteUserModal = document.getElementById('deleteModal')
         let bsDeleteUserModal = new bootstrap.Modal(deleteUserModal)
 
         window.addEventListener('openModal', event => {
             if (event.detail.type === "DESTROY") {
                 bsDeleteUserModal.show()
+            }
+
+            if (event.detail.type === "UPDATE") {
+                bsEditUserModal.show()
             }
         })
 
@@ -52,6 +58,10 @@
 
             if (event.detail.type === "CREATE") {
                 bsAddUserModal.hide()
+            }
+
+            if (event.detail.type === "UPDATE") {
+                bsEditUserModal.hide()
             }
         })
 

@@ -18,10 +18,13 @@
                 @include('pages.root.settings.mobile.components.slider-viewer')
             </div>
             <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
+                @include('pages.root.settings.mobile.components.announcement')
+            </div>
+            <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
                 @include('pages.root.settings.mobile.components.slider-table')
             </div>
-            <div class="col-12 my-2">
-                @include('pages.root.settings.mobile.components.announcement')
+            <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
+                @include('pages.root.settings.mobile.components.remote-config')
             </div>
         </div>
     </section>

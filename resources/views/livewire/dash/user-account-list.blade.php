@@ -44,7 +44,9 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu" data-popper-placement="bottom-end">
-                                    <a href="#" class="dropdown-item">
+                                    <a
+                                        wire:click="selectedAccount({{$account}}, 'UPDATE')"
+                                        class="dropdown-item">
                                         <span class="fas fa-edit me-2"></span>
                                         Edit
                                     </a>
@@ -77,5 +79,6 @@
         </div>
     </div>
 
+    @include('pages.root.users.accounts.components.edit-modal')
     @include('components.delete-modal')
 </div>

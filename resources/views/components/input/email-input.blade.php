@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="email">Your email address</label>
+    <label for="email">Your email address {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="email_icon">
             <span class="fas fa-envelope"></span>
@@ -10,6 +10,7 @@
             class="form-control @error('email') is-invalid @enderror"
             placeholder="e.g. info@sulutprov.go.id"
             wire:model="email"
+            {{$isReadOnly ? "readonly" : ""}}
             autofocus
             required
         >

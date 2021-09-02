@@ -3,22 +3,23 @@
     class="modal fade"
     tabindex="-1"
     role="dialog"
-    id="addUserModal"
+    id="editUserModal"
 >
     <div
         class="modal-dialog modal-md"
         role="document"
         tabindex="-1"
     >
-        <form wire:submit.prevent="submit">
+        <form wire:submit.prevent="performUpdate">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add new Member</h5>
+                    <h5 class="modal-title">Edit Member</h5>
                 </div>
                 <div class="modal-body">
-                    @include('components.input.username-input', ['isReadOnly' => false])
-                    @include('components.input.email-input', ['isReadOnly' => false])
-                    @include('components.input.phone-input', ['isReadOnly' => false])
+                    @include('components.input.uuid-input', ['isReadOnly' => true])
+                    @include('components.input.username-input', ['isReadOnly' => true])
+                    @include('components.input.email-input', ['isReadOnly' => true])
+                    @include('components.input.phone-input', ['isReadOnly' => true])
                     @include('components.input.name-input')
                     @include('components.input.role-select')
                     @include('components.input.department-select')
@@ -35,7 +36,7 @@
                         type="submit"
                         class="btn btn-danger"
                     >
-                        Create
+                        Update
                     </button>
                 </div>
             </div>

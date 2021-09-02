@@ -1,6 +1,6 @@
 <form wire:submit.prevent="submit">
     @if(!$user)
-        @include('components.input.username-input')
+        @include('components.input.username-input', ['isReadOnly' => false])
     @endif
 
     @if($user)

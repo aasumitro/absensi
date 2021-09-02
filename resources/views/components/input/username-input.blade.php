@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="username">Your username</label>
+    <label for="username">Your username {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="username_icon">
             <span class="fas fa-user"></span>
@@ -10,6 +10,7 @@
             class="form-control @error('username') is-invalid @enderror"
             placeholder="e.g. alosuper"
             wire:model="username"
+            {{$isReadOnly ? "readonly" : ""}}
             autofocus
             required
         >

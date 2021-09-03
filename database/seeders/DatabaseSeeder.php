@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             DepartmentAndDeviceSeeder::class,
             UserSeeder::class,
-            SettingSeeder::class
+            SettingSeeder::class,
+            MobilePreferencesSeeder::class
         ]);
     }
 }

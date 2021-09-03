@@ -30,6 +30,8 @@ class SettingMobileSlider extends Component
 
     public $status;
 
+    public $action_link;
+
     public $attachment;
 
     protected $rules = [
@@ -46,7 +48,7 @@ class SettingMobileSlider extends Component
     public function render()
     {
         return view('livewire.dash.setting-mobile-slider', [
-            'preferences' => $this->fetchPreferences()
+            'preferences' => $this->fetchPreferences(),
         ]);
     }
 
@@ -54,25 +56,37 @@ class SettingMobileSlider extends Component
     {
         $this->dispatchBrowserEvent(
             'openModal',
-            ['type' => $action]
+            ['action' => $action, 'type' => $type]
         );
 
         $this->selected_id = $preference->id;
         $this->title = $preference->title;
         $this->description = $preference->description;
-        $this->live_date_show = strftime(
+        $this->live_date_show = $preference->live_date_show ? strftime(
             '%Y-%m-%dT%H:%M',
-            strtotime($preference->live_date_show));
-        $this->live_date_hide = strftime(
+            strtotime($preference->live_date_show)) : null;
+        $this->live_date_hide = $preference->live_date_hide ? strftime(
             '%Y-%m-%dT%H:%M',
-            strtotime($preference->live_date_hide));
+            strtotime($preference->live_date_hide)) : null;
         $this->type = $preference->type;
         $this->popup = $preference->popup;
         $this->banner = $preference->banner;
         $this->status = $preference->status;
 
         if ($type === 'SLIDER') {
+            $this->action_link = $preference->action_link ?: url('/');
             $this->attachment = $preference->attachment;
+        }
+    }
+
+    public function clearData($variable)
+    {
+        if ($variable === 'date_show') {
+            $this->live_date_show = null;
+        }
+
+        if ($variable === 'date_hide') {
+            $this->live_date_hide = null;
         }
     }
 
@@ -81,17 +95,13 @@ class SettingMobileSlider extends Component
         try {
             $data = $this->validate();
 
-            if ($this->live_date_show !== null) {
-                $data['live_date_show'] =  strftime(
-                    '%Y-%m-%d %H:%I:%S',
-                    strtotime($this->live_date_show));
-            }
+            $data['live_date_show'] = $this->live_date_show ? strftime(
+                '%Y-%m-%d %H:%I:%S',
+                strtotime($this->live_date_show)) : null;
 
-            if ($this->live_date_hide !== null) {
-                $data['live_date_hide'] = strftime(
-                    '%Y-%m-%d %H:%I:%S',
-                    strtotime($this->live_date_hide));
-            }
+            $data['live_date_hide'] = $this->live_date_hide ? strftime(
+                '%Y-%m-%d %H:%I:%S',
+                strtotime($this->live_date_hide)) : null;
 
             $this->modifyPreference($this->selected_id, $data);
 
@@ -108,7 +118,7 @@ class SettingMobileSlider extends Component
 
         $this->dispatchBrowserEvent(
             'closeModal',
-            ['type' => 'UPDATE']
+            ['action' => 'UPDATE', 'type' => $this->type]
         );
 
         $this->emit('mobilSliderSectionRefresh');

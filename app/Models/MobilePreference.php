@@ -14,6 +14,7 @@ class MobilePreference extends Model
      */
     protected $fillable = [
         'attachment_id',
+        'action_link',
         'title',
         'description',
         'live_date_hide',

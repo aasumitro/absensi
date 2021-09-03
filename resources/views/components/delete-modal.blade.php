@@ -32,6 +32,7 @@
                     type="button"
                     wire:click="performDestroy({{$selected_id}})"
                     class="btn btn-danger"
+                    data-bs-dismiss="modal"
                 >
                     Destroy
                 </button>

@@ -67,10 +67,37 @@
                         @endif
                     </div>
 
+                    @if($type === 'SLIDER')
+                        <div class="form-group mb-4">
+                            <label for="action_link">Action link</label>
+                            <div class="input-group">
+                                <input
+                                    id="action_link"
+                                    type="text"
+                                    class="form-control @error('action_link') is-invalid @enderror"
+                                    wire:model="action_link"
+                                    autofocus
+                                    required
+                                >
+                                @error('action_link')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
-                                <label for="title">Date Show</label>
+                                <label for="title">
+                                    Date Show
+                                    (<a
+                                        wire:click="clearData('date_show')"
+                                        class="text-warning"
+                                    >reset</a>)
+                                </label>
                                 <div class="input-group">
                                     <input
                                         id="title"
@@ -89,7 +116,13 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
-                                <label for="title">Date hide</label>
+                                <label for="title">
+                                    Date hide
+                                    (<a
+                                        wire:click="clearData('date_hide')"
+                                        class="text-warning"
+                                    >reset</a>)
+                                </label>
                                 <div class="input-group">
                                     <input
                                         id="title"

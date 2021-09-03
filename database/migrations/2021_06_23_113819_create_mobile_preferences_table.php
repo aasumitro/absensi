@@ -20,6 +20,8 @@ class CreateMobilePreferencesTable extends Migration
                 ->constrained('attachments')
                 ->onDelete('SET NULL');
 
+            $table->string('action_link')
+                ->nullable();
             $table->string('title')
                 ->nullable();
             $table->string('description')

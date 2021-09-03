@@ -10,10 +10,6 @@ class MobileSettingController extends Controller
 {
     public function index()
     {
-        return view('pages.root.settings.mobile.index', [
-            'preferences' => Cache::remember('mobile_preference_dashboard', 120, function (){
-                return MobilePreference::with('attachment')->get();
-            })
-        ]);
+        return view('pages.root.settings.mobile.index');
     }
 }

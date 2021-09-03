@@ -11,34 +11,39 @@
             </div>
         @else
             @foreach($preferences as $preference)
-                @if($preference->type === 'ANNOUNCEMENT' && $preference->status === 'SHOW')
-                    <div class="col-12 col-md-4">
-                        <img
-                            src="{{asset("storage/uploads/{$preference->attachment->path}/{$preference->attachment->name}")}}"
-                            class="d-block w-100" alt="{{$preference->title}}"
-                        >
-                    </div>
-                    <div class="col-12 col-md-8">
-                        <h1>
-                            <div class="d-flex">
+                @if($preference->type === 'ANNOUNCEMENT')
+                    <div class="card border-warning col-12 p-5">
+                        <div class="card-body">
+                            <h1>
                                 {{$preference->title}}
-                                <a class="btn btn-icon-only bg-primary ms-3">
-                                    <i class="fas fa-edit text-white"></i>
-                                </a>
+                            </h1>
+                            <p>{{$preference->description}}</p>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="d-flex">
+                                        @if($preference->popup)
+                                            <span class="badge bg-primary py-2 px-3 m-1">
+                                               {{strtoupper("show as popup")}}
+                                            </span>
+                                        @endif
+                                        @if($preference->banner)
+                                            <span class="badge bg-primary py-2 px-3 m-1">
+                                               {{strtoupper("show as banner")}}
+                                           </span>
+                                        @endif
+                                        <span class="badge bg-{{($preference->status === 'SHOW') ? 'success' : 'warning'}} py-2 px-3 m-1">
+                                               {{$preference->status}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <a
+                                        wire:click="selectedPreferences({{$preference}}, 'ANNOUNCEMENT','UPDATE')"
+                                        class="btn btn-icon-only bg-primary float-end">
+                                        <i class="fas fa-edit text-white"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </h1>
-                        <p>{{$preference->description}}</p>
-                        <div class="d-flex">
-                            @if($preference->popup)
-                                <span class="badge bg-primary py-2 px-3 m-1">
-                                   {{strtoupper("show as popup")}}
-                                </span>
-                            @endif
-                            @if($preference->popup)
-                               <span class="badge bg-primary py-2 px-3 m-1">
-                                   {{strtoupper("show as banner")}}
-                               </span>
-                            @endif
                         </div>
                     </div>
                 @endif

@@ -13,20 +13,32 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
-                @include('pages.root.settings.mobile.components.slider-viewer')
-            </div>
-            <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
-                @include('pages.root.settings.mobile.components.announcement')
-            </div>
-            <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
-                @include('pages.root.settings.mobile.components.slider-table')
-            </div>
-            <div class="col-12 col-md-6 my-2 d-flex align-items-stretch">
-                @include('pages.root.settings.mobile.components.remote-config')
-            </div>
-        </div>
+        @livewire('dash.setting-mobile-slider')
     </section>
 @endsection
 
+@section('custom-script')
+    <script>
+        let editPreferenceModal = document.getElementById('editSliderPreferencesModal')
+        let bsEditPreferenceModal = new bootstrap.Modal(editPreferenceModal)
+
+        window.addEventListener('openModal', event => {
+            if (event.detail.type === "UPDATE") {
+                bsEditPreferenceModal.show()
+            }
+        })
+
+        window.addEventListener('closeModal', event => {
+            if (event.detail.type === "UPDATE") {
+                bsEditPreferenceModal.hide()
+            }
+        })
+
+        window.addEventListener('showNotify', event => {
+            showNotification(
+                event.detail.type,
+                event.detail.message
+            )
+        })
+    </script>
+@endsection

@@ -43,6 +43,14 @@ class SettingSeeder extends Seeder
                 'key' => 'app_maintenance',
                 'value' => false
             ],
+            [
+                'key' => 'mobile_code_version',
+                'value' => '1'
+            ],
+            [
+                'key' => 'mobile_release_version',
+                'value' => '0.1+dev'
+            ],
         ]);
     }
 }

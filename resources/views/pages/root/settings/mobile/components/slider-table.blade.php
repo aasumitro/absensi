@@ -19,8 +19,10 @@
                     <tr>
                         <td>{{ $iteration }}</td>
                         <td>
-                            {{$preference->title}} <br>
-                            {{$preference->description}} <br>
+                            {{$preference->title}}
+                            <span class="badge bg-primary py-1 px-2">
+                                {{$preference->status}}
+                            </span> <br>
                             @if($preference->live_date_show && $preference->live_date_hide)
                                 <code>
                                     displayed
@@ -28,13 +30,14 @@
                                     - {{\Carbon\Carbon::parse($preference->live_date_hide)->format('d') }})
                                     {{\Carbon\Carbon::parse($preference->live_date_show)->format('M Y') }}<br>
                                 </code>
+                            @elseif ($preference->status === 'SHOW')
+                                <code>displayed all days</code>
                             @endif
-                            <span class="badge bg-primary py-1 px-2">
-                                {{$preference->status}}
-                            </span>
                         </td>
                         <td>
-                            <a class="btn btn-icon-only bg-primary ms-3">
+                            <a
+                                wire:click="selectedPreferences({{$preference}}, 'SLIDER','UPDATE')"
+                                class="btn btn-icon-only bg-primary ms-3">
                                 <i class="fas fa-edit text-white"></i>
                             </a>
                         </td>

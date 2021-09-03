@@ -46,7 +46,7 @@
                                         wire:model="description"
                                         autofocus
                                         required
-                                        rows="5"
+                                        rows="8"
                                     ></textarea>
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -58,10 +58,29 @@
                         </div>
                         @if($type === 'SLIDER')
                             <div class="col-12 col-md-4">
-                                <label for="attachment">Selected attachment</label>
+                                <label for="attachment_id">Selected attachment</label>
+                                <div class="input-group">
+                                    <select
+                                        id="attachment_id"
+                                        class="form-control @error('attachment_id') is-invalid @enderror"
+                                        wire:model="attachment_id"
+                                        required
+                                    >
+                                        @foreach($attachments as $atc)
+                                            <option value="{{$atc->id}}">{{ $atc->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('attachment_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <label class="mt-3">Current attachment</label>
                                 <img
-                                    src="{{asset("storage/uploads/{$this->attachment->path}/{$this->attachment->name}")}}"
-                                    class="d-block w-100 mt-2" alt="{{$this->title}}"
+                                    src="{{asset("storage/uploads/{$this->selected_attachment->path}/{$this->selected_attachment->name}")}}"
+                                    class="d-block w-100" alt="{{$this->title}}"
                                 >
                             </div>
                         @endif
@@ -155,7 +174,7 @@
                                         <option value="ANNOUNCEMENT">Annoucement</option>
                                     </select>
 
-                                    @error('role')
+                                    @error('type')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

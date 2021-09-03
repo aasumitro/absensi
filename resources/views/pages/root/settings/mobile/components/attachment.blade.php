@@ -34,18 +34,34 @@
                     @if($attachment->type === 'LINK')
                         NONE
                     @else
-                        <img
-                            src="{{asset("storage/uploads/{$attachment->path}/{$attachment->name}")}}"
-                            class="d-block w-100" alt="{{$attachment->name}}"
+                        <a
+                            target="_blank"
+                            href="{{asset('storage/uploads/'. $attachment->path.'/'.$attachment->name) }}"
                         >
+                            <img
+                                src="{{asset("storage/uploads/{$attachment->path}/{$attachment->name}")}}"
+                                class="d-block w-100" alt="{{$attachment->name}}"
+                            >
+                        </a>
                     @endif
                 </td>
                 <td>
                     @if($attachment->type === 'LINK')
-                        <b>{{$attachment->name}}</b> <br>
-                        {{$attachment->path}}
+                        <b>name : {{$attachment->name}}</b> <br>
+                        link : <a
+                            target="_blank"
+                            href="{{$attachment->path}}"
+                            class="text-info"
+                        >{{$attachment->path}}</a>
                     @else
-                        {{$attachment->path}}/{{$attachment->name}}
+                        <b>name: {{$attachment->name}}</b> <br>
+                        path : <a
+                            target="_blank"
+                            href="{{asset('storage/uploads/'. $attachment->path.'/'.$attachment->name) }}"
+                            class="text-info"
+                        >
+                            {{$attachment->path}}
+                        </a>
                     @endif
 
                 </td>

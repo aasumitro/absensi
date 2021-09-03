@@ -48,6 +48,10 @@ trait AttachmentManager
             Storage::deleteDirectory('livewire-tmp');
         }
 
+        if ($data['type'] === 'LINK' && $attachment->type === "IMAGE") {
+            Storage::disk('upload')->delete($attachment->name);
+        }
+
         $attachment->name = $data['name'];
         $attachment->path = $data['path'];
         $attachment->type = $data['type'];

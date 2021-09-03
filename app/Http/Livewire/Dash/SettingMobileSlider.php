@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dash;
 
+use App\Models\Attachment;
 use App\Models\Managers\MobilePreferencesManager;
 use App\Models\MobilePreference;
 use Livewire\Component;
@@ -32,7 +33,9 @@ class SettingMobileSlider extends Component
 
     public $action_link;
 
-    public $attachment;
+    public $selected_attachment;
+
+    public $attachment_id;
 
     protected $rules = [
         'title' => 'required',
@@ -49,6 +52,7 @@ class SettingMobileSlider extends Component
     {
         return view('livewire.dash.setting-mobile-slider', [
             'preferences' => $this->fetchPreferences(),
+            'attachments' => Attachment::where('type', 'IMAGE')->get()
         ]);
     }
 
@@ -75,7 +79,8 @@ class SettingMobileSlider extends Component
 
         if ($type === 'SLIDER') {
             $this->action_link = $preference->action_link ?: url('/');
-            $this->attachment = $preference->attachment;
+            $this->selected_attachment = $preference->attachment;
+            $this->attachment_id = $preference->attachment->id;
         }
     }
 
@@ -95,6 +100,8 @@ class SettingMobileSlider extends Component
         try {
             $data = $this->validate();
 
+            $data['action_link'] = $this->action_link;
+            $data['attachment_id'] = $this->attachment_id;
             $data['live_date_show'] = $this->live_date_show ? strftime(
                 '%Y-%m-%d %H:%I:%S',
                 strtotime($this->live_date_show)) : null;

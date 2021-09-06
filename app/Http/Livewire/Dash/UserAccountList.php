@@ -83,7 +83,7 @@ class UserAccountList extends Component
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',
-                'message' => "Action <b>[DESTROY]</b> failed"
+                'message' => "Action <b>[DESTROY]</b> failed :" . $e->getMessage()
             ]);
         }
 

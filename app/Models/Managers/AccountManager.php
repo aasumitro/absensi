@@ -6,6 +6,8 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Validation\ValidationException;
 
 trait AccountManager
 {
@@ -54,6 +56,9 @@ trait AccountManager
 
     protected function destroyAccount($user_id)
     {
+        if ($user_id === 1)
+            throw new \Exception("This account cannot destroyed");
+
         User::destroy($user_id);
 
         Cache::forget($this->fetch_account_key);

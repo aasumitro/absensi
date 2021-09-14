@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAttendToken;
+use App\Models\Concerns\HasIntegrationCode;
 use App\Models\Concerns\HasOneTimePassword;
 use App\Models\Concerns\HasRole;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasRole, HasOneTimePassword, HasAttendToken;
+    use Notifiable, HasRole, HasOneTimePassword, HasAttendToken, HasIntegrationCode;
 
     /**
      * The attributes that are mass assignable.

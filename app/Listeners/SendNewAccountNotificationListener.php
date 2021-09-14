@@ -3,21 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\NewAccountEvent;
+use App\Notifications\EmailNewAccountNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendNewAccountNotificationListener
+class SendNewAccountNotificationListener implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Handle the event.
      *
@@ -26,6 +17,12 @@ class SendNewAccountNotificationListener
      */
     public function handle(NewAccountEvent $event)
     {
-        //
+        $user = $event->user;
+
+        $integration_code = $user->generateIntegrationCode();
+
+        if ($user->email) {
+            $user->notify(new EmailNewAccountNotification($integration_code));
+        }
     }
 }

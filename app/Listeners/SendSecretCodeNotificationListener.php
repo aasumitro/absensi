@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Notifications\EmailSecretCodeNotification;
 use App\Notifications\TelegramSecretCodeNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 
 class SendSecretCodeNotificationListener implements ShouldQueue

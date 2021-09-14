@@ -2,12 +2,11 @@
 
 namespace App\Models\Managers;
 
+use App\Events\NewAccountEvent;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Illuminate\Validation\UnauthorizedException;
-use Illuminate\Validation\ValidationException;
 
 trait AccountManager
 {
@@ -36,6 +35,8 @@ trait AccountManager
             'user_id' => $create_new_user->id,
             'department_id' => $data['department']
         ]);
+
+        event(new NewAccountEvent($create_new_user));
 
         Cache::forget($this->fetch_account_key);
     }

@@ -28,29 +28,40 @@
                     <td>(+62) {{ $member->user->phone }}</td>
                     <td>{{ $member->user->status }}</td>
                     <td>
-                        <div class="btn-group">
-                            <button
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="true"
-                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                            >
+                        @if(auth()->user()->hasRole('root'))
+                            <div class="btn-group">
+                                <button
+                                    data-bs-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="true"
+                                    class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                >
                                 <span class="icon icon-sm">
                                     <span class="fas fa-ellipsis-h icon-dark"></span>
                                 </span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu" data-popper-placement="bottom-end">
-                                <a href="#" class="dropdown-item">
-                                    <span class="fas fa-edit me-2"></span>
-                                    Edit
-                                </a>
-                                <a href="#"  class="dropdown-item text-danger rounded-bottom">
-                                    <span class="fas fa-trash-alt me-2"></span>
-                                    Remove
-                                </a>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" data-popper-placement="bottom-end">
+                                    <a href="#" class="dropdown-item">
+                                        <span class="fas fa-edit me-2"></span>
+                                        Edit
+                                    </a>
+                                    <a href="#"  class="dropdown-item text-danger rounded-bottom">
+                                        <span class="fas fa-trash-alt me-2"></span>
+                                        Remove
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <button
+                                class="btn btn-link text-dark m-0 p-0"
+                                onclick="showNotification('error', 'Action restricted this user has high level access!')"
+                            >
+                                <span class="icon icon-sm">
+                                    <span class="fas fa-ban icon-dark"></span>
+                                </span>
+                            </button>
+                        @endif
                     </td>
                 </tr>
             @endforeach

@@ -13,9 +13,9 @@
                 <h5 class="modal-title">Add new Member</h5>
             </div>
             <div class="modal-body">
-                @include('components.input.username-input')
-                @include('components.input.email-input')
-                @include('components.input.phone-input')
+                @include('components.input.username-input', ['isReadOnly' => false])
+                @include('components.input.email-input', ['isReadOnly' => false])
+                @include('components.input.phone-input', ['isReadOnly' => false])
                 @include('components.input.name-input')
                 @include('components.input.department-select')
             </div>

@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\Mobile\References\{
+    AbsentTypeController,
+    AnnouncementController,
+    SliderController
+};
+
 use App\Http\Controllers\Api\Device\{
     GrantAccessController as RaspyMobileGrantAccessController,
     ScanQrCodeController as RaspyScanQrCodeController,
@@ -42,6 +48,23 @@ Route::prefix('v1/devices')->name('api.device.')->group(function () {
 });
 
 Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
+    Route::prefix('references')->name('references.')->group(function () {
+        Route::get('absent-type', [
+            AbsentTypeController::class, 'index'
+        ])->name('absent_type');
+        Route::get('announcement', [
+            AnnouncementController::class, 'index'
+        ])->name('announcement');
+        Route::get('sliders', [
+            SliderController::class , 'index'
+        ])->name('sliders');
+
+        // Will do next
+        // this action will be connected with existing app
+        // Route::get('news', [])->name('news');
+    });
+
+
     Route::post('login/grant', [
         MobileGrantAccessController::class, 'index'
     ])->name('auth.login.grant');
@@ -56,12 +79,6 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
         Route::get('logout', [
              MobileLogoutController::class, 'index'
         ])->name('auth.logout');
-
-        Route::prefix('references')->name('references.')->group(function () {
-            // Route::get('absent-type', [])->name('absent_type');
-            // Route::get('announcement', [])->name('announcement');
-            // Route::get('sliders', [])->name('sliders');
-        });
 
         Route::prefix('profiles')->name('profiles.')->group(function () {
             // Route::get('avatar', [])->name('avatar');

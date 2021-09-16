@@ -7,15 +7,15 @@ use App\Models\Managers\PreferenceManager;
 use App\Traits\ApiResponder;
 use Symfony\Component\HttpFoundation\Response;
 
-class AbsentTypeController extends ApiController
+class AnnouncementController extends ApiController
 {
     use ApiResponder, PreferenceManager;
 
     public function index()
     {
         return ApiResponder::success(
-            $this->fetchAbsentTypes(),
-            'Successfully [GET] Absent Type',
+            $this->fetchAnnouncements(),
+            'Successfully [GET] Announcement',
             Response::HTTP_CREATED
         );
     }

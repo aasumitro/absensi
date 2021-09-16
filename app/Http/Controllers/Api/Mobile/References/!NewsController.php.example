@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Api\Mobile\References;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Traits\ApiResponder;
 
 class NewsController extends ApiController
 {
-    // TODO
+    use ApiResponder;
+
+    public function index()
+    {
+
+    }
 }

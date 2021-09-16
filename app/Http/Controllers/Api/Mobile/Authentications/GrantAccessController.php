@@ -34,5 +34,3 @@ class GrantAccessController extends ApiController
         }
     }
 }
-
-// API ini untuk validasi username maupun kirim lagi OTP

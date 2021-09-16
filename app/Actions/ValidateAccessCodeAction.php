@@ -5,14 +5,13 @@ namespace App\Actions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class ValidateAccessCodeAction
 {
     /**
      * @throws ValidationException
      */
-    public function execute(Request $request)
+    public function execute(Request $request): array
     {
         $user = User::where([
             'username' => $request->username
@@ -35,15 +34,11 @@ class ValidateAccessCodeAction
         }
 
         $jwt = auth('api')->setTTL(JWT_TTL_IN_MINUTE)->login($user);
-        dd($jwt);
-//        auth('api')->setTTL(JWT_TTL_IN_MINUTE)->attempt(
-//            $request->only('username', 'password')
-//        );
 
-//        return [
-//            'token' => $token,
-//            'type' => 'bearer',
-//            'expires_in' => JWT_TTL_IN_SECOND
-//        ];
+        return [
+            'token' => $jwt,
+            'type' => 'bearer',
+            'expires_in' => JWT_TTL_IN_SECOND
+        ];
     }
 }

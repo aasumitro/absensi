@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\Mobile\References;
 
 use App\Http\Controllers\Api\ApiController;
-use App\Models\Managers\PreferenceManager;
+use App\Models\Managers\ReferenceManager;
 use App\Traits\ApiResponder;
 use Symfony\Component\HttpFoundation\Response;
 
 class AbsentTypeController extends ApiController
 {
-    use ApiResponder, PreferenceManager;
+    use ApiResponder, ReferenceManager;
 
     public function index()
     {

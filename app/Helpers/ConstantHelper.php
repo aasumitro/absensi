@@ -7,6 +7,7 @@ const SUCCESS_AUTHENTICATED_DESCRIPTION = 'authentication success';
 const DEFAULT_RESPONSE_DESCRIPTION = 'Data [GET] successfully!';
 
 const JWT_TTL_IN_MINUTE = 43800; // 1 month
+const JWT_TTL_IN_SECOND = 2628000; // 1 month
 
 const ROOT_ROLE_ID = 1;
 const ADMIN_ROLE_ID = 2;

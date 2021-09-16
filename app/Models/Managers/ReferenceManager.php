@@ -6,7 +6,7 @@ use App\Models\AbsentType;
 use App\Models\MobilePreference;
 use Illuminate\Support\Facades\Cache;
 
-trait PreferenceManager
+trait ReferenceManager
 {
     private string $fetch_absent_type_key = 'api_mobile_absent_type_list';
 

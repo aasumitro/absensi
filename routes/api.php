@@ -15,7 +15,6 @@ use App\Http\Controllers\Api\Device\{
 use App\Http\Controllers\Api\Mobile\Authentications\{
     GrantAccessController as MobileGrantAccessController,
     VerifyAccessController as MobileVerifyAccessController,
-    //RefreshTokenController as MobileRefreshTokenController,
     LogoutController as MobileLogoutController
 };
 
@@ -64,27 +63,25 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
         // Route::get('news', [])->name('news');
     });
 
-
-    Route::post('login/grant', [
-        MobileGrantAccessController::class, 'index'
-    ])->name('auth.login.grant');
-    Route::post('login/verify', [
-        MobileVerifyAccessController::class, 'index'
-    ])->name('auth.login.verify');
+    Route::prefix('login')->name('auth.login.')->group(function () {
+        Route::post('grant', [
+            MobileGrantAccessController::class, 'index'
+        ])->name('grant');
+        Route::post('verify', [
+            MobileVerifyAccessController::class, 'index'
+        ])->name('verify');
+    });
 
     Route::middleware('auth:api')->group(function () {
-        // Route::get('refresh-token', [
-        //     MobileRefreshTokenController::class, 'index'
-        // ])->name('auth.refresh.token');
         Route::get('logout', [
              MobileLogoutController::class, 'index'
         ])->name('auth.logout');
 
         Route::prefix('profiles')->name('profiles.')->group(function () {
-            // Route::get('avatar', [])->name('avatar');
-            // Route::get('telegram-id', [])->name('telegram_id');
-            // Route::get('phone-id', [])->name('phone_id');
-            // Route::get('fcm-token', [])->name('fcm_token');
+            // Route::put('avatar', [])->name('avatar');
+            // Route::put('telegram-id', [])->name('telegram_id');
+            // Route::put('phone-id', [])->name('phone_id');
+            // Route::put('fcm-token', [])->name('fcm_token');
         });
 
         Route::prefix('submissions')->name('submissions.')->group(function () {

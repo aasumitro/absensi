@@ -42,3 +42,41 @@ if (! function_exists('current_greeting')) {
         return 'Selamat Malam';
     }
 }
+
+if (!function_exists('get_timezone')) {
+    function get_timezone($ina_zone)
+    {
+        $timezone = 'Asia/Makassar';
+
+        switch ($ina_zone) {
+            case "WIT":
+                $timezone = 'Asia/Jayapura';
+                break;
+            case "WIB":
+                $timezone = 'Asia/Jakarta';
+                break;
+            case "WITA":
+                $timezone = 'Asia/Makassar';
+                break;
+        }
+
+        return $timezone;
+    }
+}
+
+if (!function_exists('get_locale_time')) {
+    function get_locale_time($inazone): object
+    {
+        $timezone = get_timezone($inazone);
+        $current_time = \Illuminate\Support\Carbon::now($timezone);
+
+        return (object) [
+            'inazone' => $inazone,
+            'timezone' => $timezone,
+            'datetime' => $current_time->format('Y-m-d H:i:s'),
+            'date' => $current_time->format('Y-m-d'),
+            'time' => $current_time->format('H:i'),
+            'timestamp' => $current_time->timestamp
+        ];
+    }
+}

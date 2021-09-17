@@ -2,14 +2,19 @@
 
 namespace App\Traits;
 
+use App\Models\Attendance;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 trait DeviceApiManager
 {
+    protected string $current_message = "ATTEND_SUCCESS";
+
     public static function login(Request $request)
     {
         return Auth::guard('device-api')->setTTL(JWT_TTL_IN_MINUTE)->attempt(
@@ -32,18 +37,129 @@ trait DeviceApiManager
         ];
     }
 
-    public static function attendUserByToken(Request $request): bool
+    public function attendUserByToken(Request $request): bool
     {
-        $user = User::where('unique_id', $request->user_uuid)->firstOrFail();
+        $user = self::getUser($request->user_uuid, $request->attend_token);
 
-        if (!$user->isAttendTokenValid($request->attend_token)) {
+        $device = self::getDevice($request->device_uuid);
+
+        $attendance = self::getAttendance($user->id);
+
+        $current_locale_time = get_locale_time($device->department->timezone->title);
+
+        $is_condition_error = false;
+
+        switch (true) {
+            case !compare_time_equal(
+                $current_locale_time->date,
+                \Carbon\Carbon::now()->format('Y-m-d')
+            ):
+                $notify_message = "waktu (jam dan tanggal) diponsel anda kurang tepat mohon diperiksa lagi";
+                $is_condition_error = true;
+                break;
+            case (!$attendance):
+                $notify_message = self::doAttendIn([
+                    'user_id' => $user->id,
+                    'device_id' => $device->id,
+                    'department_id' => $device->department->id,
+                    'type' => 'QRCODE_SCAN',
+                    'status' => 'ATTEND',
+                    'date' => $current_locale_time->date,
+                    'datetime_in' => $current_locale_time->datetime,
+                    'timestamp_in' => $current_locale_time->timestamp,
+                    'overdue' => current_attendance_status(
+                        $current_locale_time->time,
+                        $device->department->max_att_in
+                    ),
+                ]);
+                $is_condition_error = false;
+                break;
+            case (compare_time_greater_than(
+                    $current_locale_time->time,
+                    $device->department->min_att_out
+                ) && $attendance->datetime_out === null
+                && $attendance->timestamp_out === null):
+                $is_condition_error = false;
+                $notify_message = self::doAttendOut($attendance->id, [
+                    'datetime_out' => $current_locale_time->datetime,
+                    'timestamp_out' => $current_locale_time->timestamp,
+                ]);
+                break;
+            default :
+                ($attendance->datetime_out === null && $attendance->timestamp_out === null)
+                    ? $notify_message = "Anda sudah melakukan absensi datang silahkan kembali pukul {$device->department->min_att_out} untuk absensi pulang"
+                    : $notify_message = "Anda sudah melakukan absensi datang dan pulang";
+                break;
+        }
+
+        self::sendNotify($user, $notify_message);
+
+        if ($is_condition_error) {
             return false;
         }
 
-        // TODO
-        // call event with queueable to generate user attendance
-        // to sent notify via telegram and destroy attend_token
+        $this->current_message = $notify_message;
 
         return true;
+    }
+
+    private static function getUser($user_unique_id, $attend_token)
+    {
+        $user = User::where('unique_id', $user_unique_id)->firstOrFail();
+
+        if (!$user->isAttendTokenValid($attend_token)) {
+            return false;
+        }
+
+        return $user;
+    }
+
+    private static function getDevice($device_unique_id): Device
+    {
+        return Cache::remember(
+            "device_{$device_unique_id}",
+            120,
+            function() use ($device_unique_id)
+        {
+            return Device::where('unique_id', $device_unique_id)
+                ->with('department')
+                ->firstOrFail();
+        });
+    }
+
+    private static function getAttendance($user_id)
+    {
+        return Attendance::where([
+            'user_id' => $user_id,
+            'date' => \Carbon\Carbon::now()->format('Y-m-d')
+        ])->latest('date')->first();
+    }
+
+    protected static function doAttendIn($payload): string
+    {
+        $message = "Anda berhasil melakukan absensi Datang pada {$payload['datetime_in']}";
+
+        DB::table('attendances')->insert($payload);
+
+        return $message;
+    }
+
+    protected static function doAttendOut($attendance_id, $payload): string
+    {
+        $message = "Anda berhasil melakukan absensi Pulang pada {$payload['datetime_out']}";
+
+        DB::table('attendances')->where('id', $attendance_id)->update($payload);
+
+        return  $message;
+    }
+
+    protected static function sendNotify(User $user, $message)
+    {
+
+    }
+
+    protected function getCurrentMessage(): string
+    {
+        return $this->current_message;
     }
 }

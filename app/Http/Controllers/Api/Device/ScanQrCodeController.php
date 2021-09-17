@@ -14,9 +14,9 @@ class ScanQrCodeController extends ApiController
 
     public function index(DeviceScanQrcodeRequest $request)
     {
-        if (DeviceApiManager::attendUserByToken($request)) {
+        if ($this->attendUserByToken($request)) {
             return ApiResponder::success(
-                "ATTEND_SUCCESS",
+                $this->getCurrentMessage(),
                 'Successfully [attend user by token]',
                 Response::HTTP_CREATED
             );

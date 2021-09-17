@@ -47,16 +47,7 @@ trait DeviceApiManager
 
         $current_locale_time = get_locale_time($device->department->timezone->title);
 
-        $is_condition_error = false;
-
         switch (true) {
-            case !compare_time_equal(
-                $current_locale_time->date,
-                \Carbon\Carbon::now()->format('Y-m-d')
-            ):
-                $notify_message = "waktu (jam dan tanggal) diponsel anda kurang tepat mohon diperiksa lagi";
-                $is_condition_error = true;
-                break;
             case (!$attendance):
                 $notify_message = self::doAttendIn([
                     'user_id' => $user->id,
@@ -72,14 +63,8 @@ trait DeviceApiManager
                         $device->department->max_att_in
                     ),
                 ]);
-                $is_condition_error = false;
                 break;
-            case (compare_time_greater_than(
-                    $current_locale_time->time,
-                    $device->department->min_att_out
-                ) && $attendance->datetime_out === null
-                && $attendance->timestamp_out === null):
-                $is_condition_error = false;
+            case ($this->isAttendOut($current_locale_time, $attendance, $device)):
                 $notify_message = self::doAttendOut($attendance->id, [
                     'datetime_out' => $current_locale_time->datetime,
                     'timestamp_out' => $current_locale_time->timestamp,
@@ -93,10 +78,6 @@ trait DeviceApiManager
         }
 
         self::sendNotify($user, $notify_message);
-
-        if ($is_condition_error) {
-            return false;
-        }
 
         $this->current_message = $notify_message;
 
@@ -139,6 +120,7 @@ trait DeviceApiManager
     {
         $message = "Anda berhasil melakukan absensi Datang pada {$payload['datetime_in']}";
 
+        $payload['created_at'] = $payload['datetime_in'];
         DB::table('attendances')->insert($payload);
 
         return $message;
@@ -148,6 +130,7 @@ trait DeviceApiManager
     {
         $message = "Anda berhasil melakukan absensi Pulang pada {$payload['datetime_out']}";
 
+        $payload['updated_at'] = $payload['datetime_out'];
         DB::table('attendances')->where('id', $attendance_id)->update($payload);
 
         return  $message;
@@ -161,5 +144,14 @@ trait DeviceApiManager
     protected function getCurrentMessage(): string
     {
         return $this->current_message;
+    }
+
+    protected function isAttendOut($current_locale_time, $attendance, $device): bool
+    {
+        return (compare_time_greater_than(
+                $current_locale_time->time,
+                $device->department->min_att_out
+            ) && $attendance->datetime_out === null
+            && $attendance->timestamp_out === null);
     }
 }

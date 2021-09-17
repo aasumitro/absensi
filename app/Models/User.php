@@ -10,8 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * @property Carbon|null $passwordless_expiry
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, HasRole, HasOneTimePassword, HasAttendToken, HasIntegrationCode;
@@ -34,6 +38,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'status',
+        'integration_code',
         'passwordless',
         'passwordless_expiry',
         'attend_token',
@@ -46,6 +51,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
+        'integration_code',
         'passwordless',
         'attend_token',
         'remember_token',

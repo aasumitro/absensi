@@ -6,6 +6,14 @@ use App\Http\Controllers\Api\Mobile\References\{
     SliderController
 };
 
+use App\Http\Controllers\Api\Mobile\Profiles\{
+    UserDetailController,
+    UpdateProfilePictureController,
+    UpdateDeviceIDController,
+    UpdateFCMTokenController,
+    UpdateTelegramIDController
+};
+
 use App\Http\Controllers\Api\Device\{
     GrantAccessController as RaspyMobileGrantAccessController,
     ScanQrCodeController as RaspyScanQrCodeController,
@@ -48,10 +56,10 @@ Route::prefix('v1/devices')->name('api.device.')->group(function () {
 
 Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
     Route::prefix('references')->name('references.')->group(function () {
-        Route::get('absent-type', [
+        Route::get('absent-types', [
             AbsentTypeController::class, 'index'
         ])->name('absent_type');
-        Route::get('announcement', [
+        Route::get('announcements', [
             AnnouncementController::class, 'index'
         ])->name('announcement');
         Route::get('sliders', [
@@ -78,10 +86,21 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
         ])->name('auth.logout');
 
         Route::prefix('profiles')->name('profiles.')->group(function () {
-            // Route::put('avatar', [])->name('avatar');
-            // Route::put('telegram-id', [])->name('telegram_id');
-            // Route::put('phone-id', [])->name('phone_id');
-            // Route::put('fcm-token', [])->name('fcm_token');
+             Route::get('/', [
+                 UserDetailController::class, 'index'
+             ])->name('detail');
+             Route::post('avatar', [
+                 UpdateProfilePictureController::class, 'index'
+             ])->name('avatar');
+             Route::post('telegram-id', [
+                 UpdateTelegramIDController::class, 'index'
+             ])->name('telegram_id');
+             Route::post('phone-id', [
+                 UpdateDeviceIDController::class, 'index'
+             ])->name('phone_id');
+             Route::post('fcm-token', [
+                 UpdateFCMTokenController::class, 'index'
+             ])->name('fcm_token');
         });
 
         Route::prefix('submissions')->name('submissions.')->group(function () {

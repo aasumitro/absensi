@@ -5,6 +5,7 @@ namespace App\Models\Managers;
 use App\Events\NewAccountEvent;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
@@ -63,5 +64,48 @@ trait AccountManager
         User::destroy($user_id);
 
         Cache::forget($this->fetch_account_key);
+    }
+
+    protected function modifyAvatar($file): bool
+    {
+       $user = Auth::user();
+
+       if (is_file($file['file'])) {
+           $file_name ="{$user->unique_id}.{$file['file']->getClientOriginalExtension()}";
+           $file_path = 'public/uploads/images/avatar';
+           $file['file']->storeAs($file_path, $file_name);
+           $user->avatar =  $file_name;
+       } else {
+           $user->avatar = null;
+       }
+
+        return $user->save();
+    }
+
+    protected function modifyPhoneId(string $phone_id): bool
+    {
+        $user = Auth::user();
+
+        $user->phone_id = $phone_id;
+
+        return $user->save();
+    }
+
+    protected function modifyTelegramId(string $telegram_id): bool
+    {
+        $user = Auth::user();
+
+        $user->telegram_id = $telegram_id;
+
+        return $user->save();
+    }
+
+    protected function modifyFCMToken(string $fcm_token): bool
+    {
+        $user = Auth::user();
+
+        $user->fcm_token = $fcm_token;
+
+        return $user->save();
     }
 }

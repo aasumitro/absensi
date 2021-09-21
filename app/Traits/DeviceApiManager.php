@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Events\AttendEvent;
 use App\Models\Attendance;
 use App\Models\Device;
 use App\Models\User;
@@ -138,7 +139,9 @@ trait DeviceApiManager
 
     protected static function sendNotify(User $user, $message)
     {
+        event(new AttendEvent($user, $message));
 
+        // TODO create new notify message (table)
     }
 
     protected function getCurrentMessage(): string

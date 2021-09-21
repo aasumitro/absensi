@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\SecretCodeEvent;
 use App\Notifications\EmailSecretCodeNotification;
 use App\Notifications\TelegramSecretCodeNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,7 +17,7 @@ class SendSecretCodeNotificationListener implements ShouldQueue
      * @return void
      * @throws ValidationException
      */
-    public function handle(Object $event)
+    public function handle(SecretCodeEvent $event)
     {
         $user = $event->user;
 

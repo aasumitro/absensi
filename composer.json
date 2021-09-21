@@ -9,6 +9,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel-notification-channels/fcm": "^2.2",
         "laravel-notification-channels/telegram": "^0.5.1",
         "laravel/framework": "^8.40",
         "laravel/horizon": "^5.7",

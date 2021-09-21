@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\AttendEvent;
 use App\Events\NewAccountEvent;
 use App\Events\SecretCodeEvent;
+use App\Listeners\SendAttendNotificationListener;
 use App\Listeners\SendNewAccountNotificationListener;
 use App\Listeners\SendSecretCodeNotificationListener;
 use Illuminate\Auth\Events\Registered;
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewAccountEvent::class => [
             SendNewAccountNotificationListener::class
+        ],
+        AttendEvent::class => [
+            SendAttendNotificationListener::class
         ]
     ];
 }

@@ -4,6 +4,11 @@ use App\Http\Controllers\Api\Web\QrCodeController;
 use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
 use App\Http\Controllers\Dash\Root\MobileSettingController;
+use App\Http\Controllers\Dash\Staff\Admin\{
+    DeviceController as DepartmentDeviceController,
+    PeopleController as DepartmentPeopleController,
+    SettingController as DepartmentSettingController,
+};
 use App\Http\Controllers\Dash\Staff\Qrcode\{
     QrGeneratorController, QrScannerController
 };
@@ -93,11 +98,16 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
 
     Route::prefix('staff')->group(function () {
         Route::middleware('role:admin')->group(function () {
-            // TODO NEXT
             // [START-DEPARTMENT]
-            // Route::get('department/peoples', [])->name('');
-            // Route::get('department/devices', [])->name('');
-            // Route::get('department/settings', [])->name('');
+             Route::get('department/peoples', [
+                 DepartmentPeopleController::class, 'index'
+             ])->name('staff.department.people');
+             Route::get('department/devices', [
+                 DepartmentDeviceController::class, 'index'
+             ])->name('staff.department.device');
+             Route::get('department/settings', [
+                DepartmentSettingController::class, 'index'
+             ])->name('staff.department.setting');
             // [END-DEPARTMENT]
         });
 

@@ -6,7 +6,7 @@
     <section>
         <div class="d-flex justify-content-between w-100 flex-wrap py-4 px-3">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4">System Settings</h1>
+                <h1 class="h4">Peganturan sistem</h1>
                 <p class="mb-0">
                     System Settings and Preferences like favicon, logo, name, contacts and others!
                 </p>

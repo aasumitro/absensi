@@ -2,15 +2,15 @@
     <div class="mb-3 mb-lg-0">
         <div class="row">
             <div class="col-12 col-md-8">
-                <h1 class="h4">Attachment List</h1>
-                <p>Slider list with action todo!</p>
+                <h1 class="h4">Daftar lampiran</h1>
+                <p>Daftar lampiran yang ditambahkan!</p>
             </div>
             <div class="col-12 col-md-4">
                 <a
                     data-bs-toggle="modal"
                     data-bs-target="#addAttachmentModal"
                     class="btn btn-primary float-end"
-                >Add new Attachment</a>
+                >Tambahkan lampiran baru</a>
             </div>
         </div>
     </div>
@@ -19,11 +19,11 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Preview</th>
-            <th>Path/Name</th>
-            <th>Type</th>
-            <th>Usage</th>
-            <th>Action</th>
+            <th>Pratinjau</th>
+            <th>Lokasi/Nama</th>
+            <th>Tipe</th>
+            <th>Pengunaan</th>
+            <th>Aksi</th>
         </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@
                         >{{$attachment->path}}</a>
                     @else
                         <b>name: {{$attachment->name}}</b> <br>
-                        path : <a
+                        lokasi : <a
                             target="_blank"
                             href="{{asset('storage/uploads/'. $attachment->path.'/'.$attachment->name) }}"
                             class="text-info"
@@ -67,13 +67,13 @@
                 </td>
                 <td>{{$attachment->type}}</td>
                 <td>
-                    total usage ({{
+                    total penggunaan ({{
                         $attachment->mobile_preferences_count +
                         $attachment->submissions_count +
                         $attachment->attendances_count
                     }})
-                    <br>attendance ({{$attachment->attendances_count}})
-                    <br>submission ({{$attachment->submissions_count}})
+                    <br>presensi ({{$attachment->attendances_count}})
+                    <br>lampiran ({{$attachment->submissions_count}})
                     <br>slider ({{$attachment->mobile_preferences_count}})
                 </td>
                 <td>
@@ -89,13 +89,13 @@
                                 wire:click="selectedAttachment({{$attachment}}, 'UPDATE')"
                                 class="dropdown-item">
                                 <span class="fas fa-edit me-2"></span>
-                                Edit
+                                Perbaharui
                             </a>
                             <a
                                 wire:click="selectedAttachment({{$attachment}}, 'DESTROY')"
                                 class="dropdown-item text-danger rounded-bottom">
                                 <span class="fas fa-trash-alt me-2"></span>
-                                Remove
+                                Hapus
                             </a>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
 
     @if($attachments->count() <= 0)
         <div class="mt-4 text-center">
-            No data available
+            Data tidak tersedia
         </div>
     @endif
 

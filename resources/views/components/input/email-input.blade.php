@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="email">Your email address {{$isReadOnly ? "(readonly)" : ""}}</label>
+    <label for="email">Alamat email Anda {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="email_icon">
             <span class="fas fa-envelope"></span>

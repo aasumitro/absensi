@@ -1,9 +1,9 @@
 <div class="mb-4 text-center">
     <label for="one-time-password">
-        Enter the verification code
+        Masukkan kode verifikasi
         <span class="d-block fw-light">
-            The verification code has been sent,
-            please check your Telegram messenger or Email Address
+            Kode verifikasi telah dikirim,
+            silahakn periksa pada Telegram messenger atau Alamat Email Anda
         </span>
     </label>
     <input
@@ -22,11 +22,11 @@
 
 <div class="d-flex justify-content-center align-items-center mb-4">
     <span class="fw-normal d-none" id="resend-button">
-        Didn't get the code?
+        Tidak menerima kode verifikasi?
         <a
             wire:click="resend"
             class="fw-bold"
-        >Resend!</a>
+        >Kirim lagi!</a>
     </span>
     <span
         class="fw-bold d-inline"

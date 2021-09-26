@@ -6,9 +6,9 @@
     <section>
         <div class="d-flex justify-content-between w-100 flex-wrap py-4 px-3">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4">Office >> Department Members</h1>
+                <h1 class="h4">Kantor >> Pegawai SKPD</h1>
                 <p class="mb-0">
-                    Add or modify department members data!
+                    Tambah atau perbaharui data pegawai SKPD!
                 </p>
             </div>
 
@@ -18,7 +18,7 @@
                     data-bs-target="#departmentAddMemberModal"
                     type="button"
                     class="btn btn-dark h-75"
-                >Add new Member</button>
+                >Tambah pegawai baru</button>
             </div>
         </div>
 

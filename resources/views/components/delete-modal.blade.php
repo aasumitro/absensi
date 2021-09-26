@@ -12,12 +12,12 @@
     >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmation</h5>
+                <h5 class="modal-title">Konfirmasi</h5>
             </div>
             <div class="modal-body">
                 <p>
-                    Are you sure to destroy this record?
-                    <br> this process cannot be undone.
+                    Apakah anda yakin untuk menghapus data ini?
+                    <br> data tidak dapat di pulihkan kembali.
                 </p>
             </div>
             <div class="modal-footer">
@@ -26,7 +26,7 @@
                     class="btn btn-dark"
                     data-bs-dismiss="modal"
                 >
-                    Cancel
+                    Batal
                 </button>
                 <button
                     type="button"
@@ -34,7 +34,7 @@
                     class="btn btn-danger"
                     data-bs-dismiss="modal"
                 >
-                    Destroy
+                    Hapus
                 </button>
             </div>
         </div>

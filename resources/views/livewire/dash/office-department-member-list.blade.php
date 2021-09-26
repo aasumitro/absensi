@@ -4,13 +4,13 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Department</th>
+                <th>SKPD</th>
                 <th>UUID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Nama</th>
+                <th>Alamat Email</th>
+                <th>Nomor Ponsel</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
@@ -44,11 +44,11 @@
                                 <div class="dropdown-menu" data-popper-placement="bottom-end">
                                     <a href="#" class="dropdown-item">
                                         <span class="fas fa-edit me-2"></span>
-                                        Edit
+                                        Perbaharui
                                     </a>
                                     <a href="#"  class="dropdown-item text-danger rounded-bottom">
                                         <span class="fas fa-trash-alt me-2"></span>
-                                        Remove
+                                        Hapus
                                     </a>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
 
         @if($members->count() <= 0)
             <div class="mt-4 text-center">
-                No data available
+                Data tidak tersedia
             </div>
         @endif
 

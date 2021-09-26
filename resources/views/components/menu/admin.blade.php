@@ -19,7 +19,7 @@
             <span class="sidebar-icon">
                 <span class="fas fa-home"></span>
             </span>
-            <span class="sidebar-text">Home</span>
+            <span class="sidebar-text">Beranda</span>
         </a>
     </li>
 
@@ -96,7 +96,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-fingerprint"></span>
                 </span>
-                <span class="sidebar-text">Attendances</span>
+                <span class="sidebar-text">Presensi</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -133,7 +133,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">Verify submission</span>
+                        <span class="sidebar-text">Verifikasi Pengajuan</span>
                     </a>
                 </li>
             </ul>
@@ -161,7 +161,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-book"></span>
                 </span>
-                <span class="sidebar-text">Reports</span>
+                <span class="sidebar-text">Laporan</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -180,7 +180,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">Summaries</span>
+                        <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -189,7 +189,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By Location</span>
+                        <span class="sidebar-text">Berdasarkan Lokasi</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -198,7 +198,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By People</span>
+                        <span class="sidebar-text">Berdasarkan Pegawai</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -207,7 +207,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By Day</span>
+                        <span class="sidebar-text">Berdasarkan Hari</span>
                     </a>
                 </li>
             </ul>
@@ -216,28 +216,31 @@
 
     <li role="separator" class="dropdown-divider mt-3 mb-3 border-black"></li>
 
-    <li class="nav-item">
-        <a href="#" class="nav-link">
+    <li class="nav-item {{ Route::is('staff.department.people') ? 'active' : '' }}">
+        <a href="{{route('staff.department.people')}}" class="nav-link">
             <span class="sidebar-icon">
                 <span class="fas fa-user-tie"></span>
             </span>
-            <span class="sidebar-text">Peoples</span>
+            <span class="sidebar-text">Pegawai</span>
         </a>
     </li>
-    <li class="nav-item mt-2 mb-2">
-        <a href="#" class="nav-link">
+    <li class="nav-item mt-2 mb-2 {{ Route::is('staff.department.device') ? 'active' : '' }}">
+        <a href="{{route('staff.department.device')}}" class="nav-link">
             <span class="sidebar-icon">
                 <span class="fas fa-table"></span>
             </span>
-            <span class="sidebar-text">Devices</span>
+            <span class="sidebar-text">Perangkat</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a href="#" class="nav-link">
+    <li class="nav-item  {{ Route::is('staff.department.setting') ? 'active' : '' }}">
+        <a
+            href="{{route('staff.department.setting')}}"
+            class="nav-link"
+        >
             <span class="sidebar-icon">
                 <span class="fas fa-cog"></span>
             </span>
-            <span class="sidebar-text">Settings</span>
+            <span class="sidebar-text">Pengaturan</span>
         </a>
     </li>
 
@@ -248,7 +251,7 @@
             <span class="sidebar-icon">
                 <span class="fas fa-sign-out-alt"></span>
             </span>
-            <span class="sidebar-text">Logout</span>
+            <span class="sidebar-text">Keluar</span>
         </a>
     </li>
 
@@ -265,7 +268,7 @@
                 <span class="fas fa-book"></span>
             </span>
             <span class="sidebar-text">
-                Documentation
+                Dokumentasi
                 <span class="badge badge-md bg-secondary ms-1 text-dark">
                     v1.0
                 </span>

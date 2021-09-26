@@ -4,12 +4,12 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Email Address</th>
-                    <th>Phone Number</th>
-                    <th>Roles and Privilege</th>
-                    <th>Action</th>
+                    <th>Nama</th>
+                    <th>Nama pengguna</th>
+                    <th>Alamat email</th>
+                    <th>Nomor ponsel</th>
+                    <th>Peran dan Hak</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                                 <span class="badge bg-primary py-1 px-2">
 								    {{
                                         $account->role->title
-                                        . " at " .
+                                        . " pada " .
                                         $account->profile->department->name
                                     }}
 								</span>
@@ -48,13 +48,13 @@
                                         wire:click="selectedAccount({{$account}}, 'UPDATE')"
                                         class="dropdown-item">
                                         <span class="fas fa-edit me-2"></span>
-                                        Edit
+                                        Perbaharui
                                     </a>
                                     <a
                                         wire:click="selectedAccount({{$account}}, 'DESTROY')"
                                         class="dropdown-item text-danger rounded-bottom">
                                         <span class="fas fa-trash-alt me-2"></span>
-                                        Remove
+                                        Hapus
                                     </a>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
 
         @if($users->count() <= 0)
             <div class="mt-4 text-center">
-                No data available
+                Data tidak tersedia
             </div>
         @endif
 

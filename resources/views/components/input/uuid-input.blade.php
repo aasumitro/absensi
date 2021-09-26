@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="unique_id">Your UUID {{$isReadOnly ? "(readonly)" : ""}}</label>
+    <label for="unique_id">UUID Anda {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="unique_id_icon">
             <span class="fas fa-fingerprint"></span>

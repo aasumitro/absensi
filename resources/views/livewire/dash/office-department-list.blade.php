@@ -4,12 +4,12 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Att In</th>
-                <th>Att Out</th>
-                <th>Devices</th>
-                <th>Members</th>
-                <th>Action</th>
+                <th>Nama</th>
+                <th>Jam Masuk</th>
+                <th>Jam Keluar</th>
+                <th>Perangkat</th>
+                <th>Pegawai</th>
+                <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
@@ -40,11 +40,11 @@
                             <div class="dropdown-menu" data-popper-placement="bottom-end">
                                 <a href="#" class="dropdown-item">
                                     <span class="fas fa-edit me-2"></span>
-                                    Edit
+                                    Perbaharui
                                 </a>
                                 <a href="#"  class="dropdown-item text-danger rounded-bottom">
                                     <span class="fas fa-trash-alt me-2"></span>
-                                    Remove
+                                    Hapus
                                 </a>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
 
         @if($departments->count() <= 0)
             <div class="mt-4 text-center">
-                No data available
+                Data tidak tersedia
             </div>
         @endif
 

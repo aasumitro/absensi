@@ -10,7 +10,7 @@
     >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add new Member</h5>
+                <h5 class="modal-title">Tambah pegawai baru</h5>
             </div>
             <div class="modal-body">
                 @include('components.input.username-input', ['isReadOnly' => false])
@@ -25,13 +25,13 @@
                     class="btn btn-dark"
                     data-bs-dismiss="modal"
                 >
-                    Cancel
+                    Batal
                 </button>
                 <button
                     type="submit"
                     class="btn btn-danger"
                 >
-                    Create
+                    Buat
                 </button>
             </div>
         </div>

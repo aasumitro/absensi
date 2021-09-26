@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="name">Your name</label>
+    <label for="name">Nama lengkap Anda</label>
     <div class="input-group">
         <span class="input-group-text" id="name_icon">
             <span class="fas fa-user"></span>

@@ -13,11 +13,11 @@
         <form wire:submit.prevent="submit">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add new Attachment</h5>
+                    <h5 class="modal-title">Tambah lampiran baru</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-group mb-4">
-                        <label for="type">Type</label>
+                        <label for="type">Pilih tipe</label>
                         <div class="input-group">
                             <select
                                 id="type"
@@ -39,19 +39,19 @@
                     @if($type === 'IMAGE')
                         <div class="row">
                             <div class="col-6">
-                                <label for="file_preview" class="form-label">Preview</label>
+                                <label for="file_preview" class="form-label">Pratinjau</label>
                                 @if($file)
                                     <img
                                         src="{{$file->temporaryUrl()}}"
                                         class="d-block w-100" alt="{{$file->temporaryUrl()}}"
                                     >
                                 @else
-                                    <br> <span>NO IMAGE SELECTED</span>
+                                    <br> <span>Tidak ada gambar yang dipilih</span>
                                 @endif
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="file" class="form-label">Select image</label>
+                                    <label for="file" class="form-label">Pilih gambar</label>
                                     <input
                                         wire:model="file"
                                         class="form-control  @error('file') is-invalid @enderror"
@@ -69,7 +69,7 @@
                     @endif
                     @if($type === 'LINK')
                         <div class="form-group mb-4">
-                            <label for="name">Name</label>
+                            <label for="name">Nama</label>
                             <div class="input-group">
                                 <input
                                     id="name"
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-4">
-                            <label for="path">Path</label>
+                            <label for="path">Lokasi</label>
                             <div class="input-group">
                                 <input
                                     id="path"
@@ -112,13 +112,13 @@
                         class="btn btn-dark"
                         data-bs-dismiss="modal"
                     >
-                        Cancel
+                        Batal
                     </button>
                     <button
                         type="submit"
                         class="btn btn-danger"
                     >
-                        Create
+                        Buat
                     </button>
                 </div>
             </div>

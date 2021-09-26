@@ -1,13 +1,13 @@
 <div class="card card-body shadow-sm">
     <div class="mb-3 mb-lg-0">
-        <h1 class="h4">Announcement</h1>
-        <p>Announcement active that will be displayed on mobile app!</p>
+        <h1 class="h4">Pengumuman</h1>
+        <p>Pengumuman aktif yang akan di tampilakan pada aplikasi seluler!</p>
     </div>
 
     <div class="row">
         @if($preferences->count() <= 0)
             <div class="mt-4 text-center">
-                No data available
+                Data tidak ditemukan
             </div>
         @else
             @foreach($preferences as $preference)

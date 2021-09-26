@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="phone">Your phone number {{$isReadOnly ? "(readonly)" : ""}}</label>
+    <label for="phone">Nomor ponsel Anda {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="phone_icon">
             <span class="fas fa-phone"></span>

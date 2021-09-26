@@ -1,15 +1,15 @@
 <div class="card card-body shadow-sm">
     <div class="mb-3 mb-lg-0">
-        <h1 class="h4">Remote Config</h1>
-        <p>Change the behavior and appearance of your app without publishing an app update, at no cost!</p>
+        <h1 class="h4">Konfigurasi jarak jauh</h1>
+        <p>Ubah perilaku dan tampilan aplikasi Anda tanpa memublikasikan pembaruan aplikasi!</p>
     </div>
     <div class="card card-body shadow-sm table-wrapper table-responsive">
         <table class="table">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Key</th>
-                <th>Value</th>
+                <th>Kunci</th>
+                <th>Nilai</th>
             </tr>
             </thead>
             <tbody>
@@ -36,6 +36,6 @@
         <button
             wire:click="performUpdate"
             class="btn btn-primary mt-3"
-        >Save</button>
+        >Simpan</button>
     </div>
 </div>

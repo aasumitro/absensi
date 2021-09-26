@@ -11,6 +11,6 @@
         <button
             type="submit"
             class="btn btn-dark"
-        >Continue</button>
+        >Lanjutkan</button>
     </div>
 </form>

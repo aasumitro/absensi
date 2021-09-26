@@ -5,10 +5,10 @@
             <tr>
                 <th>#</th>
                 <th>UUID</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Refresh Time</th>
-                <th>Action</th>
+                <th>Nama</th>
+                <th>SKPD</th>
+                <th>Waktu Refresh</th>
+                <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
@@ -34,11 +34,11 @@
                             <div class="dropdown-menu" data-popper-placement="bottom-end">
                                 <a href="#" class="dropdown-item">
                                     <span class="fas fa-edit me-2"></span>
-                                    Edit
+                                    Perbaharui
                                 </a>
                                 <a href="#"  class="dropdown-item text-danger rounded-bottom">
                                     <span class="fas fa-trash-alt me-2"></span>
-                                    Remove
+                                    Hapus
                                 </a>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
 
         @if($devices->count() <= 0)
             <div class="mt-4 text-center">
-                No data available
+                Data tidak tersedia
             </div>
         @endif
 

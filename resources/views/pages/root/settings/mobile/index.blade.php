@@ -6,9 +6,9 @@
     <section class="mb-3">
         <div class="d-flex justify-content-between w-100 flex-wrap py-4 px-3">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4">Mobile Apps</h1>
+                <h1 class="h4">Aplikasi Seluler</h1>
                 <p class="mb-0">
-                    Settings and References like sliders, announcement and others!
+                    Pengatuan dan Preferensi untuk aplikasi seluler seperti slider, pengumuman dan lainnya!
                 </p>
             </div>
         </div>

@@ -10,7 +10,7 @@
     >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are you sure to sign out?</h5>
+                <h5 class="modal-title">Anda yakin akan keluar?</h5>
             </div>
             <div class="modal-footer">
                 <button
@@ -18,14 +18,14 @@
                     class="btn btn-dark"
                     data-bs-dismiss="modal"
                 >
-                    Cancel
+                    Batal
                 </button>
                 <a  href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"
                     class="btn btn-danger"
                 >
-                    Lemme out!
+                    Ya, Keluar!
                 </a>
 
                 <form

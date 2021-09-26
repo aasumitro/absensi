@@ -17,7 +17,7 @@
             <span class="sidebar-icon">
                 <span class="fas fa-home"></span>
             </span>
-            <span class="sidebar-text">Home</span>
+            <span class="sidebar-text">Beranda</span>
         </a>
     </li>
     <li class="nav-item">
@@ -49,7 +49,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">Summaries</span>
+                        <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -58,7 +58,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By department</span>
+                        <span class="sidebar-text">Berdasarkan SKPD</span>
                     </a>
                 </li>
             </ul>
@@ -71,7 +71,7 @@
             <span class="sidebar-icon">
                 <span class="fas fa-envelope-open-text"></span>
             </span>
-            <span class="sidebar-text">Submissions</span>
+            <span class="sidebar-text">Pengajuan</span>
         </a>
     </li>
     <li class="nav-item">
@@ -84,7 +84,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-paste"></span>
                 </span>
-                <span class="sidebar-text">Reports</span>
+                <span class="sidebar-text">Laporan</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -106,7 +106,7 @@
                         class="nav-link"
                         href="{{ route('reports.attendances', ['type' => 'summaries']) }}"
                     >
-                        <span class="sidebar-text">Summaries</span>
+                        <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
                 <li class="nav-item {{
@@ -118,7 +118,7 @@
                         class="nav-link"
                         href="{{ route('reports.attendances', ['type' => 'employees']) }}"
                     >
-                        <span class="sidebar-text">By employee</span>
+                        <span class="sidebar-text">Berdasarkan Pegawai</span>
                     </a>
                 </li>
                 <li class="nav-item {{
@@ -130,7 +130,7 @@
                         class="nav-link"
                         href="{{ route('reports.attendances', ['type' => 'departments']) }}"
                     >
-                        <span class="sidebar-text">By department</span>
+                        <span class="sidebar-text">Berdasarkan SKPD</span>
                     </a>
                 </li>
             </ul>
@@ -148,7 +148,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-building"></span>
                 </span>
-                <span class="sidebar-text">Offices</span>
+                <span class="sidebar-text">Kantor</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -166,7 +166,7 @@
                         class="nav-link"
                         href="{{ route('offices.departments') }}"
                     >
-                        <span class="sidebar-text">Departments</span>
+                        <span class="sidebar-text">SKPD</span>
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('offices.devices') ? 'active' : '' }}">
@@ -174,7 +174,7 @@
                         class="nav-link"
                         href="{{ route('offices.devices') }}"
                     >
-                        <span class="sidebar-text">Devices</span>
+                        <span class="sidebar-text">Perangkat</span>
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('offices.peoples') ? 'active' : '' }}">
@@ -182,7 +182,7 @@
                         class="nav-link"
                         href="{{ route('offices.peoples') }}"
                     >
-                        <span class="sidebar-text">Peoples</span>
+                        <span class="sidebar-text">Pegawai</span>
                     </a>
                 </li>
             </ul>
@@ -200,7 +200,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-users"></span>
                 </span>
-                <span class="sidebar-text">Users</span>
+                <span class="sidebar-text">Pengguna</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -218,7 +218,7 @@
                         class="nav-link"
                         href="{{ route('users.accounts') }}"
                     >
-                        <span class="sidebar-text">Accounts</span>
+                        <span class="sidebar-text">Akun</span>
                     </a>
                 </li>
             </ul>
@@ -235,7 +235,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-cogs"></span>
                 </span>
-                <span class="sidebar-text">Settings</span>
+                <span class="sidebar-text">Pengaturan</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -280,7 +280,7 @@
                 <span class="fas fa-book"></span>
             </span>
             <span class="sidebar-text">
-                Documentation
+                Dokumentasi
                 <span class="badge badge-md bg-secondary ms-1 text-dark">
                     v1.0
                 </span>

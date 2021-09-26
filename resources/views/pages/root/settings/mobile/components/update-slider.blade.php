@@ -13,11 +13,11 @@
         <form wire:submit.prevent="performUpdate">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Preference ({{$type}})</h5>
+                    <h5 class="modal-title">Perbaharui preferensi ({{$type}})</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-group mb-4">
-                        <label for="title">Title</label>
+                        <label for="title">Judul</label>
                         <div class="input-group">
                             <input
                                 id="title"
@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-12 {{ ($type === 'ANNOUNCEMENT') ? 'col-md-12' : 'col-md-8'  }}">
                             <div class="form-group mb-4">
-                                <label for="description">Description</label>
+                                <label for="description">Deskripsi</label>
                                 <div class="input-group">
                                     <textarea
                                         id="description"
@@ -58,7 +58,7 @@
                         </div>
                         @if($type === 'SLIDER')
                             <div class="col-12 col-md-4">
-                                <label for="attachment_id">Selected attachment</label>
+                                <label for="attachment_id">Pilih lampiran</label>
                                 <div class="input-group">
                                     <select
                                         id="attachment_id"
@@ -77,7 +77,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <label class="mt-3">Current attachment</label>
+                                <label class="mt-3">Lampiran terpilih</label>
                                 <img
                                     src="{{asset("storage/uploads/{$this->selected_attachment->path}/{$this->selected_attachment->name}")}}"
                                     class="d-block w-100" alt="{{$this->title}}"
@@ -88,7 +88,7 @@
 
                     @if($type === 'SLIDER')
                         <div class="form-group mb-4">
-                            <label for="action_link">Action link</label>
+                            <label for="action_link">Tautan aksi</label>
                             <div class="input-group">
                                 <input
                                     id="action_link"
@@ -111,7 +111,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label for="title">
-                                    Date Show
+                                    Tanggal Tampil
                                     (<a
                                         wire:click="clearData('date_show')"
                                         class="text-warning"
@@ -136,7 +136,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label for="title">
-                                    Date hide
+                                    Tanggal berakhir
                                     (<a
                                         wire:click="clearData('date_hide')"
                                         class="text-warning"
@@ -162,7 +162,7 @@
                     <div class="row">
                         <div class="col-12 col-md-3">
                             <div class="form-group mb-4">
-                                <label for="type">Type</label>
+                                <label for="type">Tipe</label>
                                 <div class="input-group">
                                     <select
                                         id="type"
@@ -256,13 +256,13 @@
                         class="btn btn-dark"
                         data-bs-dismiss="modal"
                     >
-                        Cancel
+                        Batal
                     </button>
                     <button
                         type="submit"
                         class="btn btn-danger"
                     >
-                        Update
+                        Perbaharui
                     </button>
                 </div>
             </div>

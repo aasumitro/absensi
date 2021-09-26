@@ -6,9 +6,9 @@
     <section>
         <div class="d-flex justify-content-between w-100 flex-wrap py-4 px-3">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4">User account</h1>
+                <h1 class="h4">Akun pengguna</h1>
                 <p class="mb-0">
-                    Add or modify user account with access dashboard privilege!
+                    Tambah atau Perbaharui akun pengguna dengan peran akses dashboard!
                 </p>
             </div>
 
@@ -18,7 +18,7 @@
                     data-bs-target="#addUserModal"
                     type="button"
                     class="btn btn-dark h-75"
-                >Create new Account</button>
+                >Tambah akun baru</button>
             </div>
         </div>
 

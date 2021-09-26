@@ -40,7 +40,7 @@
                     <div class="dropdown-menu dashboard-dropdown dropdown-menu-lg dropdown-menu-center mt-2 py-0">
                         <div class="list-group list-group-flush">
                             <a href="#" class="text-center text-primary fw-bold border-bottom border-light py-3">
-                                Notifications
+                                Notifikasi
                             </a>
                             <a href="#" class="list-group-item list-group-item-action border-bottom border-light">
                                 <div class="row align-items-center">
@@ -71,7 +71,7 @@
                                 href="#"
                                 class="dropdown-item text-center text-primary fw-bold rounded-bottom py-3"
                             >
-                                View all
+                                Lihat semua
                             </a>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                             >
                             <div class="media-body ms-3 text-dark align-items-center d-none d-lg-block">
                                 <span class="mb-0 font-small fw-bold ">
-                                   Hello, {{ auth()->user()->username }}
+                                   Halo, {{ auth()->user()->username }}
                                 </span>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                             onclick="showNotification('error', 'Feature currently not implemented yet!')"
                         >
                             <span class="far fa-user-circle"></span>
-                            My Profile
+                            Profil Saya
                         </a>
                         <div role="separator" class="dropdown-divider my-0"></div>
                         <a
@@ -114,7 +114,7 @@
                             data-bs-target="#logoutModal"
                         >
                             <span class="fas fa-sign-out-alt text-danger"></span>
-                            Logout
+                            Keluar
                         </a>
                     </div>
                 </li>

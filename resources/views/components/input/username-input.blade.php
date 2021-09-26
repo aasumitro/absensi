@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="username">Your username {{$isReadOnly ? "(readonly)" : ""}}</label>
+    <label for="username">Nama pengguna Anda {{$isReadOnly ? "(readonly)" : ""}}</label>
     <div class="input-group">
         <span class="input-group-text" id="username_icon">
             <span class="fas fa-user"></span>

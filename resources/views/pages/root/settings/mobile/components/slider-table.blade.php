@@ -1,15 +1,15 @@
 <div class="card card-body shadow-sm table-wrapper table-responsive">
     <div class="mb-3 mb-lg-0">
-        <h1 class="h4">Slider List</h1>
-        <p>Slider list with action todo!</p>
+        <h1 class="h4">Daftar Slider</h1>
+        <p>Daftar slider yang ditambahkan!</p>
     </div>
 
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Title</th>
-                <th>Action</th>
+                <th>Judul</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -25,13 +25,13 @@
                             </span> <br>
                             @if($preference->live_date_show && $preference->live_date_hide)
                                 <code>
-                                    displayed
+                                    Ditampilkan
                                     ({{\Carbon\Carbon::parse($preference->live_date_show)->format('d') }}
                                     - {{\Carbon\Carbon::parse($preference->live_date_hide)->format('d') }})
                                     {{\Carbon\Carbon::parse($preference->live_date_show)->format('M Y') }}<br>
                                 </code>
                             @elseif ($preference->status === 'SHOW')
-                                <code>displayed all days</code>
+                                <code>Ditampilkan setiap hari</code>
                             @endif
                         </td>
                         <td>
@@ -50,7 +50,7 @@
 
     @if($preferences->count() <= 0)
         <div class="mt-4 text-center">
-            No data available
+            Data tidak tersedia
         </div>
     @endif
 </div>

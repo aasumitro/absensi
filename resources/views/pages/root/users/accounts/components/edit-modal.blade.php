@@ -13,7 +13,7 @@
         <form wire:submit.prevent="performUpdate">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Member</h5>
+                    <h5 class="modal-title">Perbaharui pegawai</h5>
                 </div>
                 <div class="modal-body">
                     @include('components.input.uuid-input', ['isReadOnly' => true])
@@ -30,13 +30,13 @@
                         class="btn btn-dark"
                         data-bs-dismiss="modal"
                     >
-                        Cancel
+                        Batal
                     </button>
                     <button
                         type="submit"
                         class="btn btn-danger"
                     >
-                        Update
+                        Perbaharui
                     </button>
                 </div>
             </div>

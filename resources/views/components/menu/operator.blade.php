@@ -19,7 +19,7 @@
             <span class="sidebar-icon">
                 <span class="fas fa-home"></span>
             </span>
-            <span class="sidebar-text">Home</span>
+            <span class="sidebar-text">Beranda</span>
         </a>
     </li>
 
@@ -45,26 +45,24 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('staff.qrcode.*') ? 'show' : '' }}"
             role="list"
             id="submenu-qrcode"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.qrcode.scanner') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.qrcode.scanner')}}"
                     >
                         <span class="sidebar-text">Scanner</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.qrcode.generator') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.qrcode.generator')}}"
                     >
                         <span class="sidebar-text">Generator</span>
                     </a>
@@ -98,7 +96,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-fingerprint"></span>
                 </span>
-                <span class="sidebar-text">Attendances</span>
+                <span class="sidebar-text">Presensi</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -135,7 +133,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">Verify submission</span>
+                        <span class="sidebar-text">Verifikasi Pengajuan</span>
                     </a>
                 </li>
             </ul>
@@ -163,7 +161,7 @@
                 <span class="sidebar-icon">
                     <span class="fas fa-book"></span>
                 </span>
-                <span class="sidebar-text">Reports</span>
+                <span class="sidebar-text">Laporan</span>
             </span>
             <span class="link-arrow">
                 <span class="fas fa-chevron-right"></span>
@@ -182,7 +180,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">Summaries</span>
+                        <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -191,7 +189,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By Location</span>
+                        <span class="sidebar-text">Berdasarkan Lokasi</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -200,7 +198,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By People</span>
+                        <span class="sidebar-text">Berdasarkan Pegawai</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -209,7 +207,7 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">By Day</span>
+                        <span class="sidebar-text">Berdasarkan Hari</span>
                     </a>
                 </li>
             </ul>
@@ -223,7 +221,7 @@
             <span class="sidebar-icon">
                 <span class="fas fa-sign-out-alt"></span>
             </span>
-            <span class="sidebar-text">Logout</span>
+            <span class="sidebar-text">Keluar</span>
         </a>
     </li>
 
@@ -240,7 +238,7 @@
                 <span class="fas fa-book"></span>
             </span>
             <span class="sidebar-text">
-                Documentation
+                Dokumentasi
                 <span class="badge badge-md bg-secondary ms-1 text-dark">
                     v1.0
                 </span>

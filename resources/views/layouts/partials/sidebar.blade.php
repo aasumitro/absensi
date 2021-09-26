@@ -14,7 +14,7 @@
                     >
                 </div>
                 <div class="d-block">
-                    <h2 class="h6">Hello, {{ auth()->user()->username }}</h2>
+                    <h2 class="h6">Halo, {{ auth()->user()->username }}</h2>
                     <a
                         href="#"
                         data-bs-toggle="modal"
@@ -24,7 +24,7 @@
                         <span class="me-2">
                             <span class="fas fa-sign-out-alt"></span>
                         </span>
-                        Sign Out
+                        Keluar
                     </a>
                 </div>
             </div>

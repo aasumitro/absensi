@@ -14,7 +14,7 @@
                             <a
                                 class="nav-link"
                                 href="{{route('home')}}"
-                            >Home</a>
+                            >Beranda</a>
                         </li>
                     @endif
                     <li class="nav-item">
@@ -27,11 +27,11 @@
                         <a
                             class="nav-link"
                             href="#"
-                        >Documentations</a>
+                        >Dokumentasi</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownSupport" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Supports <i class="fas fa-angle-down nav-link-arrow ms-2"></i>
+                            Bantuan <i class="fas fa-angle-down nav-link-arrow ms-2"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownSupport">
                             <li>
@@ -39,14 +39,14 @@
                                     href="#"
                                     target="_blank"
                                     class="dropdown-item"
-                                >About</a>
+                                >Tentang</a>
                             </li>
                             <li>
                                 <a
                                     href="#"
                                     target="_blank"
                                     class="dropdown-item"
-                                >Contact Us</a>
+                                >Kontak</a>
                             </li>
                         </ul>
                     </li>
@@ -64,7 +64,7 @@
                     <a
                         class="btn btn-outline-white animate-up-2 ms-3 d-none d-sm-inline-block"
                         href="{{route('login')}}"
-                    >Login</a>
+                    >Masuk</a>
                 @endif
             </div>
         </div>

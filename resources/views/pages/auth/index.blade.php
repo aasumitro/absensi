@@ -13,11 +13,11 @@
                         alt="cleverlabs-logo"
                         class="mb-4"
                     >
-                    <h1 class="mb-0 h3">Electronic Attendance</h1>
+                    <h1 class="mb-0 h3">Presensi Elektronik</h1>
                     <p>
-                        Welcome back, please use your
-                        <a href="#" class="fw-bold">credentials</a>
-                        <br> to access your account
+                        Selamat datang kembali, silahkan gunakan data
+                        <a href="#" class="fw-bold">kredensial</a>
+                        <br> anda untuk mengakses akun
                     </p>
                 </div>
 
@@ -25,8 +25,8 @@
 
                 <div class="d-flex justify-content-center align-items-center mt-4">
                     <span class="fw-normal">
-                        Have an issue?
-                        <a href="#" class="fw-bold">Help me!</a>
+                        Mendapat masalah?
+                        <a href="#" class="fw-bold">bantuan!</a>
                     </span>
                 </div>
             </div>

@@ -1,12 +1,12 @@
 <div class="card card-body shadow-sm">
     <div class="mb-3 mb-lg-0">
-        <h1 class="h4">Slider Viewer</h1>
-        <p>Slider viewer example that will display on mobile app!</p>
+        <h1 class="h4">Pratinjau Slider</h1>
+        <p>Pratinjau slider yang akan ditampilkan pada aplikasi seluler!</p>
     </div>
 
     @if($preferences->count() <= 0)
         <div class="mt-4 text-center">
-            No data available
+            Data tidak tersedia
         </div>
     @else
         <div id="carouselSliderControls" class="carousel slide" data-bs-ride="carousel">
@@ -28,11 +28,11 @@
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselSliderControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">Sebelumnya</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselSliderControls" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">Selanjutnya</span>
             </button>
         </div>
     @endif

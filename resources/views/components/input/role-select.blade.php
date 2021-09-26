@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="role">Select role</label>
+    <label for="role">Silahkan pilih peran</label>
     <div class="input-group">
         <span class="input-group-text" id="role_icon">
             <span class="fas fa-user-tag"></span>
@@ -10,7 +10,7 @@
             wire:model="role"
             required
         >
-            <option value="0">Please select role</option>
+            <option value="0">Pilih peran</option>
             @foreach($roles as $role)
                 <option value="{{$role->id}}">{{ucfirst($role->title)}}</option>
             @endforeach

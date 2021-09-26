@@ -1,5 +1,5 @@
 <div class="form-group mb-4">
-    <label for="department">Select department</label>
+    <label for="department">Silahkan pilih SKPD</label>
     <div class="input-group">
         <span class="input-group-text" id="department_icon">
             <span class="fas fa-building"></span>
@@ -10,7 +10,7 @@
             wire:model="department"
             required
         >
-            <option value="0">Please select department</option>
+            <option value="0">Pilih SKPD</option>
             @foreach($departments as $department)
                 <option value="{{$department->id}}">{{ucwords($department->name)}}</option>
             @endforeach

@@ -8,7 +8,7 @@
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Qr Code >> Generator</h1>
                 <p class="mb-0">
-                    Scan this Qr Code from your phone!
+                    Pindai qrcode ini melalui ponsel anda!
                 </p>
             </div>
 

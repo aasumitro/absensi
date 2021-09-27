@@ -8,7 +8,7 @@
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Qr Code >> Scanner</h1>
                 <p class="mb-0">
-                    Scan qrcode that generate from your phone with default camera!
+                    Scan qrcode yang dibuat melalui aplikasi pada ponsel anda!
                 </p>
             </div>
 

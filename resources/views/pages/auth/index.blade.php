@@ -17,7 +17,7 @@
                     <p>
                         Selamat datang kembali, silahkan gunakan data
                         <a href="#" class="fw-bold">kredensial</a>
-                        <br> anda untuk mengakses akun
+                        anda untuk mengakses akun
                     </p>
                 </div>
 

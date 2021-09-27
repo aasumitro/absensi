@@ -25,3 +25,9 @@
 @yield('custom-script')
 
 @livewireScripts
+
+{{--<script>--}}
+{{--    window.onload = () => {--}}
+{{--        alert('mohon gunakan browser terbaru, google chrome dan brave sangat disarankan')--}}
+{{--    }--}}
+{{--</script>--}}

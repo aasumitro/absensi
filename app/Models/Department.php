@@ -12,6 +12,11 @@ class Department extends Model
 {
     use HasFactory;
 
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
     public function devices(): HasMany
     {
         return $this->hasMany(Device::class);

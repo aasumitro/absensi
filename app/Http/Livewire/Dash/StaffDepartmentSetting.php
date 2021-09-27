@@ -77,8 +77,6 @@ class StaffDepartmentSetting extends Component
                 'type' => 'error',
                 'message' => "Action <b>[UPDATE]</b> failed"
             ]);
-
-            dd($exception);
         }
 
         $this->emit('staffDepartmentSettingSectionRefresh');

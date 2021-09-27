@@ -1,8 +1,31 @@
 @extends('layouts.main')
 
-@section('title', "Department Setting")
+@section('title', "Department Device")
 
 @section('content')
-    <h1>Hello World</h1>
+    <section>
+        <div class="d-flex justify-content-between w-100 flex-wrap py-4 px-3">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">Kantor >> Perangkat SKPD</h1>
+                <p class="mb-0">
+                    Tambah atau perbaharui data perangkat SKPD!
+                </p>
+            </div>
+
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <button
+                    onclick="generateNewUUID()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addDepartmentDeviceModal"
+                    type="button"
+                    class="btn btn-dark h-75"
+                >Tambah perangkat baru</button>
+            </div>
+        </div>
+
+        <div class="row col-12 p-3">
+            @livewire('dash.staff-department-device')
+        </div>
+    </section>
 
 @endsection

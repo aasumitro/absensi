@@ -19,12 +19,12 @@
                 </option>
             @endforeach
         </select>
-        <span class="input-group-text">
+        <span class="input-group-text p-0">
             <button
                 wire:click="performUpdateTimezone"
-                class="btn btn-outline-primary"
+                class="btn btn-icon-only"
                 type="button"
-            >Save</button>
+            ><i class="fas fa-save"></i></button>
         </span>
         @error('role')
         <span class="invalid-feedback" role="alert">

@@ -31,8 +31,8 @@
             </div>
             <span>
                 Gunakan format
-                <span class="text-warning">MENIT:DETIK</span>
-                dengan format 24 jam contohnya <span class="text-success">18:20</span>
+                [<span class="text-warning">MENIT:DETIK</span>]
+                dengan format 24 jam contohnya [<span class="text-success">18:20</span>]
             </span>
         </div>
         <button

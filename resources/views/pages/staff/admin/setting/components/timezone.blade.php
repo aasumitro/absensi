@@ -15,5 +15,6 @@
             </div>
         </div>
         @include('pages.staff.admin.setting.components.input.zone-select')
+        <span>Zona waktu akan disesuikan dan diimplementasikan ketika pengguna atau pegawai melakukan absensi, mohon diperhatikan sebelum mengupdate agar sistem berjalan sebagaimana mestinya!</span>
     </div>
 </div>

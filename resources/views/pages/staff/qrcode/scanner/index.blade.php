@@ -56,6 +56,8 @@
     <script src="{{ asset('assets/js/axios.min.js') }}"></script>
 
     <script>
+        const locale = `Asia/Makassar`
+
         window.onload = () => {
             setInterval(initCurrentDatetime, 1000)
         }
@@ -147,13 +149,23 @@
         function initCurrentDatetime() {
             let currentDatetimeView = document
                 .getElementById('currentDatetime')
+
             const today = new Date()
-            currentDatetimeView.innerHTML = today
-                .toLocaleDateString('id-ID', {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit",
-                })
+
+            const date = today.toLocaleDateString('id-ID', {
+                year: "numeric",
+                month: "long",
+                day: "2-digit",
+                timeZone: locale
+            })
+
+            const time = today.toLocaleTimeString('en-US', {
+                formatMatcher: 'best fit',
+                hour12: false,
+                timeZone: locale
+            })
+
+            currentDatetimeView.innerHTML = [date, time].join(' - ')
         }
     </script>
 @endsection

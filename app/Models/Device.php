@@ -16,6 +16,22 @@ class Device extends Model implements AuthenticatableContract, AuthorizableContr
     use Authenticatable, Authorizable;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'department_id',
+        'unique_id',
+        'display',
+        'name',
+        'password',
+        'refresh_time_mode',
+        'refresh_time',
+        'session_token'
+    ];
+
+    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array

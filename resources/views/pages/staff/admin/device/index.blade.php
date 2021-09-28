@@ -14,7 +14,6 @@
 
             <div class="btn-toolbar mb-2 mb-md-0">
                 <button
-                    onclick="generateNewUUID()"
                     data-bs-toggle="modal"
                     data-bs-target="#addDepartmentDeviceModal"
                     type="button"

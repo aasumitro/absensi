@@ -37,6 +37,13 @@
                                 </button>
                                 <div class="dropdown-menu" data-popper-placement="bottom-end">
                                     <a
+                                        wire:click="selectedDepartmentDevice({{$device}}, 'DETAIL')"
+                                        class="dropdown-item"
+                                    >
+                                        <span class="fas fa-info me-2"></span>
+                                        Data detail
+                                    </a>
+                                    <a
                                         wire:click="selectedDepartmentDevice({{$device}}, 'UPDATE')"
                                         class="dropdown-item"
                                     >
@@ -83,6 +90,7 @@
     @include('pages.staff.admin.device.components.add-modal')
     @include('pages.staff.admin.device.components.edit-modal')
     @include('pages.staff.admin.device.components.edit-password-modal')
+    @include('pages.staff.admin.device.components.detail-modal')
     @include('components.delete-modal')
 </div>
 
@@ -96,6 +104,8 @@
         let bsUpdateDevicePasswordModal = new bootstrap.Modal(updateDevicePasswordModal)
         let deleteDeviceModal = document.getElementById('deleteModal')
         let bsDeleteDeviceModal = new bootstrap.Modal(deleteDeviceModal)
+        let detailDeviceModal = document.getElementById('detailDepartmentDeviceModal')
+        let bsDetailDeviceActivityModal = new bootstrap.Modal(detailDeviceModal)
 
         window.addEventListener('openModal', event => {
             if (event.detail.type === "DESTROY") {
@@ -109,7 +119,12 @@
             if (event.detail.type === "UPDATE_PASSWORD") {
                 bsUpdateDevicePasswordModal.show()
             }
-        })
+
+            if (event.detail.type === "DETAIL") {
+                console.log('test')
+                bsDetailDeviceActivityModal.show()
+            }
+         })
 
         window.addEventListener('closeModal', event => {
             if (event.detail.type === "DESTROY") {
@@ -130,10 +145,6 @@
         })
 
         window.addEventListener('showNotify', event => {
-            if (event.detail.data) {
-                prompt("UUID perangkat baru, Copy data: Ctrl+C, Enter", event.detail.data);
-            }
-
             showNotification(
                 event.detail.type,
                 event.detail.message

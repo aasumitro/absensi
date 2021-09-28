@@ -26,6 +26,8 @@ class StaffDepartmentDevice extends Component
 
     public $refresh_time;
 
+    public $device_detail;
+
     private int $cache_in_second = 120;
 
     protected $listeners = ['staffDepartmentDeviceListSectionRefresh' => '$refresh'];
@@ -108,6 +110,10 @@ class StaffDepartmentDevice extends Component
             $this->refresh_time_mode = $device->refresh_time_mode;
             $this->refresh_time = $device->refresh_time;
         }
+
+        if ($action === 'DETAIL') {
+            $this->device_detail = $this->loadDeviceDetail();
+        }
     }
 
     public function performUpdateDevice()
@@ -140,6 +146,7 @@ class StaffDepartmentDevice extends Component
             $device->save();
 
             Cache::forget("office_department_device_for_root_${user_department_id}");
+            Cache::forget("office_department_device_detail_{$this->selected_id}");
 
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',
@@ -178,6 +185,7 @@ class StaffDepartmentDevice extends Component
                 ]);
 
             Cache::forget("office_department_device_for_root_${user_department_id}");
+            Cache::forget("office_department_device_detail_{$this->selected_id}");
 
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',
@@ -213,6 +221,7 @@ class StaffDepartmentDevice extends Component
             $device->delete();
 
             Cache::forget("office_department_device_for_root_${user_department_id}");
+            Cache::forget("office_department_device_detail_{$this->selected_id}");
 
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',
@@ -243,6 +252,23 @@ class StaffDepartmentDevice extends Component
         {
             return Device::where('department_id', $user_department_id)
                 ->paginate(10);
+        });
+    }
+
+    private function loadDeviceDetail()
+    {
+        return Cache::remember(
+            "office_department_device_detail_{$this->selected_id}",
+            $this->cache_in_second, function ()
+        {
+            return Device::with([
+                'department.timezone',
+                'attendances' => function ($query) {
+                    $query->take(5)->with('user');
+                }])
+                ->withCount('attendances')
+                ->where('id', $this->selected_id)
+                ->first();
         });
     }
 }

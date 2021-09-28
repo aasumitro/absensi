@@ -12,7 +12,13 @@
         >
             <option value="0">Pilih peran</option>
             @foreach($roles as $role)
-                <option value="{{$role->id}}">{{ucfirst($role->title)}}</option>
+                <option value="{{$role->id}}">
+                    {{
+                        $role->title === 'member'
+                        ? 'Pegawai'
+                        : ucfirst($role->title)
+                    }}
+                </option>
             @endforeach
         </select>
 

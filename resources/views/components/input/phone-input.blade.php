@@ -8,7 +8,7 @@
             id="phone"
             type="text"
             class="form-control @error('phone') is-invalid @enderror"
-            placeholder="e.g. 822XXXX (Without 0)"
+            placeholder="e.g. 822XXXX (tanpa angka 0)"
             wire:model="phone"
             {{$isReadOnly ? "readonly" : ""}}
             autofocus

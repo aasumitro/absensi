@@ -9,12 +9,13 @@ trait RoleManager
 {
     private string $fetch_role_key = 'livewire_trait_role_list';
 
-    private function fetchRoles()
+    private function fetchRoles($not_in = [MEMBER_ROLE_ID])
     {
-        return Cache::remember($this->fetch_role_key, $this->cache_time, function ()
-        {
-            return Role::whereNotIn('id', [4])->get();
-        });
+        return Cache::remember(
+            $this->fetch_role_key . json_encode($not_in),
+            $this->cache_time,
+            function () use ($not_in) {
+                return Role::whereNotIn('id', $not_in)->get();
+            });
     }
-
 }

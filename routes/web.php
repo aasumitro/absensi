@@ -37,6 +37,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('auth')->get('/requests', function () {
+    return view('request');
+})->name('requests');
+
 Route::get('login', [GrantAccessController::class, 'index'])->name('login');
 
 Route::middleware(['auth', 'accepted.role'])->group(function () {

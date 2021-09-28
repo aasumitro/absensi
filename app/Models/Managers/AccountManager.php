@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 trait AccountManager
 {
     private string $fetch_account_key = 'livewire_trait_users_account_without_member';
+    private string $fetch_department_member_account_key = 'livewire_trait_users_department__member_account';
 
     protected function fetchAccounts()
     {
@@ -21,6 +22,18 @@ trait AccountManager
                 ->whereNotIn('role_id', $this->hide_by_role)
                 ->paginate(10);
         });
+    }
+
+    protected function fetchAccountByDepartment($department_id)
+    {
+        return Cache::remember(
+            $this->fetch_department_member_account_key,
+            $this->cache_time,
+            function () use ($department_id) {
+                return Profile::with('user.role')
+                    ->where('department_id', $department_id)
+                    ->paginate(10);
+            });
     }
 
     protected function newAccount($data)
@@ -105,6 +118,13 @@ trait AccountManager
         $user = Auth::user();
 
         $user->fcm_token = $fcm_token;
+
+        return $user->save();
+    }
+
+    protected function giveAccessToNewDevice(User $user): bool
+    {
+        $user->phone_id = null;
 
         return $user->save();
     }

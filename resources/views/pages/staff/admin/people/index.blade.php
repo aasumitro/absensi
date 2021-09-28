@@ -28,12 +28,22 @@
                         data-popper-placement="bottom-start"
                     >
                         <li>
-                            <a class="dropdown-item rounded-top" href="#">
+                            <a
+                                data-bs-toggle="modal"
+                                data-bs-target="#addManualDepartmentPeopleModal"
+                                class="dropdown-item rounded-top"
+                                href="#"
+                            >
                                 Input manual
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a
+                                data-bs-toggle="modal"
+                                data-bs-target="#addImportExcelDepartmentPeopleModal"
+                                class="dropdown-item"
+                                href="#"
+                            >
                                 Import file excel
                             </a>
                         </li>

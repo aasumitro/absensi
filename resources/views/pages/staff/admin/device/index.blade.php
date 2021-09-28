@@ -23,8 +23,7 @@
         </div>
 
         <div class="row col-12 p-3">
-            @livewire('dash.staff-department-device')
+            @livewire('dash.staff.staff-department-device')
         </div>
     </section>
-
 @endsection

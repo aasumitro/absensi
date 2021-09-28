@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        @livewire('dash.setting-mobile-slider')
+        @livewire('dash.root.setting-mobile-slider')
     </section>
 @endsection
 

@@ -13,6 +13,6 @@
             </div>
         </div>
 
-        @livewire('dash.staff-department-setting')
+        @livewire('dash.staff.staff-department-setting')
     </section>
 @endsection

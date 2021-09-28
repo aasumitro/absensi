@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Dash;
+namespace App\Http\Livewire\Dash\Root;
 
 use App\Models\Attachment;
 use App\Models\Managers\MobilePreferencesManager;

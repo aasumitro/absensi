@@ -23,11 +23,11 @@
         </div>
 
         <div class="row col-12 p-3">
-            @livewire('dash.office-department-member-list')
+            @livewire('dash.root.office-department-member-list')
         </div>
     </section>
 @endsection
 
 @section('content-modal')
-    @livewire('dash.office-department-member-create')
+    @livewire('dash.root.office-department-member-create')
 @endsection

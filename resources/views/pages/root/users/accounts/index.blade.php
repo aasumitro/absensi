@@ -23,13 +23,13 @@
         </div>
 
         <div class="row col-12 p-3">
-            @livewire('dash.user-account-list')
+            @livewire('dash.root.user-account-list')
         </div>
     </section>
 @endsection
 
 @section('content-modal')
-    @livewire('dash.user-account-create')
+    @livewire('dash.root.user-account-create')
 @endsection
 
 @section('custom-script')

@@ -30,7 +30,7 @@ trait AccountManager
             $this->fetch_department_member_account_key,
             $this->cache_time,
             function () use ($department_id) {
-                return Profile::with('user.role')
+                return Profile::with(['department', 'user.role'])
                     ->where('department_id', $department_id)
                     ->paginate(10);
             });
@@ -53,6 +53,7 @@ trait AccountManager
         event(new NewAccountEvent($create_new_user));
 
         Cache::forget($this->fetch_account_key);
+        Cache::forget($this->fetch_department_member_account_key);
     }
 
     protected function modifyAccount($id, $data)
@@ -67,6 +68,7 @@ trait AccountManager
         ]);
 
         Cache::forget($this->fetch_account_key);
+        Cache::forget($this->fetch_department_member_account_key);
     }
 
     protected function destroyAccount($user_id)
@@ -77,6 +79,7 @@ trait AccountManager
         User::destroy($user_id);
 
         Cache::forget($this->fetch_account_key);
+        Cache::forget($this->fetch_department_member_account_key);
     }
 
     protected function modifyAvatar($file): bool

@@ -3,7 +3,7 @@
     class="modal fade"
     tabindex="-1"
     role="dialog"
-    id="detailDepartmentDeviceModal"
+    id="detailDepartmentMemberModal"
 >
     <div
         class="modal-dialog modal-lg"
@@ -12,56 +12,45 @@
     >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Detail perangkat & aktifitas terkini</h5>
+                <h5 class="modal-title">Detail akun & aktifitas terkini</h5>
             </div>
             <div class="modal-body">
-                @if($device_detail)
+                @if($current_user)
                     <h5>Detail</h5>
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <td>Nama pemilik </td>
-                                    <td>{{$device_detail->department->name}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Zona waktu </td>
-                                    <td>
-                                        [{{$device_detail->department->timezone->title}}]
-                                        {{$device_detail->department->timezone->locale}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>UUID </td>
-                                    <td>{{$device_detail->unique_id}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama perangkat </td>
-                                    <td>{{$device_detail->name}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Waktu refresh dan mode </td>
-                                    <td>
-                                        {{$device_detail->refresh_time}}
-                                        {{$device_detail->refresh_time_mode === 'MINUTES' ? 'Menit' : 'Detik'}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>Nama </td>
+                            <td>{{$current_user->name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Nama pengguna </td>
+                            <td>{{$current_user->username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat email </td>
+                            <td>{{$current_user->email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Nomor ponsel </td>
+                            <td>(+62) {{$current_user->phone}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <h5>Aktifitas</h5>
                     <table class="table">
                         <thead>
-                            <tr class="text-center">
-                                <th>#</th>
-                                <th>Tanggal</th>
-                                <th>Status</th>
-                                <th>Nama Pegawai</th>
-                                <th>Datang</th>
-                                <th>Pulang</th>
-                            </tr>
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                            <th>Datang</th>
+                            <th>Pulang</th>
+                        </tr>
                         </thead>
-                        @if($device_detail->attendances_count >= 1)
-                        <tbody>
-                            @foreach($device_detail->attendances as $attendance)
+                        @if($current_user_attendances->count() >= 1)
+                            <tbody>
+                            @foreach($current_user_attendances as $attendance)
                                 <tr class="text-center">
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$attendance->date}}</td>
@@ -70,7 +59,6 @@
                                             ? 'HADIR'
                                             : 'IZIN'
                                     }}</td>
-                                    <td>{{$attendance->user->name}}</td>
                                     <td>
                                         {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i:s')}}
                                         ({{$attendance->overdue ? 'TERLAMBAT' : ''}})
@@ -84,15 +72,13 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
+                            </tbody>
                         @endif
                     </table>
-
-                    @if((int)$device_detail->attendances_count === 0)
+                    @if((int)$current_user_attendances->count() === 0)
                         <div class="text-center">Belum ada aktifitas</div>
                     @endif
-
-                    @if((int)$device_detail->attendances_count === 5)
+                    @if((int)$current_user_attendances->count() === 5)
                         <div class="text-center">
                             hanya 5 data yang akan ditampilkan, <br>untuk lebih lengkapnya lihat pada menu
                             <a href="#" class="text-info text-underline">laporan</a>
@@ -101,6 +87,7 @@
                 @else
                     <div class="text-center">Loading . . .</div>
                 @endif
+
             </div>
             <div class="modal-footer">
                 <button

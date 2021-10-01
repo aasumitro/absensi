@@ -38,12 +38,31 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a
-                            href="{{ url('/home') }}"
-                            class="btn btn-danger text-lg text-gray-700 underline border-gray-200"
-                        >
-                            Admin Panel
-                        </a>
+                        @if(auth()->user()->hasRole(MEMBER_ROLE_ID))
+                            <a  href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"
+                                class="btn btn-danger"
+                            >
+                               Logout
+                            </a>
+
+                            <form
+                                id="logout-form"
+                                action="{{ route('logout') }}"
+                                method="POST"
+                                style="display: none;"
+                            >
+                                @csrf
+                            </form>
+                        @else
+                            <a
+                                href="{{ url('/home') }}"
+                                class="btn btn-danger text-lg text-gray-700 underline border-gray-200"
+                            >
+                                Admin Panel
+                            </a>
+                        @endif
                     @else
                         <a
                             href="{{ route('login') }}"

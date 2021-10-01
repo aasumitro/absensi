@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "ext-json": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -15,9 +16,9 @@
         "laravel/horizon": "^5.7",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
+        "maatwebsite/excel": "^3.1",
         "predis/predis": "^1.1",
-        "tymon/jwt-auth": "^1.0",
-        "ext-json": "*"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

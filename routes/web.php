@@ -45,6 +45,9 @@ Route::middleware('auth')->get('/requests', function () {
 })->name('requests');
 
 Route::get('login', [GrantAccessController::class, 'index'])->name('login');
+Route::post('logout', [GrantAccessController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
 Route::middleware(['auth', 'accepted.role'])->group(function () {
     Route::prefix('v1/web/qrcode')->name('api.web.')->group(function () {
@@ -56,7 +59,6 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
         ])->name('scan');
     });
 
-    Route::post('logout', [GrantAccessController::class, 'logout'])->name('logout');
     //Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     //Route::get('profile/backup', [ProfileController::class, 'backup'])->name('profile.backup');
 

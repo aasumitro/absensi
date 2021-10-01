@@ -75,7 +75,7 @@
     </section>
     @endif
 
-    @if($type === 'ADMIN_ACCOUNT')
+    @if($type === 'ADMIN_ACCOUNT' && !auth()->user()->hasRole(MEMBER_ROLE_ID))
     <section id="admin-account">
         <form wire:submit.prevent="performRequestAdminAccount">
             <div class="form-group mb-4">
@@ -146,6 +146,8 @@
             <button class="btn btn-danger float-end">Kirim</button>
         </form>
     </section>
+    @elseif($type === 'ADMIN_ACCOUNT' && auth()->user()->hasRole(MEMBER_ROLE_ID))
+        <div>Anda tidak memiliki hak untuk melakukan aksi ini</div>
     @endif
 
     @include('components.message')

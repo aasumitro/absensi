@@ -11,9 +11,13 @@
     >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"></h5>
+                <h5 class="modal-title">Proses import data terhenti</h5>
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body">
+                Mohon pastikan data pengguna yang anda import memang benar-benar belum terdaftar,
+                serta pastikan <code>nomor ponsel</code>, <code>username</code>
+                dan <code>email</code> sama sekali belum pernah digunakan!
+            </div>
             <div class="modal-footer">
                 <button
                     type="button"

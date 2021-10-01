@@ -57,6 +57,13 @@
                             </button>
                             <div class="dropdown-menu" data-popper-placement="bottom-end">
                                 <a
+                                    wire:click="selectedMemberAccount({{$account->user}}, 'DETAIL')"
+                                    class="dropdown-item"
+                                >
+                                    <span class="fas fa-info me-2"></span>
+                                    Data detail
+                                </a>
+                                <a
                                     wire:click="selectedMemberAccount({{$account->user}}, 'RESET_PHONE')"
                                     class="dropdown-item">
                                     <span class="fas fa-mobile me-2"></span>
@@ -100,57 +107,72 @@
 
     @include('pages.staff.admin.people.components.add-modal')
     @include('pages.staff.admin.people.components.import-modal')
+    @include('pages.staff.admin.people.components.reset-modal')
+    @include('pages.staff.admin.people.components.edit-modal')
+    @include('pages.staff.admin.people.components.detail-modal')
+    @include('pages.staff.admin.people.components.message')
     @include('components.delete-modal')
 </div>
 
 @section('custom-script')
     <script>
-        // let addDeviceModal = document.getElementById('addDepartmentDeviceModal')
-        // let bsAddDeviceModalModal = new bootstrap.Modal(addDeviceModal)
-        // let updateDeviceDataModal = document.getElementById('editDepartmentDeviceModal')
-        // let bsUpdateDeviceDataModal = new bootstrap.Modal(updateDeviceDataModal)
-        // let updateDevicePasswordModal = document.getElementById('updateDevicePasswordModal')
-        // let bsUpdateDevicePasswordModal = new bootstrap.Modal(updateDevicePasswordModal)
-        // let deleteDeviceModal = document.getElementById('deleteModal')
-        // let bsDeleteDeviceModal = new bootstrap.Modal(deleteDeviceModal)
-        // let detailDeviceModal = document.getElementById('detailDepartmentDeviceModal')
-        // let bsDetailDeviceActivityModal = new bootstrap.Modal(detailDeviceModal)
+        let addManualDepartmentPeopleModal = document.getElementById('addManualDepartmentPeopleModal')
+        let bsManualDepartmentPeopleModal = new bootstrap.Modal(addManualDepartmentPeopleModal)
+        let addImportDepartmentPeopleModal = document.getElementById('addImportExcelDepartmentPeopleModal')
+        let bsImportDepartmentPeopleModal = new bootstrap.Modal(addImportDepartmentPeopleModal)
+        let updateMemberDataModal = document.getElementById('editMemberAccountModal')
+        let bsUpdateMemberDataModal = new bootstrap.Modal(updateMemberDataModal)
+        let resetUserDeviceModal = document.getElementById('editUserAccountResetDeviceModal')
+        let bsResetUserDeviceModal = new bootstrap.Modal(resetUserDeviceModal)
+        let deleteMemberModal = document.getElementById('deleteModal')
+        let bsDeleteMemberModal = new bootstrap.Modal(deleteMemberModal)
+        let detailMemberModal = document.getElementById('detailDepartmentMemberModal')
+        let bsDetailMemberActivityModal = new bootstrap.Modal(detailMemberModal)
+        let messageModal = document.getElementById('messageModal')
+        let bsMessageModal = new bootstrap.Modal(messageModal)
 
         window.addEventListener('openModal', event => {
-            // if (event.detail.type === "DESTROY") {
-            //     bsDeleteDeviceModal.show()
-            // }
+            if (event.detail.type === "DESTROY") {
+                bsDeleteMemberModal.show()
+            }
 
-            // if (event.detail.type === "UPDATE") {
-            //     bsUpdateDeviceDataModal.show()
-            // }
+            if (event.detail.type === "UPDATE") {
+                bsUpdateMemberDataModal.show()
+            }
 
-            // if (event.detail.type === "UPDATE_PASSWORD") {
-            //     bsUpdateDevicePasswordModal.show()
-            // }
+            if (event.detail.type === "RESET_PHONE") {
+                bsResetUserDeviceModal.show()
+            }
 
-            // if (event.detail.type === "DETAIL") {
-            //     console.log('test')
-            //     bsDetailDeviceActivityModal.show()
-            // }
+            if (event.detail.type === "DETAIL") {
+                bsDetailMemberActivityModal.show()
+            }
+
+            if (event.detail.type === 'FROM_IMPORT_ERROR') {
+                bsMessageModal.show()
+            }
         })
 
         window.addEventListener('closeModal', event => {
-            // if (event.detail.type === "DESTROY") {
-            //     bsDeleteDeviceModal.hide()
-            // }
+            if (event.detail.type === "DESTROY") {
+                bsDeleteMemberModal.hide()
+            }
 
-            // if (event.detail.type === "CREATE") {
-            //     bsAddDeviceModalModal.hide()
-            // }
+            if (event.detail.type === "CREATE") {
+                bsManualDepartmentPeopleModal.hide()
+            }
 
-            // if (event.detail.type === "UPDATE") {
-            //     bsUpdateDeviceDataModal.hide()
-            // }
+            if (event.detail.type === "UPDATE") {
+                bsUpdateMemberDataModal.hide()
+            }
 
-            // if (event.detail.type === "UPDATE_PASSWORD") {
-            //     bsUpdateDevicePasswordModal.hide()
-            // }
+            if (event.detail.type === "RESET_PHONE") {
+                bsResetUserDeviceModal.hide()
+            }
+
+            if (event.detail.type === "FROM_IMPORT") {
+                bsImportDepartmentPeopleModal.hide()
+            }
         })
 
         window.addEventListener('showNotify', event => {
@@ -159,20 +181,5 @@
                 event.detail.message
             )
         })
-
-        // function obscureSecretText() {
-        //     let passwordInput = document.getElementById("password");
-        //     let passwordObscureIcon = document.getElementById("password_obscure_icon");
-        //
-        //     if (passwordInput.type === "password") {
-        //         passwordInput.type = "text";
-        //         passwordObscureIcon.classList.remove('fa-eye')
-        //         passwordObscureIcon.classList.add('fa-eye-slash')
-        //     } else {
-        //         passwordInput.type = "password";
-        //         passwordObscureIcon.classList.remove('fa-eye-slash')
-        //         passwordObscureIcon.classList.add('fa-eye')
-        //     }
-        // }
     </script>
 @endsection

@@ -24,7 +24,9 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect()->intended('home');
+            : (auth()->user()->hasRole(MEMBER_ROLE_ID)
+                ? redirect()->intended('/')
+                : redirect()->intended('home'));
     }
 
     /**

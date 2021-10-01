@@ -49,18 +49,18 @@ class EmailNewAccountNotification extends Notification implements ShouldQueue
         // verifikasi dan coba login lewat aplikasi
         // untuk mendapatkan OTP
         return (new MailMessage)
-                    ->subject("New Account")
-                    ->greeting("Hello, $notifiable->name.")
-                    ->line("Welcome to OkSetda Absensi, your account just created by Admin")
-                    ->line("Please follow this instruction below to access your account: ")
-                    ->line(new HtmlString("1. Download <a href='https://play.google.com/store/apps/details?id=org.telegram.messenger&hl=in&gl=US'>Telegram Messenger</a>"))
-                    ->line(new HtmlString("2. Connect with <a href='https://t.me/OkSetdaBot'>OkSetdaBot</a>"))
-                    ->line(new HtmlString("3. Integrate your OkSetda Absensi Account with OkSetdaBot by send an message instruction by this format below : <br> <b>CONNECT#USERNAME#INTEGRATION_CODE </b>"))
+                    ->subject("Akun baru")
+                    ->greeting("Halo, $notifiable->name.")
+                    ->line("Selamat datang di OkSetda Absensi, Akun anda telah dibuat oleh admin")
+                    ->line("Mohon ikuti instruksi dibawah ini untuk mengakses akun anda: ")
+                    ->line(new HtmlString("1. Unduh <a href='https://play.google.com/store/apps/details?id=org.telegram.messenger&hl=in&gl=US'>Telegram Messenger</a>"))
+                    ->line(new HtmlString("2. Hubungkan dengan <a href='https://t.me/OkSetdaBot'>OkSetdaBot</a>"))
+                    ->line(new HtmlString("3. Integrasi akun OkSetda Absensi dengan OkSetdaBot dengan mengirimkan pesan berformat: <br> <b>CONNECT#USERNAME#INTEGRATION_CODE </b>"))
                     ->line(new HtmlString("<br>"))
-                    ->line(new HtmlString("<b>Your Username:</b> <span style='border-style: solid; padding: 3px;'>$notifiable->username</span>"))
-                    ->line(new HtmlString("<b>Your Integration Code:</b> <span style='border-style: solid; padding: 3px;'>$this->integration_code</span>"))
+                    ->line(new HtmlString("<b>Nama Pengguna Anda:</b> <span style='border-style: solid; padding: 3px;'>$notifiable->username</span>"))
+                    ->line(new HtmlString("<b>Kode Integrasi Anda:</b> <span style='border-style: solid; padding: 3px;'>$this->integration_code</span>"))
                     ->line(new HtmlString("<br>"))
-                    ->line('Thank you for using our application!');
+                    ->line('Terima kasih telah menggunakan aplikasi ini!');
     }
 
 }

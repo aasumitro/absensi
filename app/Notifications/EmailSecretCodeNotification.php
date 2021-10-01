@@ -43,14 +43,14 @@ class EmailSecretCodeNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Verification code via email address")
-            ->greeting("Hello, $notifiable->name!")
+            ->subject("Kode verifikasi melalui alamat email")
+            ->greeting("Halo, $notifiable->name!")
             ->line(trans(
                 "notify.new_code",
                 ['code' => $this->secret_code]
             ) . ". " . trans(
                 "notify.ignore_message",
                 ['platform' => 'Telegram Messenger']
-            ))->line('Thank you for using our application!');
+            ))->line('Terimakasih telah menggunana aplikasi ini!');
     }
 }

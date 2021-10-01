@@ -221,6 +221,15 @@
                         <span class="sidebar-text">Akun</span>
                     </a>
                 </li>
+
+                <li class="nav-item {{ Route::is('users.submissions') ? 'active' : '' }}">
+                    <a
+                        class="nav-link"
+                        href="{{ route('users.submissions') }}"
+                    >
+                        <span class="sidebar-text">Pengajuan</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </li>

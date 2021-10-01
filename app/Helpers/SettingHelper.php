@@ -80,3 +80,10 @@ if (!function_exists('get_locale_time')) {
         ];
     }
 }
+
+if (!function_exists('department_data')) {
+    function department_data($department_id) {
+        return \App\Models\Department::select('id', 'name')
+            ->first($department_id);
+    }
+}

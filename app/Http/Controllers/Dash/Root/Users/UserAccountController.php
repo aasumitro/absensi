@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dash\Root\Users\Accounts;
+namespace App\Http\Controllers\Dash\Root\Users;
 
 use App\Http\Controllers\Controller;
 

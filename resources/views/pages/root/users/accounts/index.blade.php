@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "System Settings")
+@section('title', "User Accounts")
 
 @section('content')
     <section>

@@ -19,7 +19,10 @@ use App\Http\Controllers\Dash\Root\Reports\{
     AttendanceController, SubmissionController
 };
 use App\Http\Controllers\Dash\Root\SystemSettingController;
-use App\Http\Controllers\Dash\Root\Users\Accounts\UserAccountController;
+use App\Http\Controllers\Dash\Root\Users\{
+    UserAccountController,
+    UserSubmissionController
+};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,9 +89,14 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
         ])->name('offices.peoples');
         // [END-OFFICE]
 
+        // [START-USERS]
         Route::get('users/accounts', [
             UserAccountController::class, 'index'
         ])->name('users.accounts');
+        Route::get('users/submissions', [
+            UserSubmissionController::class, 'index'
+        ])->name('users.submissions');
+        // [END--USERS]
 
         // [START-SETTING]
          Route::get('settings/system', [

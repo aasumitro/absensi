@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Events\AttendEvent;
 use App\Events\NewAccountEvent;
+use App\Events\RequestAdminEvent;
 use App\Events\SecretCodeEvent;
 use App\Listeners\SendAttendNotificationListener;
 use App\Listeners\SendNewAccountNotificationListener;
+use App\Listeners\SendRequestAdminNotificationListener;
 use App\Listeners\SendSecretCodeNotificationListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AttendEvent::class => [
             SendAttendNotificationListener::class
+        ],
+        RequestAdminEvent::class => [
+            SendRequestAdminNotificationListener::class
         ]
     ];
 }

@@ -58,93 +58,65 @@
     <script>
         const locale = `Asia/Makassar`
 
+        const SUCCESS_UNPROCESSED = 'Anda sudah melakukan absensi datang dan pulang';
+
         window.onload = () => {
             setInterval(initCurrentDatetime, 1000)
         }
-
-        // let attend_token = null
-        // let html5QrCode = new Html5Qrcode("qrcodeReader");
-        // Html5Qrcode.getCameras().then(devices => {
-        //     if (devices && devices.length) {
-        //         html5QrCode.start(
-        //             devices[0].id,
-        //             {fps: 3, qrbox: 200},
-        //             qrCodeMessage => {
-        //                 const qrData = String(qrCodeMessage.slice(1,-1))
-        //                 let dataObj = JSON.parse(qrData)
-        //
-        //                 if (attend_token == null) {
-        //                     if (attend_token !== dataObj.attend_token) {
-        //                         attend_token = dataObj.user_uuid
-        //
-        //                         console.log(dataObj)
-        //
-        //                         makeAttendanceFromQrcodeReader(
-        //                             dataObj.user_uuid,
-        //                             dataObj.attend_token
-        //                         )
-        //
-        //                         html5QrCode.clear()
-        //                     }
-        //                 }
-        //             },
-        //             errorMessage => { }).catch(err => { alert(err) }
-        //         )
-        //     }
-        // }).catch(err => {
-        //     alert(err);
-        // });
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
             "qrcodeReader", { fps: 10, qrbox: 200 }
         );
 
         function onScanSuccess(decodedText, decodedResult) {
-            alert(decodedText)
-            alert(decodedResult)
-            document.getElementById('audioBeepSuccess').play();
-
+            // contoh data dalam bentuk JSON
+            // {
+            //      "device_uuid":"97606230-6030-4b1b-bfe7-1752c9e75903",
+            //      "user_uuid":"60c5ec77-1a73-4b0f-b247-dc61994dbf63",
+            //      "attend_token":"secret"
+            // }
             let dataObj = JSON.parse(decodedText)
 
-            // window.location.replace(`${uri}=${dataObj.code}`)
-
-            // html5QrcodeScanner.clear();
-            // ^ this will stop the scanner (video feed) and clear the scan area.
+            makeAttendanceFromQrcodeReader(dataObj.user_uuid, dataObj.attend_token)
         }
 
         html5QrcodeScanner.render(onScanSuccess);
 
-        {{--function makeAttendanceFromQrcodeReader(user_uuid, attend_token) {--}}
-        {{--    let bodyFormData = new FormData();--}}
-        {{--    // ini langsung saja yang tipe desktop--}}
-        {{--    // bodyFormData.append('device_uuid', device_uuid);--}}
-        {{--    bodyFormData.append('user_uuid', user_uuid);--}}
-        {{--    bodyFormData.append('attend_token', attend_token);--}}
+        function makeAttendanceFromQrcodeReader(user_uuid, attend_token) {
+            let device_uuid = `{{$device_unique_id}}`
 
-        {{--    axios({--}}
-        {{--        method: 'POST',--}}
-        {{--        url: `{{ route('api.web.scan') }}`,--}}
-        {{--        data: bodyFormData,--}}
-        {{--        headers: {--}}
-        {{--            'Content-Type': 'multipart/form-data',--}}
-        {{--        }--}}
-        {{--    }).then((response) => {--}}
-        {{--        console.log(response);--}}
+            let bodyFormData = new FormData();
+            bodyFormData.append('device_uuid', device_uuid);
+            bodyFormData.append('user_uuid', user_uuid);
+            bodyFormData.append('attend_token', attend_token);
 
-        {{--        document.getElementById('audioAttendSuccess').play();--}}
+            axios({
+                method: 'POST',
+                url: `{{ route('api.web.scan') }}`,
+                data: bodyFormData,
+                headers: {'Content-Type': 'multipart/form-data'}
+            }).then((response) => {
+                if (response.data === SUCCESS_UNPROCESSED) {
+                    document.getElementById('audioAttendFailed').play();
+                } else {
+                    document.getElementById('audioAttendSuccess').play();
+                }
 
-        {{--        setTimeout(function(){--}}
-        {{--            window.location.reload()--}}
-        {{--        }, 1500);--}}
-        {{--    }).catch((error) => {--}}
-        {{--        document.getElementById('audioAttendFailed').play();--}}
+                setTimeout(function(){
+                    alert(response.data)
+                    // TODO replace reload page with refresh qr-scanner
+                    window.location.reload()
+                }, 1500);
+            }).catch((error) => {
+                document.getElementById('audioAttendFailed').play();
 
-        {{--        setTimeout(function(){--}}
-        {{--            alert(error)--}}
-        {{--            window.location.reload()--}}
-        {{--        }, 1500);--}}
-        {{--    })--}}
-        {{--}--}}
+                setTimeout(function(){
+                    alert(error.data)
+                    // TODO replace reload page with refresh qr-scanner
+                    window.location.reload()
+                }, 1500);
+            })
+        }
 
         function initCurrentDatetime() {
             let currentDatetimeView = document

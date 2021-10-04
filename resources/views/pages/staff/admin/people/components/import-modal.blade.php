@@ -30,7 +30,7 @@
                         </a>
                     </p>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Data pegawai (excel file)</label>
+                        <label for="formFile" class="form-label">Data pegawai (excel file extension: <code>.xls</code>)</label>
                         <input
                             class="form-control  @error('file') is-invalid @enderror"
                             type="file"
@@ -45,6 +45,10 @@
                     </div>
                     <span>
                         Pastikan semua <code>kolom</code> pada file excel terisi dan tidak ada data yang kosong agar proses <code>import data</code> berjalan sesuai sebagaimana mestinya!
+                    </span>
+                    <hr>
+                    <span>
+                        <span class="text-info">Catatan: </span> Form ini hanya untuk menambah data pegawai bukan memperbaharui data, jadi pastikan data kredensial (username, phone, email) dalam file excel tersebut memang sama sekali belum terdaftar!
                     </span>
                 </div>
                 <div class="modal-footer">

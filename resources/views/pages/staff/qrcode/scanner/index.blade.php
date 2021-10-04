@@ -102,16 +102,18 @@
                     document.getElementById('audioAttendSuccess').play();
                 }
 
+                alert(response.data)
+
                 setTimeout(function(){
-                    alert(response.data)
                     // TODO replace reload page with refresh qr-scanner
                     window.location.reload()
                 }, 1500);
             }).catch((error) => {
                 document.getElementById('audioAttendFailed').play();
 
+                alert(error.data)
+
                 setTimeout(function(){
-                    alert(error.data)
                     // TODO replace reload page with refresh qr-scanner
                     window.location.reload()
                 }, 1500);

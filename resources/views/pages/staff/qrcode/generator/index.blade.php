@@ -98,8 +98,6 @@
                 url: `{{ route('api.web.stream') }}`,
                 headers: {'Content-Type': 'application/json' }
             }).then((response) => {
-                console.log(response.data)
-
                 let data = "{'device_uuid':'"+response.data.unique_id+
                     "','session_token':'"+response.data.session_token+"'}"
 

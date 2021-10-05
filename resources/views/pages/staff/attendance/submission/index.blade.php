@@ -8,7 +8,7 @@
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Verifikasi pengajuan</h1>
                 <p class="mb-0">
-                    verifikasi pengajuan yang dibuat pengguna, operator dan admin dapat menerima atau menolak pengajuan ini serta operator dapat menginput manual
+                    verifikasi pengajuan yang dibuat pengguna.
                 </p>
             </div>
 

@@ -26,16 +26,5 @@
         @include('components.recommended-browser-modal')
 
         @include('layouts.partials.scripts')
-
-        <script>
-            window.onload = () => {
-                let isRecommendedBrowserDisplayed = localStorage.getItem('recommended_browser_display') ?? "DISPLAY"
-                if (isRecommendedBrowserDisplayed === 'DISPLAY') {
-                    let recommendedBrowserModal = document.getElementById('recommendedBrowserModal')
-                    let bsRecommendedBrowserModal = new bootstrap.Modal(recommendedBrowserModal)
-                    bsRecommendedBrowserModal.show()
-                }
-            }
-        </script>
     </body>
 </html>

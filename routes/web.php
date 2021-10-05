@@ -4,6 +4,11 @@ use App\Http\Controllers\Api\Web\QrCodeController;
 use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
 use App\Http\Controllers\Dash\Root\MobileSettingController;
+use App\Http\Controllers\Dash\Staff\Attendances\{
+    ExcelImportController,
+    ManualInputController,
+    SubmissionVerificationController
+};
 use App\Http\Controllers\Dash\Staff\Admin\{
     DeviceController as DepartmentDeviceController,
     PeopleController as DepartmentPeopleController,
@@ -126,7 +131,6 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
         });
 
         Route::middleware('role:admin,operator')->group(function () {
-            // TODO NEXT
             // [START-QRCODE]
             Route::get('qrcode/scanner', [
                 QrScannerController::class, 'index'
@@ -137,9 +141,15 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
             // [END-QRCODE]
 
             // [START-ATTENDANCE]
-            // Route::get('attendances/excel-file', [])->name('');
-            // Route::get('attendances/manual-input', [])->name('');
-            // Route::get('attendances/verify-submission', [])->name('');
+            Route::get('attendances/excel-file', [
+                ExcelImportController::class, 'index'
+            ])->name('staff.attendance.excel-file');
+            Route::get('attendances/manual-input', [
+                ManualInputController::class, 'index'
+            ])->name('staff.attendance.manual-input');
+            Route::get('attendances/verify-submission', [
+                SubmissionVerificationController::class, 'index'
+            ])->name('staff.attendance.verify-submission');
             // [END-ATTENDANCE]
 
             // [START-REPORT]

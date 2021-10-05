@@ -103,35 +103,32 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('staff.attendance.*') ? 'show' : '' }}"
             role="list"
             id="submenu-attendance"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.attendance.excel-file') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.attendance.excel-file')}}"
                     >
                         <span class="sidebar-text">Excel file</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.attendance.manual-input') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.attendance.manual-input')}}"
                     >
                         <span class="sidebar-text">Manual input</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.attendance.verify-submission') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.attendance.verify-submission')}}"
                     >
                         <span class="sidebar-text">Verifikasi Pengajuan</span>
                     </a>

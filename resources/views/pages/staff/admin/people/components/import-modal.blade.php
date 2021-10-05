@@ -44,7 +44,9 @@
                         @enderror
                     </div>
                     <span>
-                        Pastikan semua <code>kolom</code> pada file excel terisi dan tidak ada data yang kosong agar proses <code>import data</code> berjalan sesuai sebagaimana mestinya!
+                        Pastikan semua <code>kolom</code> pada file excel terisi dan
+                        tidak ada data yang kosong agar proses <code>import data</code>
+                        berjalan sesuai sebagaimana mestinya!
                     </span>
                     <hr>
                     <span>

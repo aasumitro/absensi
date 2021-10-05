@@ -3,10 +3,20 @@
 @section('title', "Import Excel File")
 
 @section('content')
-    upload excel file and process attendance data
+    <section>
+        <div class="d-flex justify-content-between w-100 flex-wrap py-4 px-3">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">Presensi >> Import data</h1>
+                <p class="mb-0">
+                    Fitur ini digunakan untuk menambahkan data absensi secara masal.
+                </p>
+            </div>
+        </div>
 
-    // import excel file
-    // get data array
-    // display data before submitted
-    // submit data if done
+        @livewire('dash.staff.staff-attendance-excel-file')
+    </section>
+{{--    // import excel file--}}
+{{--    // get data array--}}
+{{--    // display data before submitted--}}
+{{--    // submit data if done--}}
 @endsection

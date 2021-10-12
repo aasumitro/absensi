@@ -2,11 +2,13 @@
  *
  * @param type (info|error)
  * @param message
+ * @param duration
  */
-function showNotification(type, message) {
+function showNotification(type, message, duration = 3000) {
     let background = (type === 'error') ? 'red' : 'green'
     let icon = (type === 'error') ? 'fa-exclamation-circle' : 'fa-check-circle'
     const notify = new Notyf({
+        duration: duration,
         position: {
             x: 'right',
             y: 'bottom',

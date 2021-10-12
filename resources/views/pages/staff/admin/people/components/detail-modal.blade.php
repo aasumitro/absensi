@@ -25,7 +25,7 @@
                         </tr>
                         <tr>
                             <td>Nama pengguna </td>
-                            <td>{{$current_user->username}}</td>
+                            <td>{{'@'.$current_user->username}}</td>
                         </tr>
                         <tr>
                             <td>Alamat email </td>
@@ -61,7 +61,7 @@
                                     }}</td>
                                     <td>
                                         {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i:s')}}
-                                        ({{$attendance->overdue ? 'TERLAMBAT' : ''}})
+                                        ({{$attendance->overdue ? 'TERLAMBAT' : 'TEPAT WAKTU'}})
                                     </td>
                                     <td>
                                         {{

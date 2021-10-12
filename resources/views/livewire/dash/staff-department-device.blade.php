@@ -18,31 +18,22 @@
                     <td>{{ $device->name }} - {{ $device->display }}</td>
                     <td>{{ $device->refresh_time}} ({{ $device->refresh_time_mode}}) </td>
                     <td>
-                        @if($device->display === 'DASHBOARD')
-                            <button
-                                onclick="showNotification('error', 'Aksi untuk perangkat ini tidak diizinkan!')"
-                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                            >
-                                <span class="icon icon-sm">
-                                    <span class="fas fa-ban icon-dark"></span>
-                                </span>
-                            </button>
-                        @else
-                            <div class="btn-group">
-                                <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <div class="btn-group">
+                            <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <span class="icon icon-sm">
                                         <span class="fas fa-ellipsis-h icon-dark"></span>
                                     </span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu" data-popper-placement="bottom-end">
-                                    <a
-                                        wire:click="selectedDepartmentDevice({{$device}}, 'DETAIL')"
-                                        class="dropdown-item"
-                                    >
-                                        <span class="fas fa-info me-2"></span>
-                                        Data detail
-                                    </a>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" data-popper-placement="bottom-end">
+                                <a
+                                    wire:click="selectedDepartmentDevice({{$device}}, 'DETAIL')"
+                                    class="dropdown-item"
+                                >
+                                    <span class="fas fa-info me-2"></span>
+                                    Data detail
+                                </a>
+                                @if($device->display !== 'DASHBOARD')
                                     <a
                                         wire:click="selectedDepartmentDevice({{$device}}, 'UPDATE')"
                                         class="dropdown-item"
@@ -63,9 +54,9 @@
                                         <span class="fas fa-trash-alt me-2"></span>
                                         Hapus
                                     </a>
-                                </div>
+                                @endif
                             </div>
-                        @endif
+                        </div>
                     </td>
                 </tr>
             @endforeach

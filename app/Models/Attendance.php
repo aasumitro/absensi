@@ -10,6 +10,29 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'absent_type_id',
+        'device_id',
+        'department_id',
+        'attachment_id',
+        'type',
+        'status',
+        'date',
+        'datetime_in',
+        'datetime_out',
+        'timestamp_in',
+        'timestamp_out',
+        'overdue',
+        'overtime',
+        'by'
+    ];
+
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);

@@ -38,16 +38,6 @@
                         @endif
                     </td>
                     <td>
-                        @if($account->user->role->title === 'root')
-                            <button
-                                onclick="showNotification('error', 'Aksi untuk pengguna ini tidak diizinkan!')"
-                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                            >
-                                <span class="icon icon-sm">
-                                    <span class="fas fa-ban icon-dark"></span>
-                                </span>
-                            </button>
-                        @else
                         <div class="btn-group">
                             <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <span class="icon icon-sm">
@@ -69,21 +59,23 @@
                                     <span class="fas fa-mobile me-2"></span>
                                     Reset Akses Ponsel
                                 </a>
-                                <a
-                                    wire:click="selectedMemberAccount({{$account->user}}, 'UPDATE')"
-                                    class="dropdown-item">
-                                    <span class="fas fa-edit me-2"></span>
-                                    Perbaharui
-                                </a>
-                                <a
-                                    wire:click="selectedMemberAccount({{$account->user}}, 'DESTROY')"
-                                    class="dropdown-item text-danger rounded-bottom">
-                                    <span class="fas fa-trash-alt me-2"></span>
-                                    Hapus
-                                </a>
+                                @if($account->user->role->title !== 'root')
+                                    <a
+                                        wire:click="selectedMemberAccount({{$account->user}}, 'UPDATE')"
+                                        class="dropdown-item">
+                                        <span class="fas fa-edit me-2"></span>
+                                        Perbaharui
+                                    </a>
+                                    <a
+                                        wire:click="selectedMemberAccount({{$account->user}}, 'DESTROY')"
+                                        class="dropdown-item text-danger rounded-bottom">
+                                        <span class="fas fa-trash-alt me-2"></span>
+                                        Hapus
+                                    </a>
+                                @endif
                             </div>
                         </div>
-                        @endif
+
                     </td>
                 </tr>
             @endforeach

@@ -11,7 +11,7 @@
                         dan file excel harus bertipe (extensi) <code>.xls</code>
                         untuk format dapat diunduh pada link berikut:
                         <a
-                            href="#"
+                            href="{{asset('assets/default/import_data_absensi.xls')}}"
                             class="text-info text-underline"
                         >
                             format import data presensi
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="col-12 col-md-8 mb-sm-3">
-            <div class="card card-body shadow-sm">
+            <div class="card card-body shadow-sm table-responsive">
                 <div class="d-flex justify-content-between mb-3 mb-lg-0">
                     <div>
                         <h1 class="h4">Pratinjau</h1>

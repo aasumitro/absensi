@@ -81,19 +81,30 @@
                 <div class="card-header d-flex flex-row align-items-center flex-0 border-bottom">
                     <div class="d-block">
                         <div class="h6 fw-normal text-gray mb-2">Total aktivitas mingguan (Senin - Jum'at)</div>
-                        <h2 class="h3 fw-extrabold">04 - 08 Oktober 2021</h2>
+                        @php
+                            $weekStartDate = $now->startOfWeek(\Carbon\Carbon::MONDAY)->format('d');
+                            $weekEndDate = $now->endOfWeek(\Carbon\Carbon::FRIDAY)->format('d');
+                            $monthAndYear = $now->format('F y')
+                        @endphp
+                        <h2 class="h3 fw-extrabold">{{$weekStartDate}} - {{$weekEndDate}} {{$monthAndYear}}</h2>
                         <div class="d-flex">
                             <div class="small">
                                 (IN)
-                                <span class="fas fa-angle-down text-success"></span>
-                                <span class="text-success fw-bold">18.2%</span>
+                                <span class="fas fa-arrow-alt-circle-down text-success"></span>
+                                <span class="text-success fw-bold">{{$in_count}}</span>
 
                             </div>
                             <span class="ms-2 me-2">|</span>
                             <div class="small">
                                 (OUT)
-                                <span class="fas fa-angle-up text-danger"></span>
-                                <span class="text-danger fw-bold">18.2%</span>
+                                <span class="fas fa-arrow-alt-circle-up text-danger"></span>
+                                <span class="text-danger fw-bold">{{$out_count}}</span>
+                            </div>
+                            <span class="ms-2 me-2">|</span>
+                            <div class="small">
+                                (ABSENT)
+                                <span class="far fa-file-alt text-warning"></span>
+                                <span class="text-warning fw-bold">{{$absent_count}}</span>
                             </div>
                         </div>
                     </div>
@@ -111,6 +122,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush list my--3">
+                        @if(count($latest_activities) > 0)
                         @foreach($latest_activities as $activity)
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
@@ -119,32 +131,49 @@
                                         <img
                                             class="rounded"
                                             alt="Image placeholder"
-                                            src="{{default_profile_picture($activity['name'])}}"
+                                            src="{{default_profile_picture($activity->data)}}"
                                         >
                                     </a>
                                 </div>
                                 <div class="col-auto ms--2">
                                     <h4 class="h6 mb-0">
-                                        <a href="#">{{$activity['name']}}</a>
+                                        <a href="#">{{$activity->data}}</a>
                                     </h4>
                                     <div class="d-flex align-items-center">
                                         <small>
-                                            {{$activity['attend_time']}}
-                                            @if($activity['attend'] === 'in' && $activity['status'] === 'late')
-                                                <code>[TERLAMBAT]</code>
+                                            @if($activity->type === 'ABSENT')
+                                                {{\Carbon\Carbon::parse($activity->date)->format('d, M Y')}}
+                                                <code>[IZIN]</code>
+                                            @else
+                                                {{\Carbon\Carbon::parse($activity->datetime)->format('d, M Y H:i')}}
+                                                @if($activity->type === 'IN' && $activity->status === 'OVERTIME')
+                                                    <code>[TERLAMBAT]</code>
+                                                @endif
                                             @endif
                                         </small>
                                     </div>
                                 </div>
                                 <div class="col text-end">
-                                    <a href="#" class="btn btn-sm btn-{{$activity['attend'] === 'in' ? 'success' : 'danger'}}">
-                                        <i class="fas fa-arrow-alt-circle-{{$activity['attend'] === 'in' ? 'down' : 'up'}}"></i>
-                                        <span>{{ucwords($activity['attend'])}}</span>
+                                    @if($activity->type === 'ABSENT')
+                                        <a href="#" class="btn btn-sm btn-warning">
+                                            <i class="far fa-file-alt"></i>
+                                            <span>{{ucwords($activity->type)}}</span>
+                                        </a>
+                                    @else
+                                    <a href="#" class="btn btn-sm btn-{{$activity->type === 'IN' ? 'success' : 'danger'}}">
+                                        <i class="fas fa-arrow-alt-circle-{{$activity->type === 'IN' ? 'down' : 'up'}}"></i>
+                                        <span>{{ucwords($activity->type)}}</span>
                                     </a>
+                                    @endif
                                 </div>
                             </div>
                         </li>
                         @endforeach
+                        @else
+                            <li class="list-group-item px-0 text-center">
+                                Data tidak tersedia
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -152,6 +181,46 @@
     </div>
 </div>
 
-<script>
+@section('custom-script')
+    <script>
+        if(d.querySelector('.ct-chart-ranking')) {
+            let labels = @json($labels);
+            let series = @json($series);
 
-</script>
+            let chart = new Chartist.Bar('.ct-chart-ranking', {
+                labels: labels,
+                series: series
+            }, {
+                low: 0,
+                showArea: true,
+                plugins: [
+                    Chartist.plugins.tooltip()
+                ],
+                axisX: {
+                    // On the x-axis start means top and end means bottom
+                    position: 'end'
+                },
+                axisY: {
+                    // On the y-axis start means left and end means right
+                    showGrid: false,
+                    showLabel: false,
+                    offset: 0
+                }
+            });
+
+            chart.on('draw', function(data) {
+                if(data.type === 'line' || data.type === 'area') {
+                    data.element.animate({
+                        d: {
+                            begin: 2000 * data.index,
+                            dur: 2000,
+                            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                            to: data.path.clone().stringify(),
+                            easing: Chartist.Svg.Easing.easeOutQuint
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+@endsection

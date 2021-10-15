@@ -21,5 +21,10 @@
             /* Colour of your bars */
             stroke: red;
         }
+
+        .ct-series-c .ct-bar {
+            /* Colour of your bars */
+            stroke: #f5b759;
+        }
     </style>
 @endsection

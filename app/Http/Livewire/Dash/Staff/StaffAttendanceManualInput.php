@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dash\Staff;
 use App\Models\Attendance;
 use App\Models\Device;
 use App\Models\User;
+use App\Notifications\TelegramAttendNotification;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -49,12 +50,11 @@ class StaffAttendanceManualInput extends Component
                 'message' => 'Anda tidak dapat memilih pegawai dari SKPD lain'
             ]);
         }
-
     }
 
     public function updatedQuery()
     {
-        $this->users = User::where('name', 'like', '%' . $this->query . '%')
+        $this->users = User::where('name', 'like', "%$this->query%")
             ->with('profile.department:id,name')
             ->get();
     }
@@ -66,10 +66,19 @@ class StaffAttendanceManualInput extends Component
 
             Attendance::create($validatedData);
 
+            if ($this->selected_user->telegram_id) {
+                $this->selected_user->notify(new TelegramAttendNotification(
+                    "Absensi anda telah diisi oleh " .auth()->user()->name .
+                    " untuk tanggal " . $validatedData['date']
+                ));
+            }
+
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',
                 'message' => "Action <b>[NEW_ATTENDANCE]</b> success"
             ]);
+
+            $this->reset();
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',

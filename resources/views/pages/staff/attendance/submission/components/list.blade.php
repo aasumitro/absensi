@@ -33,7 +33,7 @@
                     </p>
                 </td>
                 <td>
-                   <span class="badge bg-primary">
+                   <span class="badge bg-{{submission_status_color($submission->status)}}">
                         {{$submission->status}}
                    </span>
                 </td>

@@ -23,7 +23,7 @@
 
                 @if(!empty($query))
                     <div class="list-group border-3 mb-3">
-                        @if($users->count() > 1)
+                        @if($users->count() > 0)
                             @foreach($users as $i => $user)
                                 <a
                                     href="#"

@@ -6,6 +6,7 @@ use App\Imports\DepartmentUserImport;
 use App\Models\Managers\AccountManager;
 use App\Models\Managers\RoleManager;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -123,6 +124,8 @@ class StaffDepartmentMember extends Component
                 'type' => 'success',
                 'message' => "Action <b>[FROM_IMPORT]</b> success"
             ]);
+
+            Storage::deleteDirectory('livewire-tmp');
         } catch (\Exception $e) {
             $this->dispatchBrowserEvent(
                 'openModal',

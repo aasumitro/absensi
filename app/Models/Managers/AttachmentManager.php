@@ -27,12 +27,22 @@ trait AttachmentManager
             $file_name = explode('/', $file);
             $data['path'] = 'images/mobile';
             $data['name'] = end($file_name);
-            Storage::deleteDirectory('livewire-tmp');
+            unset($data['file']);
         }
 
-        Attachment::create($data);
+        if ($data['type'] === 'FILE') {
+            $file = $data['file']->store('public/uploads/files/mobile');
+            $file_name = explode('/', $file);
+            $data['path'] = 'files/mobile';
+            $data['name'] = end($file_name);
+            unset($data['file']);
+        }
+
+        $attachment = Attachment::create($data);
 
         Cache::forget($this->fetch_attachment_key);
+
+        return $attachment;
     }
 
     public function modifyAttachment($id, $data, $status = "NO_CONTENT")

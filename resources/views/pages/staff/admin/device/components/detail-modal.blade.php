@@ -65,22 +65,32 @@
                                 <tr class="text-center">
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$attendance->date}}</td>
-                                    <td>{{
-                                            $attendance->status === 'ATTEND'
-                                            ? 'HADIR'
-                                            : 'IZIN'
-                                    }}</td>
+                                    <td>
+                                        @if($attendance->status === 'ATTEND')
+                                            HADIR
+                                        @else
+                                            IZIN (<a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">lampiran</a>)
+                                        @endif
+                                    </td>
                                     <td>{{$attendance->user->name}}</td>
                                     <td>
+                                        @if($attendance->status === 'ATTEND')
                                         {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i:s')}}
                                         ({{$attendance->overdue ? 'TERLAMBAT' : 'TEPAT WAKTU'}})
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                     <td>
+                                        @if($attendance->status === 'ATTEND')
                                         {{
                                             $attendance->datetime_out
                                             ? \Carbon\Carbon::parse($attendance->datetime_out)->format('H:i:s')
                                             : "BELUM ABSEN"
                                         }}
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -92,7 +102,8 @@
                         <div class="text-center">Belum ada aktifitas</div>
                     @endif
 
-                    @if((int)$device_detail->attendances_count === 5)
+                    @if((int)$device_detail->attendances_count >= 5)
+                    {{-- TODO update link url --}}
                         <div class="text-center">
                             hanya 5 data yang akan ditampilkan, <br>untuk lebih lengkapnya lihat pada menu
                             <a href="#" class="text-info text-underline">laporan</a>

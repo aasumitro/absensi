@@ -73,8 +73,8 @@ trait AccountManager
 
     protected function destroyAccount($user_id)
     {
-        if ($user_id === 1)
-            throw new \Exception("This account cannot destroyed");
+        if ($user_id === 1 || $user_id === \auth()->user()->id)
+            throw new \Exception(" Anda tidak memiliki izin untuk menghapus akun ini.");
 
         User::destroy($user_id);
 

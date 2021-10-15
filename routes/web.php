@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Web\QrCodeController;
 use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
 use App\Http\Controllers\Dash\Root\MobileSettingController;
+use App\Http\Controllers\Viewer\PrivateFileViewerController;
 use App\Http\Controllers\Dash\Staff\Attendances\{
     ExcelImportController,
     ManualInputController,
@@ -40,6 +41,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// [PRIVATE-FILE-ACCESS]
+Route::get(
+    '/file/{id}',
+    [PrivateFileViewerController::class, 'view']
+)->name('private.file');
 
 Route::get('/', function () {
     return view('welcome');

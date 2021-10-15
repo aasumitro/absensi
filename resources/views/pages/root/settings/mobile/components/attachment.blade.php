@@ -34,6 +34,12 @@
                     @if($attachment->type === 'LINK')
                         NONE
                     @else
+                        @if(substr($attachment->path, 0, 7) === 'private')
+                            <p class="fw-bold">
+                                Pratinjau tidak tersedia untuk private file, <br>
+                                silahkan klik tautan lokasi untuk melihat
+                            </p>
+                        @else
                         <a
                             target="_blank"
                             href="{{asset('storage/uploads/'. $attachment->path.'/'.$attachment->name) }}"
@@ -43,6 +49,7 @@
                                 class="d-block w-100" alt="{{$attachment->name}}"
                             >
                         </a>
+                        @endif
                     @endif
                 </td>
                 <td>
@@ -55,13 +62,20 @@
                         >{{$attachment->path}}</a>
                     @else
                         <b>name: {{$attachment->name}}</b> <br>
-                        lokasi : <a
+                        lokasi :
+                        <a
                             target="_blank"
-                            href="{{asset('storage/uploads/'. $attachment->path.'/'.$attachment->name) }}"
+                            href="{{
+                                (substr($attachment->path, 0, 7) === 'private')
+                                 ? route('private.file', ['id' => $attachment->id])
+                                 : asset('storage/uploads/'. $attachment->path.'/'.$attachment->name)
+
+                            }}"
                             class="text-info"
                         >
                             {{$attachment->path}}
                         </a>
+                            (klik untuk melihat)
                     @endif
 
                 </td>

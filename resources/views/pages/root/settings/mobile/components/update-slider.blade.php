@@ -67,7 +67,9 @@
                                         required
                                     >
                                         @foreach($attachments as $atc)
+                                            @if(substr($atc->path, 0, 7) !== 'private')
                                             <option value="{{$atc->id}}">{{ $atc->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 

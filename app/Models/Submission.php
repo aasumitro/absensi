@@ -36,4 +36,9 @@ class Submission extends Model
     {
         return $this->belongsTo(AbsentType::class);
     }
+
+    public function attachment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Attachment::class);
+    }
 }

@@ -119,14 +119,14 @@ class StaffAttendanceVerifySubmission extends Component
                 $attachment = $this->newAttachment([
                     'type' => 'FILE',
                     'file'=> $data['file']
-                ]);
+                ], 'PRIVATE');
             }
 
             if (in_array(substr($data['file']->getFileName(), -3), ['jpg','png','jpeg'])) {
                 $attachment = $this->newAttachment([
                     'type' => 'IMAGE',
                     'file'=> $data['file']
-                ]);
+                ], 'PRIVATE');
             }
 
             unset($data['file']);
@@ -303,7 +303,7 @@ class StaffAttendanceVerifySubmission extends Component
 
     private function loadSubmissions(): LengthAwarePaginator
     {
-        $submissions = Submission::with('absentType', 'user')
+        $submissions = Submission::with('absentType', 'user', 'attachment')
             ->where('created_at', '>=',  Carbon::parse($this->from_date)->format('Y-m-d 00:00:00'))
             ->where('created_at', '<=',  Carbon::parse($this->to_date)->format('Y-m-d 23:59:59'));
 

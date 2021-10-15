@@ -20,20 +20,29 @@ trait AttachmentManager
         });
     }
 
-    public function newAttachment($data)
+    public function newAttachment($data, $visibility = 'PUBLIC')
     {
+
         if ($data['type'] === 'IMAGE') {
-            $file = $data['file']->store('public/uploads/images/mobile');
+            $folder_path = ($visibility === 'PUBLIC')
+                ? 'public/uploads/images/mobile'
+                : 'private/images';
+
+            $file = $data['file']->store($folder_path);
             $file_name = explode('/', $file);
-            $data['path'] = 'images/mobile';
+            $data['path'] = ($visibility === 'PUBLIC') ? 'images/mobile' : $folder_path;
             $data['name'] = end($file_name);
             unset($data['file']);
         }
 
         if ($data['type'] === 'FILE') {
-            $file = $data['file']->store('public/uploads/files/mobile');
+            $folder_path = ($visibility === 'PUBLIC')
+                ? 'public/uploads/files/mobile'
+                : 'private/files';
+
+            $file = $data['file']->store($folder_path);
             $file_name = explode('/', $file);
-            $data['path'] = 'files/mobile';
+            $data['path'] = ($visibility === 'PUBLIC') ? 'files/mobile': $folder_path;
             $data['name'] = end($file_name);
             unset($data['file']);
         }

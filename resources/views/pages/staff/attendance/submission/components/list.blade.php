@@ -24,9 +24,15 @@
                         \Carbon\Carbon::parse($submission->end_at)->format('M Y')
                 }}</td>
                 <td>
-                    <b>{{$submission->title}}</b>
+                    <b>Judul: {{$submission->title}}</b>
+                    <br>Lampiran: <a
+                        class="text-underline text-info"
+                        target="_blank"
+                        href="{{ route("private.file", ['id' => $submission->attachment->id]) }}"
+                    > klik untuk melihat</a>
                     <p>
-                        {{$submission->description}}
+                        Keterangan: {{$submission->description}}
+
                         @if($submission->status === 'REJECTED')
                             <br><code>CATATAN:</code> {{$submission->notes}}
                         @endif

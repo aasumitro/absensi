@@ -35,10 +35,22 @@
                         NONE
                     @else
                         @if(substr($attachment->path, 0, 7) === 'private')
-                            <p class="fw-bold">
-                                Pratinjau tidak tersedia untuk private file, <br>
-                                silahkan klik tautan lokasi untuk melihat
-                            </p>
+                            @if($attachment->type === 'FILE')
+                                <p class="fw-bold">
+                                    Pratinjau tidak tersedia untuk private file, <br>
+                                    silahkan klik tautan lokasi untuk melihat
+                                </p>
+                            @else
+                                <a
+                                    target="_blank"
+                                    href="{{route('private.file', ['id' => $attachment->id])}}"
+                                >
+                                    <img
+                                        src="{{route('private.file', ['id' => $attachment->id])}}"
+                                        class="d-block w-100" alt="{{$attachment->name}}"
+                                    >
+                                </a>
+                            @endif
                         @else
                         <a
                             target="_blank"

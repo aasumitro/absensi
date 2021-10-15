@@ -48,7 +48,7 @@
                             <th>Pulang</th>
                         </tr>
                         </thead>
-                        @if($current_user_attendances->count() >= 1)
+                        @if($current_user_attendances->count() >= 0)
                             <tbody>
                             @foreach($current_user_attendances as $attendance)
                                 <tr class="text-center">
@@ -88,7 +88,7 @@
                     @if((int)$current_user_attendances->count() === 0)
                         <div class="text-center">Belum ada aktifitas</div>
                     @endif
-                    @if((int)$current_user_attendances->count() === 5)
+                    @if((int)$current_user_attendances->count() >= 5)
                         <div class="text-center">
                             hanya 5 data yang akan ditampilkan, <br>untuk lebih lengkapnya lihat pada menu
                             <a href="#" class="text-info text-underline">laporan</a>

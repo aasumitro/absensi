@@ -16,6 +16,7 @@ class PrivateFileViewerController extends Controller
     public function view($id): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $attachment = Attachment::findOrFail($id);
+
         $file = storage_path("app/$attachment->path/") . $attachment->name;
 
         if (!file_exists($file)) {

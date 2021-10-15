@@ -75,7 +75,7 @@ class StaffDepartmentMember extends Component
 
         if ($action === 'DETAIL') {
             $this->current_user = $user;
-            $this->current_user_attendances = $user->attendances;
+            $this->current_user_attendances = optional($user->attendances)->slice(0, 5);
         }
     }
 

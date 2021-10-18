@@ -62,13 +62,13 @@
                                 </svg>
                             </div>
                             <div class="d-sm-none">
-                                <h2 class="fw-extrabold h5"> Presensi terkini</h2>
+                                <h2 class="fw-extrabold h5"> Presensi total</h2>
                                 <h3 class="mb-1">{{$attendance_count}}</h3>
                             </div>
                         </div>
                         <div class="col-12 col-xl-7 px-xl-0">
                             <div class="d-none d-sm-block">
-                                <h2 class="h6 text-black-400 mb-0"> Presensi terkini (IN/OUT)</h2>
+                                <h2 class="h6 text-black-400 mb-0"> Presensi total (IN/OUT/ABSENT)</h2>
                                 <h3 class="fw-extrabold mb-2">{{$attendance_count}} </h3>
                             </div>
                         </div>
@@ -81,18 +81,16 @@
                 <div class="card-header d-flex flex-row align-items-center flex-0 border-bottom">
                     <div class="d-block">
                         <div class="h6 fw-normal text-gray mb-2">Total aktivitas mingguan (Senin - Jum'at)</div>
-                        @php
-                            $weekStartDate = $now->startOfWeek(\Carbon\Carbon::MONDAY)->format('d');
-                            $weekEndDate = $now->endOfWeek(\Carbon\Carbon::FRIDAY)->format('d');
-                            $monthAndYear = $now->format('F y')
-                        @endphp
-                        <h2 class="h3 fw-extrabold">{{$weekStartDate}} - {{$weekEndDate}} {{$monthAndYear}}</h2>
+                        <h2 class="h3 fw-extrabold">
+                            {{$now->startOfWeek(\Carbon\CarbonInterface::MONDAY)->format('d')}} -
+                            {{$now->endOfWeek(\Carbon\CarbonInterface::FRIDAY)->format('d')}}
+                            {{$now->format('F y')}}
+                        </h2>
                         <div class="d-flex">
                             <div class="small">
                                 (IN)
                                 <span class="fas fa-arrow-alt-circle-down text-success"></span>
                                 <span class="text-success fw-bold">{{$in_count}}</span>
-
                             </div>
                             <span class="ms-2 me-2">|</span>
                             <div class="small">
@@ -110,7 +108,13 @@
                     </div>
                 </div>
                 <div class="card-body p-2">
+                    @if($absent_count <= 0 && $in_count <= 0 && $out_count <= 0)
+                        <div class="text-center py-5">
+                            Belum ada data
+                        </div>
+                    @else
                     <div class="ct-chart-ranking ct-golden-section ct-series-a"></div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -171,7 +175,7 @@
                         @endforeach
                         @else
                             <li class="list-group-item px-0 text-center">
-                                Data tidak tersedia
+                                Belum ada data
                             </li>
                         @endif
                     </ul>

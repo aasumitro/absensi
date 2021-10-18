@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Dash;
 
 use App\Models\Department;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
+use DB;
 use Livewire\Component;
 
 class AdminAndOperatorHomeView extends Component
@@ -17,6 +20,10 @@ class AdminAndOperatorHomeView extends Component
 
     public $now;
 
+    public $start_of_the_week;
+
+    public $end_of_the_week;
+
     public array $labels;
 
     public array $series;
@@ -27,8 +34,14 @@ class AdminAndOperatorHomeView extends Component
 
     public $absent_count;
 
+    protected $queryString = ['start_of_the_week', 'end_of_the_week'];
+
     public function mount()
     {
+        $this->now = Carbon::now();
+        $this->start_of_the_week = $this->now->startOfWeek(CarbonInterface::MONDAY)->format('d');
+        $this->end_of_the_week = $this->now->endOfWeek(CarbonInterface::FRIDAY)->format('d');
+
         $department = Department::withCount(
             'members', 'devices', 'attendances'
         )->find(auth()->user()->profile->department_id);
@@ -37,28 +50,59 @@ class AdminAndOperatorHomeView extends Component
         $this->device_count = $department->devices_count;
         $this->attendance_count = $department->attendances_count;
 
-        $this->latest_activities = \DB::table('observe_attendances')
-            ->where('department_id', $department->id)
-            ->limit(8)
-            ->get();
-
-        $this->now = \Carbon\Carbon::now();
-        $startDate = $this->now->startOfWeek(\Carbon\Carbon::MONDAY)->format('d');
-        $endDate = $this->now->endOfWeek(\Carbon\Carbon::FRIDAY)->format('d');
-        $this->labels = ["SENIN ($startDate)",
-            "SELASA (".($startDate + 1).")",
-            "RABU (".($startDate + 2).")",
-            "KAMIS (".($startDate + 3).")",
-            "JUMAT ({$endDate})",
-        ];
-        $this->series = [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]];
-        $this->in_count = 15;
-        $this->out_count = 15;
-        $this->absent_count = 15;
+        $this->buildChartData($department->id);
     }
 
     public function render()
     {
         return view('livewire.dash.admin-and-operator-home-view');
+    }
+
+    private function buildChartData($department_id)
+    {
+        $this->labels = [
+            "SENIN ($this->start_of_the_week)",
+            "SELASA (".($this->start_of_the_week + 1).")",
+            "RABU (".($this->start_of_the_week + 2).")",
+            "KAMIS (".($this->start_of_the_week + 3).")",
+            "JUMAT ($this->start_of_the_week)",
+        ];
+
+        $data = $this->latest_activities = DB::table('observe_attendances')
+            ->whereBetween('date', [
+                    $this->now->startOfWeek(CarbonInterface::MONDAY)->format('Y-m-d'),
+                    $this->now->endOfWeek(CarbonInterface::FRIDAY)->format('Y-m-d')
+            ])->where('department_id', $department_id);
+        $this->latest_activities = $data->limit(8)->get();
+
+        $data_all = $data->get();
+        $this->in_count = count(array_filter($data_all->toArray(), function($item) {
+            return $item->type === 'IN';
+        }));
+        $this->out_count = count(array_filter($data_all->toArray(), function($item) {
+            return $item->type === 'OUT';
+        }));
+        $this->absent_count = count(array_filter($data_all->toArray(), function($item) {
+            return $item->type === 'ABSENT';
+        }));
+
+        $absent = []; $in = []; $out = [];
+
+        $i = 0;
+        foreach ($this->labels as $label) {
+            $current_itration_date = $this->start_of_the_week+$i;
+            $absent[] = count(array_filter($data_all->toArray(), function($item) use($current_itration_date) {
+                return $item->type === 'ABSENT' && $item->date === $this->now->format('Y-m-').$current_itration_date;
+            }));
+            $in[] = count(array_filter($data_all->toArray(), function($item) use($current_itration_date) {
+                return $item->type === 'IN' && $item->date === $this->now->format('Y-m-').$current_itration_date;
+            }));
+            $out[] = count(array_filter($data_all->toArray(), function($item) use($current_itration_date) {
+                return $item->type === 'OUT' && $item->date === $this->now->format('Y-m-').$current_itration_date;
+            }));
+            $i++;
+        }
+
+        $this->series = [$in, $out, $absent];
     }
 }

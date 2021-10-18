@@ -22,7 +22,7 @@
                             type="text"
                             id="user"
                             class="form-control"
-                            placeholder="kata kunci . . ."
+                            placeholder="kata kunci (nama pegawai) . . ."
                             wire:model="query"
                         />
                     </div>
@@ -32,6 +32,7 @@
                     </div>
 
                     @if(!empty($query))
+                        <div class="fw-bold">Pilih salah satu:</div>
                         <div class="list-group border-3 mb-3">
                             @if($users->count() > 0)
                                 @foreach($users as $i => $user)

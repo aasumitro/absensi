@@ -23,6 +23,8 @@
 
         @include('components.logout')
 
+        @include('components.loading')
+
         @include('components.recommended-browser-modal')
 
         @include('layouts.partials.scripts')

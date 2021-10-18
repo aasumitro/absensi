@@ -15,6 +15,4 @@
 
         @livewire('dash.staff.staff-attendance-manual-input')
     </section>
-{{--    input manual one by one by selected id or credentials--}}
-{{--    // set by ADMIN/OPERATOR--}}
 @endsection

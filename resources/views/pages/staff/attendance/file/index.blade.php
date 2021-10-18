@@ -15,8 +15,4 @@
 
         @livewire('dash.staff.staff-attendance-excel-file')
     </section>
-{{--    // import excel file--}}
-{{--    // get data array--}}
-{{--    // display data before submitted--}}
-{{--    // submit data if done--}}
 @endsection

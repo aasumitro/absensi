@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class SubmissionController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         return view('pages.root.reports.submission.index');
     }

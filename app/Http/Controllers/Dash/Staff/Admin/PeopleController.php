@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PeopleController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         return view('pages.staff.admin.people.index');
     }

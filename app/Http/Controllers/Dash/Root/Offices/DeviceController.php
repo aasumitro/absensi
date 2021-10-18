@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class DeviceController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         return view('pages.root.offices.device.index');
     }

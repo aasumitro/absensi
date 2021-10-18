@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ManualInputController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         return view('pages.staff.attendance.input.index');
     }

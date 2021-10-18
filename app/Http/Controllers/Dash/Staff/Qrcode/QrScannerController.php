@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 
 class QrScannerController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         $department_id = auth()->user()->profile->department_id;
 

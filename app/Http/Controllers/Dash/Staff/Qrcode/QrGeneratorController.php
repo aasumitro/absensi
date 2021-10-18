@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class QrGeneratorController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         return view('pages.staff.qrcode.generator.index');
     }

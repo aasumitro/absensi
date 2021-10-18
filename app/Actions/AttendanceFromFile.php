@@ -4,6 +4,8 @@ namespace App\Actions;
 
 use App\Models\Attendance;
 use App\Models\Device;
+use App\Models\User;
+use App\Notifications\TelegramAttendNotification;
 use Carbon\Carbon;
 
 class AttendanceFromFile
@@ -47,6 +49,15 @@ class AttendanceFromFile
                 'overtime' => ($data['overtime'] === 'YA' ? 1 : 0),
                 'by' => 'ADMIN/OPERATOR'
             ]);
+
+            $user = User::find($data['username']['id']);
+
+            if ($user->telegram_id) {
+                $user->notify(new TelegramAttendNotification(
+                    "Absensi anda telah diisi oleh " .auth()->user()->name .
+                    " untuk tanggal " . $data['date']
+                ));
+            }
         }
     }
 }

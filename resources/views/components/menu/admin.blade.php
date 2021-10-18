@@ -186,15 +186,6 @@
                         target="_blank"
                         href="#"
                     >
-                        <span class="sidebar-text">Berdasarkan Lokasi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        target="_blank"
-                        href="#"
-                    >
                         <span class="sidebar-text">Berdasarkan Pegawai</span>
                     </a>
                 </li>

@@ -7,13 +7,8 @@ namespace App\Models\Managers;
 
  trait DepartmentManager
  {
-     private string $fetch_department_key = 'livewire_trait_department_list';
-
      protected function fetchDepartments()
      {
-         return Cache::remember($this->fetch_department_key, $this->cache_time, function ()
-         {
-             return Department::all() ;
-         });
+         return Department::all() ;
      }
  }

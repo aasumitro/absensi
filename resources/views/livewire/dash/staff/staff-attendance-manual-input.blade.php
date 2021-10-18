@@ -14,6 +14,7 @@
                         class="form-control"
                         placeholder="kata kunci . . ."
                         wire:model="query"
+                        autocomplete="off"
                     />
                 </div>
 

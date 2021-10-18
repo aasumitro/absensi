@@ -38,8 +38,6 @@ class StaffDepartmentMember extends Component
 
     public $file;
 
-    public $cache_time = 120;
-
     protected $listeners = ['staffDepartmentPeopleListSectionRefresh' => '$refresh'];
 
     public function mount()

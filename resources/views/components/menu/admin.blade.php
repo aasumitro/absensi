@@ -165,37 +165,34 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('staff.reports.*') ? 'show' : '' }}"
             role="list"
             id="submenu-report"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item  {{ Route::is('staff.reports.summaries') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.reports.summaries')}}"
                     >
                         <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.reports.by-people') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.reports.by-people')}}"
                     >
                         <span class="sidebar-text">Berdasarkan Pegawai</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.reports.by-dates') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.reports.by-dates')}}"
                     >
-                        <span class="sidebar-text">Berdasarkan Hari</span>
+                        <span class="sidebar-text">Berdasarkan Tanggal</span>
                     </a>
                 </li>
             </ul>

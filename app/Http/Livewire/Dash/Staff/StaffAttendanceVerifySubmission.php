@@ -242,7 +242,9 @@ class StaffAttendanceVerifySubmission extends Component
     {
         $this->users = User::where('name', 'like', '%' . $this->query . '%')
             ->with('profile.department:id,name')
-            ->get();
+            ->whereHas('profile.department', function ($query) {
+                $query->where('id', $this->department_id);
+            })->get();
     }
 
     private function validateRequestData(): array

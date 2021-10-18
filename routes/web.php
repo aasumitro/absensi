@@ -5,7 +5,9 @@ use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
 use App\Http\Controllers\Dash\Root\MobileSettingController;
 use App\Http\Controllers\Dash\Staff\Reports\{
-    SummaryReportController
+    SummaryReportController as DepartmentSummaryReportController,
+    ByPeopleReportController as DepartmentByPeopleReportController,
+    ByDateRangeReportController as DepartmentByDateRangeReportController
 };
 use App\Http\Controllers\Viewer\PrivateFileViewerController;
 use App\Http\Controllers\Dash\Staff\Attendances\{
@@ -130,15 +132,14 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
                 Route::get('/manual-input', ManualInputController::class)->name('staff.attendance.manual-input');
                 Route::get('/verify-submission', SubmissionVerificationController::class)->name('staff.attendance.verify-submission');
             });
-           // [END-ATTENDANCE]
+            // [END-ATTENDANCE]
 
             // [START-REPORT]
             Route::prefix('reports')->group(function () {
-                Route::get('/summaries',  SummaryReportController::class)->name('staff.reports.summaries');
-                // Route::get('/peoples', [])->name('');
-                // Route::get('/days', [])->name('');
+                Route::get('/summaries',  DepartmentSummaryReportController::class)->name('staff.reports.summaries');
+                 Route::get('/peoples', DepartmentByPeopleReportController::class)->name('staff.reports.by-people');
+                 Route::get('/dates', DepartmentByDateRangeReportController::class)->name('staff.reports.by-dates');
             });
-
             // [END-REPORT]
         });
     });

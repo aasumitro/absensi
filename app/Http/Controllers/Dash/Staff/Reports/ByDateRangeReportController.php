@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Dash\Staff\Reports;
 
 use App\Http\Controllers\Controller;
 
-class ByDayReportController extends Controller
+class ByDateRangeReportController extends Controller
 {
     public function __invoke()
     {
-        return view('pages.staff.report.summaries.index');
+        return view('pages.staff.report.dates.index');
     }
 }

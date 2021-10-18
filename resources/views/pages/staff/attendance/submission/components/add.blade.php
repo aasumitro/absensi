@@ -24,6 +24,7 @@
                             class="form-control"
                             placeholder="kata kunci (nama pegawai) . . ."
                             wire:model="query"
+                            autocomplete="off"
                         />
                     </div>
 

@@ -3,26 +3,19 @@
 namespace App\Models\Managers;
 
 use App\Models\Attachment;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 trait AttachmentManager
 {
-    private string $fetch_attachment_key = 'livewire_trait_attachment_list';
-
     public function fetchAttachment()
     {
-        return Cache::remember($this->fetch_attachment_key, $this->cache_time, function ()
-        {
-            return Attachment::withCount(
-                'mobilePreferences', 'attendances', 'submissions'
-            )->get();
-        });
+        return Attachment::withCount(
+            'mobilePreferences', 'attendances', 'submissions'
+        )->get();
     }
 
     public function newAttachment($data, $visibility = 'PUBLIC')
     {
-
         if ($data['type'] === 'IMAGE') {
             $folder_path = ($visibility === 'PUBLIC')
                 ? 'public/uploads/images/mobile'
@@ -49,8 +42,6 @@ trait AttachmentManager
 
         $attachment = Attachment::create($data);
 
-        Cache::forget($this->fetch_attachment_key);
-
         return $attachment;
     }
 
@@ -75,8 +66,6 @@ trait AttachmentManager
         $attachment->path = $data['path'];
         $attachment->type = $data['type'];
         $attachment->save();
-
-        Cache::forget($this->fetch_attachment_key);
     }
 
     protected function destroyAttachment($attachment_id)
@@ -88,7 +77,5 @@ trait AttachmentManager
         }
 
         $attachment->delete();
-
-        Cache::forget($this->fetch_attachment_key);
     }
 }

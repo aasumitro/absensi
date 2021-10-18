@@ -56,7 +56,9 @@ class StaffAttendanceManualInput extends Component
     {
         $this->users = User::where('name', 'like', "%$this->query%")
             ->with('profile.department:id,name')
-            ->get();
+            ->whereHas('profile.department', function ($query) {
+                $query->where('id', $this->admin_office);
+            })->get();
     }
 
     public function submitNewAttendance()

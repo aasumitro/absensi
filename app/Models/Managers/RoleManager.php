@@ -11,11 +11,6 @@ trait RoleManager
 
     private function fetchRoles($not_in = [MEMBER_ROLE_ID])
     {
-        return Cache::remember(
-            $this->fetch_role_key . json_encode($not_in),
-            $this->cache_time,
-            function () use ($not_in) {
-                return Role::whereNotIn('id', $not_in)->get();
-            });
+        return Role::whereNotIn('id', $not_in)->get();
     }
 }

@@ -52,4 +52,9 @@ class Attendance extends Model
     {
         return $this->belongsTo(Attachment::class);
     }
+
+    public function absentType(): BelongsTo
+    {
+        return $this->belongsTo(AbsentType::class);
+    }
 }

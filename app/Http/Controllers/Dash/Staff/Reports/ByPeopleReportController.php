@@ -8,6 +8,6 @@ class ByPeopleReportController extends Controller
 {
     public function __invoke()
     {
-        return view('pages.staff.report.summaries.index');
+        return view('pages.staff.report.peoples.index');
     }
 }

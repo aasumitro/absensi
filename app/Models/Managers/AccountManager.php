@@ -11,29 +11,18 @@ use Illuminate\Support\Str;
 
 trait AccountManager
 {
-    private string $fetch_account_key = 'livewire_trait_users_account_without_member';
-    private string $fetch_department_member_account_key = 'livewire_trait_users_department__member_account';
-
-    protected function fetchAccounts()
+    protected function fetchAccounts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Cache::remember($this->fetch_account_key, $this->cache_time, function ()
-        {
-            return User::with('profile.department', 'role')
-                ->whereNotIn('role_id', $this->hide_by_role)
-                ->paginate(10);
-        });
+        return User::with('profile.department', 'role')
+            ->whereNotIn('role_id', $this->hide_by_role)
+            ->paginate(10);
     }
 
-    protected function fetchAccountByDepartment($department_id)
+    protected function fetchAccountByDepartment($department_id): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Cache::remember(
-            $this->fetch_department_member_account_key,
-            $this->cache_time,
-            function () use ($department_id) {
-                return Profile::with(['department', 'user.role'])
-                    ->where('department_id', $department_id)
-                    ->paginate(10);
-            });
+        return Profile::with(['department', 'user.role'])
+            ->where('department_id', $department_id)
+            ->paginate(10);
     }
 
     protected function newAccount($data)
@@ -51,9 +40,6 @@ trait AccountManager
         ]);
 
         event(new NewAccountEvent($create_new_user));
-
-        Cache::forget($this->fetch_account_key);
-        Cache::forget($this->fetch_department_member_account_key);
     }
 
     protected function modifyAccount($id, $data)
@@ -66,9 +52,6 @@ trait AccountManager
         Profile::where('user_id', $id)->update([
             'department_id' => $data['department']
         ]);
-
-        Cache::forget($this->fetch_account_key);
-        Cache::forget($this->fetch_department_member_account_key);
     }
 
     protected function destroyAccount($user_id)
@@ -77,9 +60,6 @@ trait AccountManager
             throw new \Exception(" Anda tidak memiliki izin untuk menghapus akun ini.");
 
         User::destroy($user_id);
-
-        Cache::forget($this->fetch_account_key);
-        Cache::forget($this->fetch_department_member_account_key);
     }
 
     protected function modifyAvatar($file): bool

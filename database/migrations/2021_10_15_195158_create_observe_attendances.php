@@ -15,7 +15,10 @@ class CreateObserveAttendances extends Migration
     {
         Schema::create('observe_attendances', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('attendance_id');
+            $table->foreignId('attendance_id')
+                ->nullable()
+                ->constrained('attendances')
+                ->onDelete('CASCADE');
             $table->bigInteger('department_id');
             $table->bigInteger('user_id');
             $table->date('date');

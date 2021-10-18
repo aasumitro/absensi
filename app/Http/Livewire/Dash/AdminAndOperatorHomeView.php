@@ -65,7 +65,7 @@ class AdminAndOperatorHomeView extends Component
             "SELASA (".($this->start_of_the_week + 1).")",
             "RABU (".($this->start_of_the_week + 2).")",
             "KAMIS (".($this->start_of_the_week + 3).")",
-            "JUMAT ($this->start_of_the_week)",
+            "JUMAT ($this->end_of_the_week)",
         ];
 
         $data = $this->latest_activities = DB::table('observe_attendances')

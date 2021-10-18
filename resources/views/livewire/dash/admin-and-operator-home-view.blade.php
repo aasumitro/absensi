@@ -84,7 +84,7 @@
                         <h2 class="h3 fw-extrabold">
                             {{$now->startOfWeek(\Carbon\CarbonInterface::MONDAY)->format('d')}} -
                             {{$now->endOfWeek(\Carbon\CarbonInterface::FRIDAY)->format('d')}}
-                            {{$now->format('F y')}}
+                            {{$now->format('F Y')}}
                         </h2>
                         <div class="d-flex">
                             <div class="small">

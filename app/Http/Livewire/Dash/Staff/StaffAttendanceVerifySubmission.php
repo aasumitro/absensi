@@ -65,6 +65,11 @@ class StaffAttendanceVerifySubmission extends Component
     public $file;
     /// [END] ADD NEW SUBMISSION FORM
 
+    public $submission_total;
+    public $submission_process_total;
+    public $submission_accepted_total;
+    public $submission_rejected_total;
+
     protected $queryString = [
         'status',
         'from_date',
@@ -88,6 +93,24 @@ class StaffAttendanceVerifySubmission extends Component
             'department_id' => $this->department_id,
             'display' => "DASHBOARD"
         ])->first()->id;
+
+        $submissions = Submission::all();
+        $this->submission_total = $submissions->count();
+        $this->submission_process_total = count(array_filter(
+            $submissions->toArray(),
+            function($item) {
+                return $item['status'] === 'ISSUED';
+            }));
+        $this->submission_accepted_total = count(array_filter(
+            $submissions->toArray(),
+            function($item) {
+                return $item['status'] === 'ACCEPTED';
+            }));
+        $this->submission_rejected_total = count(array_filter(
+            $submissions->toArray(),
+            function($item) {
+                return $item['status'] === 'REJECTED';
+            }));
     }
 
     public function render()

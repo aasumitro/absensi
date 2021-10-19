@@ -1,4 +1,6 @@
 <div>
+    @include('pages.staff.attendance.submission.components.counting')
+
     <div class="card shadow-sm table-wrapper table-responsive">
         @include('pages.staff.attendance.submission.components.filter')
         @include('pages.staff.attendance.submission.components.list')

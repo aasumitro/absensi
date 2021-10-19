@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Dash\Staff;
 
 use App\Exports\AttendanceByPeopleExport;
+use App\Models\AbsentType;
 use App\Models\Attendance;
 use App\Models\User;
-use App\Notifications\TelegramExportFileNotification;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,10 +24,21 @@ class StaffReportByPeoples extends Component
 
     public $user_attendances;
 
+    public $user_attend_count;
+    public $user_attend_overtime_count;
+    public $user_absent_count;
+    public $user_absent_sick_count;
+    public $user_absent_leave_count;
+
     public function mount()
     {
         $this->reset();
         $this->department_id = auth()->user()->profile->department->id;
+        $this->user_attend_count = 0;
+        $this->user_absent_count = 0;
+        $this->user_attend_overtime_count = 0;
+        $this->user_absent_sick_count = 0;
+        $this->user_absent_leave_count = 0;
     }
 
     public function selectUser(User $user)
@@ -39,7 +50,39 @@ class StaffReportByPeoples extends Component
 
             $this->user_attendances = Attendance::where([
                 'user_id' => $this->selected_user->id
-            ])->with('attachment', 'absentType')->get();
+            ])->with('attachment', 'absentType')->orderBy('date', 'DESC')->get();
+
+            $this->user_attend_count = count(array_filter(
+                $this->user_attendances->toArray(),
+                function($item) {
+                    return $item['status'] === 'ATTEND';
+                }));
+
+            $this->user_attend_overtime_count = count(array_filter(
+                $this->user_attendances->toArray(),
+                function($item) {
+                    return $item['status'] === 'ATTEND' && (int)$item['overdue'] === 1;
+                }));
+
+            $this->user_absent_count = count(array_filter(
+                $this->user_attendances->toArray(),
+                function($item) {
+                    return $item['status'] === 'ABSENT';
+                }));
+
+            $this->user_absent_sick_count = count(array_filter(
+                $this->user_attendances->toArray(),
+                function($item) {
+                    return $item['status'] === 'ABSENT' &&
+                        (int)$item['absent_type_id'] === AbsentType::SAKIT;
+                }));
+
+            $this->user_absent_leave_count = count(array_filter(
+                $this->user_attendances->toArray(),
+                function($item) {
+                    return $item['status'] === 'ABSENT' &&
+                        (int)$item['absent_type_id'] === AbsentType::CUTI;
+                }));
         } else {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',
@@ -93,18 +136,30 @@ class StaffReportByPeoples extends Component
             ]);
 
             $file_name = time().".{$this->selected_user->unique_id}.xls";
-            $file = (new AttendanceByPeopleExport($attendances))->download(
-                $file_name, \Maatwebsite\Excel\Excel::XLS
+
+            //if (auth()->user()->telegram_id) {
+            //    auth()->user()->notify(new TelegramExportFileNotification(
+            //        $file->getFile(),
+            //        $file_name
+            //    ));
+            //}
+
+            //if (auth()->user()->email) {
+            //    auth()->user()->notify(new EmailExportFileNotification(
+            //        $file->getFile()->getRealPath()
+            //    ));
+            //}
+
+
+            array_multisort(
+                array_column($attendances, 'date'),
+                $attendances
             );
 
-//            if (auth()->user()->telegram_id) {
-//                auth()->user()->notify(new TelegramExportFileNotification(
-//                    $file->getFile()->getRealPath(),
-//                    $file_name
-//                ));
-//            }
-
-            return $file;
+            return (new AttendanceByPeopleExport($attendances))->download(
+                $file_name,
+                \Maatwebsite\Excel\Excel::XLS
+            );
         } catch (\Exception $e) {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',

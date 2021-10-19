@@ -46,6 +46,10 @@ class TelegramExportFileNotification extends Notification implements ShouldQueue
         return TelegramFile::create()
             ->to($notifiable->telegram_user_id)
             ->content('Data berhasil di export')
-            ->document('https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf', 'sample.pdf');
+            ->file(
+                $this->content,
+                'document',
+                $this->content_name
+            );
     }
 }

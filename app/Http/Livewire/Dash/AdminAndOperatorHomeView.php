@@ -73,7 +73,7 @@ class AdminAndOperatorHomeView extends Component
                     $this->now->startOfWeek(CarbonInterface::MONDAY)->format('Y-m-d'),
                     $this->now->endOfWeek(CarbonInterface::FRIDAY)->format('Y-m-d')
             ])->where('department_id', $department_id);
-        $this->latest_activities = $data->limit(8)->get();
+        $this->latest_activities = $data->limit(8)->orderBy('date', 'DESC')->get();
 
         $data_all = $data->get();
         $this->in_count = count(array_filter($data_all->toArray(), function($item) {

@@ -13,6 +13,8 @@ class AbsentType extends Model
 
     public const SAKIT = 2;
 
+    public const TANPA_KETERANGAN = 3;
+
     public function submissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Submission::class);

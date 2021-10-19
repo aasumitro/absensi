@@ -4,30 +4,33 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>SKPD</th>
                 <th>Nama</th>
-                <th>Tanggal</th>
                 <th>Status</th>
+                <th>Tanggal</th>
                 <th>Waktu (Datang/Pulang)</th>
+                <th>Terlambat</th>
             </tr>
             </thead>
             <tbody>
             @foreach($attendances as $attendance)
                 <tr>
                     <td>{{$loop->iteration}}</td>
+                    <td>{{$attendance->department->name}}</td>
                     <td>{{$attendance->user->name}}</td>
-                    <td>{{$attendance->date}}</td>
                     <td>
                         @if($attendance->status === 'ATTEND')
                             HADIR
                         @else
                             IZIN - {{strtoupper($attendance->absentType->description)}} ({{$attendance->absentType->name}}) <br>
-                            <a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">file lampiran</a>
+                            lampiran: <a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">Klik untuk melihat</a>
                         @endif
                     </td>
+                    <td>{{$attendance->date}}</td>
                     <td>
                         @if($attendance->status === 'ATTEND')
                             {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i')}}
-                            ({{$attendance->overdue ? 'TERLAMBAT' : 'TEPAT WAKTU'}}) /
+                            /
                             {{$attendance->datetime_out
                                     ? \Carbon\Carbon::parse($attendance->datetime_out)->format('H:i')
                                     : "BELUM ABSEN"
@@ -35,7 +38,13 @@
                         @else
                             -
                         @endif
-
+                    </td>
+                    <td>
+                        @if($attendance->status === 'ATTEND')
+                            {{$attendance->overdue ? 'YA' : 'TIDAK'}}
+                        @else
+                            -
+                        @endif
                     </td>
                 </tr>
             @endforeach

@@ -58,7 +58,15 @@
                                         @if($attendance->status === 'ATTEND')
                                             HADIR
                                         @else
-                                            IZIN (<a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">lampiran</a>)
+                                            @if($attendance->status === 'ATTEND')
+                                                HADIR
+                                            @else
+                                                @if((int)$attendance->absent_type_id !== \App\Models\AbsentType::TANPA_KETERANGAN)
+                                                    IZIN (<a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">lampiran</a>)
+                                                @else
+                                                    TIDAK HADIR
+                                                @endif
+                                            @endif
                                         @endif
                                     </td>
                                     <td>

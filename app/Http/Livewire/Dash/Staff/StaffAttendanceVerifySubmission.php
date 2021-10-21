@@ -138,22 +138,24 @@ class StaffAttendanceVerifySubmission extends Component
         DB::beginTransaction();
 
         try {
-            if (substr($data['file']->getFileName(), -3) === 'pdf') {
-                $attachment = $this->newAttachment([
-                    'type' => 'FILE',
-                    'file'=> $data['file']
-                ], 'PRIVATE');
-            }
+            if ((int) $this->absent_type !== AbsentType::TANPA_KETERANGAN) {
+                if (substr($data['file']->getFileName(), -3) === 'pdf') {
+                    $attachment = $this->newAttachment([
+                        'type' => 'FILE',
+                        'file'=> $data['file']
+                    ], 'PRIVATE');
+                }
 
-            if (in_array(substr($data['file']->getFileName(), -3), ['jpg','png','jpeg'])) {
-                $attachment = $this->newAttachment([
-                    'type' => 'IMAGE',
-                    'file'=> $data['file']
-                ], 'PRIVATE');
-            }
+                if (in_array(substr($data['file']->getFileName(), -3), ['jpg','png','jpeg'])) {
+                    $attachment = $this->newAttachment([
+                        'type' => 'IMAGE',
+                        'file'=> $data['file']
+                    ], 'PRIVATE');
+                }
 
-            unset($data['file']);
-            $data['attachment_id'] = $attachment->id ?? null;
+                unset($data['file']);
+                $data['attachment_id'] = $attachment->id ?? null;
+            }
 
             $submission = Submission::create($data);
 
@@ -301,14 +303,24 @@ class StaffAttendanceVerifySubmission extends Component
 
     private function validateNewSubmission(): array
     {
-        $validatedData = $this->validate([
-            'absent_type' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'date_start' => 'required',
-            'date_end' => 'required',
-            'file' => 'file|mimes:pdf,jpg,png,jpeg'
-        ]);
+        if ((int)$this->absent_type === AbsentType::TANPA_KETERANGAN) {
+            $validatedData = $this->validate([
+                'absent_type' => 'required',
+                'title' => 'required',
+                'description' => 'required',
+                'date_start' => 'required',
+                'date_end' => 'required',
+            ]);
+        } else {
+            $validatedData = $this->validate([
+                'absent_type' => 'required',
+                'title' => 'required',
+                'description' => 'required',
+                'date_start' => 'required',
+                'date_end' => 'required',
+                'file' => "file|mimes:pdf,jpg,png,jpeg"
+            ]);
+        }
 
         $validatedData['absent_type_id'] = $validatedData['absent_type'];
         $validatedData['user_id'] = $this->selected_user->id;
@@ -346,7 +358,7 @@ class StaffAttendanceVerifySubmission extends Component
     private function validSubmission(Submission $submission)
     {
         $period = CarbonPeriod::create($submission->start_at, $submission->end_at);
-
+        error_log($period);
         foreach ($period as $date) {
             Attendance::create([
                 'user_id' => $submission->user_id,

@@ -62,6 +62,7 @@ class AttendanceObserver
                 'user_id' => $attendance->user_id,
                 'data' => $attendance->user->name,
                 'type' => 'ABSENT',
+                'type_detail' => strtoupper($attendance->absentType->description),
                 'created_at' => Carbon::now('Asia/Makassar'),
                 'updated_at' => Carbon::now('Asia/Makassar')
             ]);

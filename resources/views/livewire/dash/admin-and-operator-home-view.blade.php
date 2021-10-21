@@ -147,11 +147,11 @@
                                         <small>
                                             @if($activity->type === 'ABSENT')
                                                 {{\Carbon\Carbon::parse($activity->date)->format('d, M Y')}}
-                                                <code>[IZIN]</code>
+                                                <br><code>[{{$activity->type_detail}}]</code>
                                             @else
                                                 {{\Carbon\Carbon::parse($activity->datetime)->format('d, M Y H:i')}}
                                                 @if($activity->type === 'IN' && $activity->status === 'OVERTIME')
-                                                    <code>[TERLAMBAT]</code>
+                                                    <br> <code>[TERLAMBAT]</code>
                                                 @endif
                                             @endif
                                         </small>

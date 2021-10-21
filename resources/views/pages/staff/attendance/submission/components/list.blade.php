@@ -25,11 +25,13 @@
                 }}</td>
                 <td>
                     <b>Judul: {{$submission->title}}</b>
+                    @if($submission->attachment)
                     <br>Lampiran: <a
                         class="text-underline text-info"
                         target="_blank"
                         href="{{ route("private.file", ['id' => $submission->attachment->id]) }}"
                     > klik untuk melihat</a>
+                    @endif
                     <p>
                         Keterangan: {{$submission->description}}
 

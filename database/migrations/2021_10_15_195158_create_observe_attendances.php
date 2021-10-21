@@ -25,6 +25,7 @@ class CreateObserveAttendances extends Migration
             $table->dateTime('datetime')->nullable();
             $table->text('data');
             $table->enum('type', ['ABSENT', 'IN', 'OUT'])->default('IN');
+            $table->enum('type_detail', ['NONE', 'SAKIT', 'CUTI', 'TANPA KETERANGAN'])->default('NONE');
             $table->enum('status', ['NONE', 'ON_TIME', 'OVERTIME'])->default('NONE');
             $table->timestamps();
         });

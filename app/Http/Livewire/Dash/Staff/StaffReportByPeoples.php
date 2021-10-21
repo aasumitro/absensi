@@ -6,7 +6,7 @@ use App\Exports\AttendanceByPeopleExport;
 use App\Models\AbsentType;
 use App\Models\Attendance;
 use App\Models\User;
-use Carbon\Carbon;
+use Excel;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,6 +17,7 @@ class StaffReportByPeoples extends Component
     public $query;
 
     public $department_id;
+    public $department_name;
 
     public $users;
 
@@ -29,16 +30,19 @@ class StaffReportByPeoples extends Component
     public $user_absent_count;
     public $user_absent_sick_count;
     public $user_absent_leave_count;
+    public $user_absent_missing_count;
 
     public function mount()
     {
         $this->reset();
         $this->department_id = auth()->user()->profile->department->id;
+        $this->department_name = auth()->user()->profile->department->name;
         $this->user_attend_count = 0;
         $this->user_absent_count = 0;
         $this->user_attend_overtime_count = 0;
         $this->user_absent_sick_count = 0;
         $this->user_absent_leave_count = 0;
+        $this->user_absent_missing_count = 0;
     }
 
     public function selectUser(User $user)
@@ -83,6 +87,13 @@ class StaffReportByPeoples extends Component
                     return $item['status'] === 'ABSENT' &&
                         (int)$item['absent_type_id'] === AbsentType::CUTI;
                 }));
+
+            $this->user_absent_missing_count = count(array_filter(
+                $this->user_attendances->toArray(),
+                function($item) {
+                    return $item['status'] === 'ABSENT' &&
+                        (int)$item['absent_type_id'] === AbsentType::TANPA_KETERANGAN;
+                }));
         } else {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',
@@ -110,26 +121,6 @@ class StaffReportByPeoples extends Component
     public function performExportAttendance()
     {
         try {
-            $attendances = [];
-
-            foreach ($this->user_attendances as $key => $attendance) {
-                $status = (($attendance->status === 'ABSENT') ?("IZIN " . strtoupper($attendance->absentType->description)
-                    . "({$attendance->absentType->name})"): "HADIR");
-
-                $attendances[] = [
-                    'iteration' => $key+1,
-                    'name' => $this->selected_user->name,
-                    'department' => $this->selected_user->profile->department->name,
-                    'day' => to_indonesia_day(Carbon::parse($attendance->date)->format('l')),
-                    'date' => $attendance->date,
-                    'status' => $status,
-                    'datetime_in' => Carbon::parse($attendance->datetime_in)->format('h:m'),
-                    'datetime_out' => Carbon::parse($attendance->datetime_out)->format('h:m'),
-                    'overdue' => (($attendance->overdue === 1) ? 'YA' : 'TIDAK'),
-                    'overtime' => (($attendance->overtime === 1) ? 'YA' : 'TIDAK')
-                ];
-            }
-
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',
                 'message' => "Action <b>[PROCESS]</b> success"
@@ -137,29 +128,22 @@ class StaffReportByPeoples extends Component
 
             $file_name = time().".{$this->selected_user->unique_id}.xls";
 
-            //if (auth()->user()->telegram_id) {
-            //    auth()->user()->notify(new TelegramExportFileNotification(
-            //        $file->getFile(),
-            //        $file_name
-            //    ));
-            //}
+            $data = [
+                'name' => $this->selected_user->name,
+                'department' => $this->department_name,
+                'attend_total' => $this->user_attend_count,
+                'attend_overtime_total' => $this->user_attend_overtime_count,
+                'absent_total' => $this->user_absent_count,
+                'absent_sick_total' => $this->user_absent_sick_count,
+                'absent_leave_total' => $this->user_absent_leave_count,
+                'absent_missing_total' => $this->user_absent_missing_count,
+                'attendances' => collect($this->user_attendances->toArray())->sortBy('date')->all()
+            ];
 
-            //if (auth()->user()->email) {
-            //    auth()->user()->notify(new EmailExportFileNotification(
-            //        $file->getFile()->getRealPath()
-            //    ));
-            //}
+//            dd($data);
 
+            return Excel::download(new AttendanceByPeopleExport($data), $file_name);
 
-            array_multisort(
-                array_column($attendances, 'date'),
-                $attendances
-            );
-
-            return (new AttendanceByPeopleExport($attendances))->download(
-                $file_name,
-                \Maatwebsite\Excel\Excel::XLS
-            );
         } catch (\Exception $e) {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',

@@ -172,6 +172,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if((int)$absent_type !== \App\Models\AbsentType::TANPA_KETERANGAN)
                         <div class="form-group mb-3">
                             <label for="formFile" class="form-label">File lampiran (pdf, jpg, png, jpeg)</label>
                             <input
@@ -186,6 +187,7 @@
                             </span>
                             @enderror
                         </div>
+                        @endif
                     @endif
                 </div>
                 <div class="modal-footer">

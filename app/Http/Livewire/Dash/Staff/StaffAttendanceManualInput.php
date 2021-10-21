@@ -80,7 +80,7 @@ class StaffAttendanceManualInput extends Component
                 'message' => "Action <b>[NEW_ATTENDANCE]</b> success"
             ]);
 
-            $this->reset();
+            $this->reset('selected_user', 'users', 'date', 'time_in', 'time_out');
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'error',

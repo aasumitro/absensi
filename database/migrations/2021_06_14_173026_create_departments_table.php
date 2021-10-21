@@ -32,6 +32,8 @@ class CreateDepartmentsTable extends Migration
             $table->decimal('longitude', 11, 8)->nullable();
             $table->string('max_att_in')->default('08:00');
             $table->string('min_att_out')->default('16:30');
+            $table->integer('min_att_acc')->default(180)
+                ->comment('minimum attend time 180min = 3 hrs; if max_att_in=08:00 AM; max_att_in-min_att_acc = 05:00 AM');
             $table->integer('max_att_acc')->default(60)
                 ->comment('overtime can attend in minute');
 

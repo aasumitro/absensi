@@ -358,7 +358,7 @@ class StaffAttendanceVerifySubmission extends Component
     private function validSubmission(Submission $submission)
     {
         $period = CarbonPeriod::create($submission->start_at, $submission->end_at);
-        error_log($period);
+
         foreach ($period as $date) {
             Attendance::create([
                 'user_id' => $submission->user_id,

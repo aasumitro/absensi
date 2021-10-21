@@ -5,8 +5,14 @@ namespace App\Exports;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AttendanceByPeopleExport implements FromView, ShouldAutoSize
+class AttendanceByPeopleExport implements
+    FromView,
+    ShouldAutoSize,
+    WithStyles
 {
     private $data;
 
@@ -20,5 +26,24 @@ class AttendanceByPeopleExport implements FromView, ShouldAutoSize
         return view('exports.reports.people', [
             'reports' => $this->data
         ]);
+    }
+
+    public function styles(Worksheet $sheet): array
+    {
+        return [
+            1 => [
+                'alignment' => array(
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                ),
+                'font' => [
+                    'size' => 25,
+                    'bold' => true
+                ],
+            ],
+            4 => ['font' => ['bold' => true, 'italic' => true]],
+            5 => ['font' => ['bold' => true, 'italic' => true]],
+            6 => ['font' => ['bold' => true, 'italic' => true]],
+        ];
     }
 }

@@ -222,72 +222,96 @@
                             <h1 class="h4">Riwayat Presensi {{ $selected_user ? "dari $selected_user->name" : ''}}</h1>
                             <p>Daftar aktivitas presensi harian, anda dapat melakukan export data dengan menekan tombol export!</p>
                         </div>
-                        <div>
-                            @if($selected_user && $attendances)
-                                @if($attendances->count() > 0)
-                                    <button
-                                        wire:click.prevent="performExportAttendance"
-                                        class="btn btn-primary float-end"
-                                    >Export Excel</button>
-                                @endif
-                            @endif
-                        </div>
                     </div>
 
                     @if(!$selected_user)
                         <div class="text-center">Silahkah pilih pegawai untuk melajutkan</div>
                     @else
                         @if($attendances)
-                            <table class="table">
-                                <thead>
-                                <tr class="text-center">
-                                    <th>#</th>
-                                    <th>Tanggal</th>
-                                    <th>Status</th>
-                                    <th>Datang</th>
-                                    <th>Pulang</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($attendances as $attendance)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$attendance->date}}</td>
-                                        <td>
-                                            @if($attendance->status === 'ATTEND')
-                                                HADIR
-                                            @else
-                                                @if((int)$attendance->absent_type_id !== \App\Models\AbsentType::TANPA_KETERANGAN)
-                                                    IZIN - {{strtoupper($attendance->absentType->description)}} ({{$attendance->absentType->name}}) <br>
-                                                    <a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">file lampiran</a>
-                                                @else
-                                                    TIDAK HADIR
-                                                @endif
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($attendance->status === 'ATTEND')
-                                                {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i:s')}}
-                                                ({{$attendance->overdue ? 'TERLAMBAT' : 'TEPAT WAKTU'}})
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($attendance->status === 'ATTEND')
-                                                {{
-                                                    $attendance->datetime_out
-                                                    ? \Carbon\Carbon::parse($attendance->datetime_out)->format('H:i:s')
-                                                    : "BELUM ABSEN"
-                                                }}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="form-group">
+                                    <label for="for_date">Rentang tanggal</label>
+                                    <div id="for_date" class="d-flex">
+                                        <label for="date_from"></label>
+                                        <input
+                                            wire:model="from_date"
+                                            type="date"
+                                            class="form-control datepicker"
+                                            name="from_date"
+                                            id="date_from"
+                                            value="{{ (app('request')->input('from_date')) ?? ''}}"
+                                            style="border-radius: 30px 0 0 30px !important; height: 33px !important; font-size:13px; padding: 0 10px !important; -webkit-appearance: none;"
+                                        >
+                                        <label for="date_to"></label>
+                                        <input
+                                            wire:model="to_date"
+                                            type="date"
+                                            class="form-control datepicker"
+                                            name="to_date"
+                                            id="date_to"
+                                            value="{{ (app('request')->input('to_date')) ?? ''}}"
+                                            style="border-radius: 0 30px 30px 0 !important; height: 33px !important; font-size:13px; padding: 0 10px !important; -webkit-appearance: none;"
+                                        >
+                                    </div>
+                                </div>
+                                <button
+                                    wire:click.prevent="performExportAttendance"
+                                    class="btn btn-primary mt-3 float-end"
+                                >Export Excel</button>
+                            </div>
+                           <div class="table-responsive">
+                               <table class="table table-hover">
+                                   <thead>
+                                   <tr class="text-center">
+                                       <th>#</th>
+                                       <th>Tanggal</th>
+                                       <th>Status</th>
+                                       <th>Datang</th>
+                                       <th>Pulang</th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   @foreach($attendances as $attendance)
+                                       <tr>
+                                           <td>{{$loop->iteration}}</td>
+                                           <td>{{$attendance->date}}</td>
+                                           <td>
+                                               @if($attendance->status === 'ATTEND')
+                                                   HADIR
+                                               @else
+                                                   @if((int)$attendance->absent_type_id !== \App\Models\AbsentType::TANPA_KETERANGAN)
+                                                       IZIN - {{strtoupper($attendance->absentType->description)}} ({{$attendance->absentType->name}}) <br>
+                                                       <a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">file lampiran</a>
+                                                   @else
+                                                       TIDAK HADIR
+                                                   @endif
+                                               @endif
+                                           </td>
+                                           <td>
+                                               @if($attendance->status === 'ATTEND')
+                                                   {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i:s')}}
+                                                   ({{$attendance->overdue ? 'TERLAMBAT' : 'TEPAT WAKTU'}})
+                                               @else
+                                                   -
+                                               @endif
+                                           </td>
+                                           <td>
+                                               @if($attendance->status === 'ATTEND')
+                                                   {{
+                                                       $attendance->datetime_out
+                                                       ? \Carbon\Carbon::parse($attendance->datetime_out)->format('H:i:s')
+                                                       : "BELUM ABSEN"
+                                                   }}
+                                               @else
+                                                   -
+                                               @endif
+                                           </td>
+                                       </tr>
+                                   @endforeach
+                                   </tbody>
+                               </table>
+                           </div>
 
                             @if($attendances->count() <= 0)
                                 <div class="mt-4 text-center">

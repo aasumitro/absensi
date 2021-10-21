@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dash\Staff;
 
+use App\Exports\AttendanceByDateFormatDetail;
 use App\Exports\AttendanceByDateFormatTotal;
 use App\Models\AbsentType;
 use App\Models\Attendance;
@@ -64,17 +65,29 @@ class StaffReportByDates extends Component
                 'message' => "Action <b>[PROCESS]</b> success"
             ]);
 
-            $file_name = time().'.'.\Str::slug(auth()->user()->profile->department->name).".xls";
+            $file_name = time().'.'.\Str::slug(auth()->user()->profile->department->name).".{$this->format}".".xls";
+            $department = Department::withCount('members')->with('timezone')->find($this->department_id);
 
             if ($this->format === "TOTAL") {
                 $data = [
                     'from_date' => $this->from_date,
                     'to_date' => $this->to_date,
-                    'department' => Department::withCount('members')->with('timezone')->find($this->department_id),
+                    'department' => $department,
                     'attendances' => collect($this->loadAttendancesFormatTotal()->get()->toArray())->all()
                 ];
 
                 return Excel::download(new AttendanceByDateFormatTotal($data), $file_name);
+            }
+
+            if ($this->format === 'DETAIL') {
+                $data = [
+                    'from_date' => $this->from_date,
+                    'to_date' => $this->to_date,
+                    'department' => $department,
+                    'attendances' => collect($this->loadAttendancesFormatDetail()->get()->toArray())->all()
+                ];
+
+                return Excel::download(new AttendanceByDateFormatDetail($data), $file_name);
             }
         } catch (\Exception $e) {
             $this->dispatchBrowserEvent('showNotify', [
@@ -90,9 +103,9 @@ class StaffReportByDates extends Component
     {
         $attendances = Attendance::with(
             'absentType', 'department', 'device', 'user', 'attachment'
-        )->where('department_id', $this->department_id)->whereBetween('created_at', [
-                Carbon::parse($this->from_date)->format('Y-m-d 00:00:00'),
-                Carbon::parse($this->to_date)->format('Y-m-d 23:59:59')
+        )->where('department_id', $this->department_id)->whereBetween('date', [
+                Carbon::parse($this->from_date)->format('Y-m-d'),
+                Carbon::parse($this->to_date)->format('Y-m-d')
         ]);
 
         if ((string) $this->absent_type_id !== 'ALL') {

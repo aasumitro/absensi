@@ -2,7 +2,7 @@
     <thead>
     {{-- [START] HEADER --}}
     <tr style="text-align: center;">
-        <th colspan="9" rowspan="3" style="border: 2px solid black;">Laporan Pegawai Total</th>
+        <th colspan="9" rowspan="3" style="border: 2px solid black;">Laporan Pegawai format Total</th>
     </tr>
     <tr><th colspan="9"></th></tr>
     <tr><th colspan="9"></th></tr>

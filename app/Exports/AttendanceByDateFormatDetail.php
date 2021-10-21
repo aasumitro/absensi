@@ -2,15 +2,48 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AttendanceByDateFormatDetail implements FromCollection
+class AttendanceByDateFormatDetail implements
+    FromView,
+    ShouldAutoSize,
+    WithStyles
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    private $data;
+
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
+    }
+
+    public function view(): View
+    {
+        return view('exports.reports.date.detail', [
+            'reports' => $this->data
+        ]);
+    }
+
+    public function styles(Worksheet $sheet): array
+    {
+        return [
+            1 => [
+                'alignment' => array(
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                ),
+                'font' => [
+                    'size' => 25,
+                    'bold' => true
+                ],
+            ],
+            4 => ['font' => ['bold' => true, 'italic' => true]],
+            5 => ['font' => ['bold' => true, 'italic' => true]],
+            6 => ['font' => ['bold' => true, 'italic' => true]],
+        ];
     }
 }

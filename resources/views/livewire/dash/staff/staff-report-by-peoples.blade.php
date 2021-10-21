@@ -227,7 +227,7 @@
                     @if(!$selected_user)
                         <div class="text-center">Silahkah pilih pegawai untuk melajutkan</div>
                     @else
-                        @if($attendances)
+                        @if(count($attendances) > 0)
                             <hr>
                             <div class="d-flex justify-content-between mb-3">
                                 <div class="form-group">

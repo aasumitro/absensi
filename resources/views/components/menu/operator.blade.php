@@ -176,7 +176,7 @@
                         class="nav-link"
                         href="{{route('staff.reports.by-people')}}"
                     >
-                        <span class="sidebar-text">Berdasarkan Pegawai</span>
+                        <span class="sidebar-text">Menurut Pegawai</span>
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('staff.reports.by-dates') ? 'active' : '' }}">
@@ -184,7 +184,7 @@
                         class="nav-link"
                         href="{{route('staff.reports.by-dates')}}"
                     >
-                        <span class="sidebar-text">Berdasarkan Tanggal</span>
+                        <span class="sidebar-text">Menurut Tanggal</span>
                     </a>
                 </li>
             </ul>

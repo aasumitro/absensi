@@ -148,7 +148,7 @@
     {{-- menu ketiga berisikan data detail absesni pegawai berdasarkan range waktu dan id --}}
     {{-- -------------------------------------------------------------------- --}}
     {{-- menu keempat berisikan data laporan harian --}}
-    <li class="nav-item mt-3">
+    <li class="nav-item mt-2">
         <span
             class="nav-link  d-flex justify-content-between align-items-center"
             data-bs-toggle="collapse"
@@ -165,46 +165,34 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('staff.reports.*') ? 'show' : '' }}"
             role="list"
             id="submenu-report"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item  {{ Route::is('staff.reports.summaries') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.reports.summaries')}}"
                     >
                         <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.reports.by-people') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
-                    >
-                        <span class="sidebar-text">Berdasarkan Lokasi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.reports.by-people')}}"
                     >
                         <span class="sidebar-text">Berdasarkan Pegawai</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('staff.reports.by-dates') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{route('staff.reports.by-dates')}}"
                     >
-                        <span class="sidebar-text">Berdasarkan Hari</span>
+                        <span class="sidebar-text">Berdasarkan Tanggal</span>
                     </a>
                 </li>
             </ul>

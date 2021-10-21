@@ -22,6 +22,10 @@ class StaffDepartmentSetting extends Component
 
     public $min_att_out;
 
+    public $min_att_acc;
+
+    public $max_att_acc;
+
     public $member_count = 0;
 
     public $device_count = 0;
@@ -44,6 +48,8 @@ class StaffDepartmentSetting extends Component
         $this->longitude = $this->department->longitude;
         $this->max_att_in = $this->department->max_att_in;
         $this->min_att_out = $this->department->min_att_out;
+        $this->min_att_acc = $this->department->min_att_acc;
+        $this->max_att_acc = $this->department->max_att_acc;
     }
 
     public function render()

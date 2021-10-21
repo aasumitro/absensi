@@ -1,8 +1,8 @@
 <div>
     <div class="row mb-5">
         @include('pages.staff.admin.setting.components.widget')
-        @include('pages.staff.admin.setting.components.department')
         @include('pages.staff.admin.setting.components.timezone')
+        @include('pages.staff.admin.setting.components.department')
     </div>
 </div>
 

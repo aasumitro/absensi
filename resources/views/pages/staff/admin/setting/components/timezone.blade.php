@@ -1,4 +1,4 @@
-<div class="col-12 col-md-6  mb-3 mb-xl-0 d-flex align-items-stretch">
+<div class="col-12 col-md-6  mb-3 mb-xl-0">
     <div class="card card-body shadow-sm">
         <div class="mb-3 mb-lg-0">
             <h1 class="h4">Zona waktu</h1>

@@ -1,4 +1,4 @@
-<div class="col-12 col-md-6  mb-3 mb-xl-0 d-flex align-items-stretch">
+<div class="col-12 col-md-6  mb-3 mb-xl-0">
     <div class="card card-body shadow-sm">
         <div class="mb-3 mb-lg-0">
             <h1 class="h4">SKPD</h1>
@@ -34,6 +34,56 @@
                 [<span class="text-warning">MENIT:DETIK</span>]
                 dengan format 24 jam contohnya [<span class="text-success">18:20</span>]
             </span>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="min_att_acc">Toleransi Minimum</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="max_att_in_icon">
+                            <span class="fas fa-clock"></span>
+                        </span>
+                        <input
+                            id="min_att_acc"
+                            type="text"
+                            class="form-control"
+                            placeholder="e.g. 180"
+                            wire:model="min_att_acc"
+                            aria-describedby="minAttAccHelp"
+                            readonly
+                        >
+                        <div id="minAttAccHelp" class="form-text">
+                            Toleransi batas <code>minumum</code> absensi masuk secara default adalah <code>180 menit</code>
+                            atau <code>3 jam</code> jadi, ketika jam masuk adalah pukul <code>08:00 pagi</code> maka
+                            pengguna dapat melakukan absensi masuk mulai dari pukul <code>05:00 pagi</code>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="max_att_acc">Toleransi Maksimum</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="max_att_in_icon">
+                            <span class="fas fa-clock"></span>
+                        </span>
+                        <input
+                            id="max_att_acc"
+                            type="text"
+                            class="form-control"
+                            placeholder="e.g. 180"
+                            wire:model="max_att_acc"
+                            readonly
+                            aria-describedby="maxAttAccHelp"
+                        >
+                        <div id="maxAttAccHelp" class="form-text">
+                            Toleransi batas <code>maksimum</code> absensi masuk secara default adalah <code>60 menit</code>
+                            atau <code>1 jam</code> jadi, ketika jam masuk adalah pukul 08:00 pagi maka batas maksimum
+                            melakukan absensi adalah pukul <code>09:00 pagi</code>.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <button
             wire:click="performUpdateDepartment"

@@ -99,7 +99,7 @@
                     @if((int)$current_user_attendances->count() >= 5)
                         <div class="text-center">
                             hanya 5 data yang akan ditampilkan, <br>untuk lebih lengkapnya lihat pada menu
-                            <a href="#" class="text-info text-underline">laporan</a>
+                            <a href="{{route('staff.reports.by-people')}}" class="text-info text-underline">laporan</a>
                         </div>
                     @endif
                 @else

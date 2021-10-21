@@ -18,6 +18,8 @@ class SelfRequestData extends Component
 
     public $department_id;
 
+    public $department_timezone;
+
     public $type;
 
     public $title;
@@ -45,6 +47,7 @@ class SelfRequestData extends Component
     public function mount()
     {
         $this->department_id = auth()->user()->profile->department_id;
+        $this->department_timezone = auth()->user()->profile->department->timezone->locale;
         $this->type = "NULL";
         $this->status = "NULL";
 
@@ -81,8 +84,8 @@ class SelfRequestData extends Component
                     'body' => $validatedData['body']
                 ]),
                 'commit_by' => auth()->user()->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now($this->department_timezone),
+                'updated_at' => Carbon::now($this->department_timezone)
             ]);
 
             $this->reset([
@@ -123,8 +126,8 @@ class SelfRequestData extends Component
                 'status' => $this->status,
                 'value' => json_encode($value),
                 'commit_by' => auth()->user()->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now($this->department_timezone),
+                'updated_at' => Carbon::now($this->department_timezone)
             ]);
 
             $this->reset([

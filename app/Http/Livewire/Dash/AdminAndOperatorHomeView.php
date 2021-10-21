@@ -10,6 +10,8 @@ use Livewire\Component;
 
 class AdminAndOperatorHomeView extends Component
 {
+    public $department_timezone;
+
     public $member_count;
 
     public $device_count;
@@ -38,7 +40,8 @@ class AdminAndOperatorHomeView extends Component
 
     public function mount()
     {
-        $this->now = Carbon::now();
+        $this->department_timezone = auth()->user()->profile->department->timezone->locale;
+        $this->now = Carbon::now($this->department_timezone);
         $this->start_of_the_week = $this->now->startOfWeek(CarbonInterface::MONDAY)->format('d');
         $this->end_of_the_week = $this->now->endOfWeek(CarbonInterface::FRIDAY)->format('d');
 

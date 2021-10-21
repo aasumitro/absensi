@@ -26,6 +26,7 @@ class StaffReportByDates extends Component
     public $absent_type_id;
 
     public $department_id;
+    public $department_timezone;
 
     public $page = 1;
 
@@ -40,9 +41,10 @@ class StaffReportByDates extends Component
 
     public function mount()
     {
-        $this->to_date = Carbon::now()->endOfMonth()->format('Y-m-d');
-        $this->from_date = Carbon::now()->startOfMonth()->format('Y-m-d');
         $this->department_id = auth()->user()->profile->department_id;
+        $this->department_timezone = auth()->user()->profile->department->timezone->locale;
+        $this->to_date = Carbon::now($this->department_timezone)->endOfMonth()->format('Y-m-d');
+        $this->from_date = Carbon::now($this->department_timezone)->startOfMonth()->format('Y-m-d');
         $this->absent_type_id = 'ALL';
         $this->format = "DETAIL";
     }

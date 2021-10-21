@@ -19,6 +19,7 @@ class StaffReportByPeoples extends Component
 
     public $department_id;
     public $department_name;
+    public $department_timezone;
 
     public $users;
 
@@ -46,14 +47,15 @@ class StaffReportByPeoples extends Component
         $this->reset();
         $this->department_id = auth()->user()->profile->department->id;
         $this->department_name = auth()->user()->profile->department->name;
+        $this->department_timezone = auth()->user()->profile->department->timezone->locale;
         $this->user_attend_count = 0;
         $this->user_absent_count = 0;
         $this->user_attend_overtime_count = 0;
         $this->user_absent_sick_count = 0;
         $this->user_absent_leave_count = 0;
         $this->user_absent_missing_count = 0;
-        $this->from_date = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $this->to_date = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $this->from_date = Carbon::now($this->department_timezone)->startOfMonth()->format('Y-m-d');
+        $this->to_date = Carbon::now($this->department_timezone)->endOfMonth()->format('Y-m-d');
     }
 
     public function selectUser(User $user)

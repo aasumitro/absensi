@@ -17,6 +17,8 @@ class StaffAttendanceManualInput extends Component
 
     public $admin_office;
 
+    public $admin_office_timezone;
+
     public $selected_user;
 
     public $date;
@@ -33,7 +35,10 @@ class StaffAttendanceManualInput extends Component
     {
         $this->reset();
         $this->admin_office = auth()->user()->profile->department->id;
-        $this->date = Carbon::now('Asia/Makassar')->format('Y-m-d');
+        $this->admin_office_timezone = auth()->user()->profile->department->timezone->locale;
+        $this->date = Carbon::now($this->admin_office_timezone)->format('Y-m-d');
+        $this->time_in = Carbon::now($this->admin_office_timezone)->setTimeFrom("08:00")->format('H:i:s');
+        $this->time_out = Carbon::now($this->admin_office_timezone)->setTimeFrom("16:00")->format('H:i:s');
         $this->overdue = '0';
         $this->overtime = '0';
     }
@@ -119,12 +124,12 @@ class StaffAttendanceManualInput extends Component
 
         $time_in = Carbon::createFromFormat(
             'Y-m-d H:i:s',
-            "{$validatedData['date']} {$validatedData['time_in']}:00"
+            "{$validatedData['date']} {$validatedData['time_in']}"
         );
 
         $time_out = Carbon::createFromFormat(
             'Y-m-d H:i:s',
-            "{$validatedData['date']} {$validatedData['time_out']}:00"
+            "{$validatedData['date']} {$validatedData['time_out']}"
         );
 
         return [
@@ -141,8 +146,8 @@ class StaffAttendanceManualInput extends Component
                 'overdue' => $validatedData['overdue'],
                 'overtime' => $validatedData['overtime'],
                 'by' => 'ADMIN/OPERATOR',
-                'created_at' => Carbon::now('Asia/Makassar'),
-                'updated_at' => Carbon::now('Asia/Makassar')
+                'created_at' => Carbon::now($this->admin_office_timezone),
+                'updated_at' => Carbon::now($this->admin_office_timezone)
         ];
     }
 

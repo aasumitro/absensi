@@ -171,14 +171,6 @@
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item  {{ Route::is('staff.reports.summaries') ? 'active' : '' }}">
-                    <a
-                        class="nav-link"
-                        href="{{route('staff.reports.summaries')}}"
-                    >
-                        <span class="sidebar-text">Ringkasan</span>
-                    </a>
-                </li>
                 <li class="nav-item {{ Route::is('staff.reports.by-people') ? 'active' : '' }}">
                     <a
                         class="nav-link"

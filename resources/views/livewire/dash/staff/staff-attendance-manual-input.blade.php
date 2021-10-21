@@ -91,8 +91,8 @@
                             />
                             @error('date')
                             <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
                         <div class="row mb-3">
@@ -108,8 +108,8 @@
                                     />
                                     @error('time_in')
                                     <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -125,8 +125,8 @@
                                     />
                                     @error('time_out')
                                     <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -146,8 +146,8 @@
                                     </select>
                                     @error('overdue')
                                     <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -165,8 +165,8 @@
                                     </select>
                                     @error('overtime')
                                     <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -174,7 +174,6 @@
                     @else
                         <div class="text-center">Silahkah pilih pegawai untuk melajutkan</div>
                     @endif
-
                 </div>
                 @if($selected_user)
                 <div class="card-footer">
@@ -186,7 +185,6 @@
                 @endif
             </div>
         </div>
-
     </div>
 </div>
 

@@ -38,6 +38,7 @@ class StaffAttendanceVerifySubmission extends Component
     public $absent_type;
 
     public $department_id;
+    public $department_timezone;
 
     public $update_status;
 
@@ -82,9 +83,10 @@ class StaffAttendanceVerifySubmission extends Component
 
     public function mount()
     {
-        $this->to_date = Carbon::now()->endOfMonth()->format('Y-m-d');
-        $this->from_date = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->department_timezone = auth()->user()->profile->department->timezone->locale;
         $this->department_id = auth()->user()->profile->department_id;
+        $this->to_date = Carbon::now($this->department_timezone)->endOfMonth()->format('Y-m-d');
+        $this->from_date = Carbon::now($this->department_timezone)->startOfMonth()->format('Y-m-d');
         $this->status = 'ALL';
         $this->absent_type_id = 'ALL';
         $this->absent_type = 1;

@@ -8,7 +8,7 @@
                    wire:model="status"
                    id="status"
                    class="form-control"
-                   style="width: 180px; border-radius: 30px 0 0 30px !important; height: 32px !important; font-size:13px; padding: 0 10px !important;"
+                   style="width: 180px; border-radius: 30px 30px 30px 30px !important; height: 32px !important; font-size:13px; padding: 0 10px !important;"
                >
                    <option value="ALL">Semua</option>
                    <option value="ISSUED">Diajukan</option>
@@ -36,7 +36,7 @@
                    name="to_date"
                    id="date_to"
                    value="{{ (app('request')->input('to_date')) ?? ''}}"
-                   style="border-radius: 0 0 0 0 !important; height: 33px !important; font-size:13px; padding: 0 10px !important; -webkit-appearance: none;"
+                   style="border-radius: 0 30px 30px 0 !important; height: 33px !important; font-size:13px; padding: 0 10px !important; -webkit-appearance: none;"
                >
            </div>
        </div>
@@ -48,7 +48,7 @@
                    wire:model="absent_type_id"
                    id="absent_type_id"
                    class="form-control"
-                   style="width: 180px; border-radius: 30px 0 0 30px !important; height: 32px !important; font-size:13px; padding: 0 10px !important;"
+                   style="width: 180px; border-radius: 30px 30px 30px 30px !important; height: 32px !important; font-size:13px; padding: 0 10px !important;"
                >
                    <option value="ALL">Semua</option>
                    @foreach($absentTypes as $type)

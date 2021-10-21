@@ -53,14 +53,14 @@
                 @if($data['status'] === 'ABSENT')
                     -
                 @else
-                    {{ \Carbon\Carbon::createFromDate($data['datetime_in'])->format('h:i') }}
+                    {{ \Carbon\Carbon::createFromDate($data['datetime_in'])->format('H:i') }}
                 @endif
             </td>
             <td style="border: 2px solid black;">
                 @if($data['status'] === 'ABSENT')
                     -
                 @else
-                    {{ \Carbon\Carbon::createFromDate($data['datetime_out'])->format('h:i') }}
+                    {{ \Carbon\Carbon::createFromDate($data['datetime_out'])->format('H:i') }}
                 @endif
             </td>
             <td style="border: 2px solid black;">

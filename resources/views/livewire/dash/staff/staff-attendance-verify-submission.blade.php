@@ -36,7 +36,8 @@
         window.addEventListener('showNotify', event => {
             showNotification(
                 event.detail.type,
-                event.detail.message
+                event.detail.message,
+                7000
             )
         })
     </script>

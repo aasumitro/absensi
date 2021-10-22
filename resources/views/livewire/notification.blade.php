@@ -23,7 +23,7 @@
                     @foreach($notifications as $notification)
                         @if(auth()->user()->hasRole('root') || (int)$notification->department_id === auth()->user()->profile->department_id)
                             @php($data = json_decode($notification->data))
-                            <a href="{{ (auth()->user()->hasRole('root') ? route('reports.submissions') : route('staff.attendance.verify-submission')) }}" class="list-group-item list-group-item-action border-bottom border-light">
+                            <a href="{{ (auth()->user()->hasRole('root') ? '' : route('staff.attendance.verify-submission')) }}" class="list-group-item list-group-item-action border-bottom border-light">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->

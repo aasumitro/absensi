@@ -236,9 +236,8 @@
 
     <li class="nav-item mt-3">
         <a
-            href="#"
+            href="{{url('docs')}}"
             target="_blank"
-            onclick="showNotification('error', 'Feature currently not implemented yet!')"
             class="nav-link d-flex align-items-center"
         >
             <span class="sidebar-icon">

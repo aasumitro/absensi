@@ -66,78 +66,6 @@
     </li>
 
     <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
-    <li class="nav-item {{Route::is('reports.submissions') ? 'active' : ''}}">
-        <a href="{{route('reports.submissions')}}" class="nav-link">
-            <span class="sidebar-icon">
-                <span class="fas fa-envelope-open-text"></span>
-            </span>
-            <span class="sidebar-text">Pengajuan</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <span
-            class="nav-link  d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse"
-            data-bs-target="#submenu-report"
-        >
-            <span>
-                <span class="sidebar-icon">
-                    <span class="fas fa-paste"></span>
-                </span>
-                <span class="sidebar-text">Laporan</span>
-            </span>
-            <span class="link-arrow">
-                <span class="fas fa-chevron-right"></span>
-            </span>
-        </span>
-        <div
-            class="multi-level collapse {{ Route::is('reports.attendances') ? 'show' : '' }}"
-            role="list"
-            id="submenu-report"
-            aria-expanded="false"
-        >
-            <ul class="flex-column nav">
-                <li class="nav-item {{
-                    (Route::is('reports.attendances')
-                    && (last(request()->segments()) === 'summaries'))
-                    ? 'active' : ''
-                }}">
-                    <a
-                        class="nav-link"
-                        href="{{ route('reports.attendances', ['type' => 'summaries']) }}"
-                    >
-                        <span class="sidebar-text">Ringkasan</span>
-                    </a>
-                </li>
-                <li class="nav-item {{
-                    (Route::is('reports.attendances')
-                    && (last(request()->segments()) === 'employees'))
-                    ? 'active' : ''
-                }}">
-                    <a
-                        class="nav-link"
-                        href="{{ route('reports.attendances', ['type' => 'employees']) }}"
-                    >
-                        <span class="sidebar-text">Berdasarkan Pegawai</span>
-                    </a>
-                </li>
-                <li class="nav-item {{
-                    (Route::is('reports.attendances')
-                    && (last(request()->segments()) === 'departments'))
-                    ? 'active' : ''
-                }}">
-                    <a
-                        class="nav-link"
-                        href="{{ route('reports.attendances', ['type' => 'departments']) }}"
-                    >
-                        <span class="sidebar-text">Berdasarkan SKPD</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
-
-    <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
     <li class="nav-item">
         <span
             class="nav-link d-flex justify-content-between align-items-center"
@@ -281,7 +209,7 @@
     <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
     <li class="nav-item">
         <a
-            href="#"
+            href="{{url('docs')}}"
             target="_blank"
             class="nav-link d-flex align-items-center"
         >

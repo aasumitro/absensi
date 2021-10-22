@@ -84,7 +84,7 @@
                     <th>Nama</th>
                     <th>Hadir</th>
                     <th>Terlambat</th>
-                    <th>Lembur</th>
+                    {{--<th>Lembur</th>--}}
                     <th>Tidak Hadir</th>
                     <th>Sakit (SK)</th>
                     <th>Cuti (CT)</th>
@@ -99,7 +99,7 @@
                         <td>{{$attendance->user->name}}</td>
                         <td>{{$attendance->user->attend_count}}</td>
                         <td>{{$attendance->user->attend_overdue_count}}</td>
-                        <td>{{$attendance->user->attend_overtime_count}}</td>
+                        {{--<td>{{$attendance->user->attend_overtime_count}}</td>--}}
                         <td>{{$attendance->user->absent_count}}</td>
                         <td>{{$attendance->user->absent_missing_count}}</td>
                         <td>{{$attendance->user->absent_sick_count}}</td>

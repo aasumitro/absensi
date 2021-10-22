@@ -21,9 +21,9 @@
                 </a>
                 @if($notifications->count() > 0)
                     @foreach($notifications as $notification)
-                        @if((int)$notification->department_id === auth()->user()->profile->department_id)
+                        @if(auth()->user()->hasRole('root') || (int)$notification->department_id === auth()->user()->profile->department_id)
                             @php($data = json_decode($notification->data))
-                            <a href="{{route('staff.attendance.verify-submission')}}" class="list-group-item list-group-item-action border-bottom border-light">
+                            <a href="{{ (auth()->user()->hasRole('root') ? route('reports.submissions') : route('staff.attendance.verify-submission')) }}" class="list-group-item list-group-item-action border-bottom border-light">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
@@ -40,13 +40,18 @@
                                             </div>
                                             <div class="text-end">
                                                 <small class="text-danger">
-                                                    {{\Carbon\Carbon::createFromDate($notification->datetime)->diffForHumans()}}
+                                                    {{locale_diff_for_human($notification->datetime)}}
                                                 </small>
                                             </div>
                                         </div>
-                                        <p class="font-small mt-1 mb-0">
+                                        <p class="font-small mt-2 mb-2">
                                             {{$data->description}}
                                         </p>
+                                        @if(auth()->user()->hasRole('root'))
+                                            <span class="font-small bg-dark text-white text-uppercase border border-primary py-1 px-2">
+                                                {{$data->department}}
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </a>

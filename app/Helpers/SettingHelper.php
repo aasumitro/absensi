@@ -15,18 +15,14 @@ if (! function_exists('app_settings')) {
     }
 }
 
-if (! function_exists('dif_for_human')) {
+if (! function_exists('locale_diff_for_human')) {
     // use this function to show currently logged in time
     // to user in local time and language
-    function dif_for_human($date)
+    function locale_diff_for_human($date): string
     {
-        $diff = $date->diffForHumans();
+        \Carbon\Carbon::setLocale('id');
 
-        return str_replace(
-            ["hour", "hours", "minute", "minutes", "seconds", "seconds", "ago"],
-            ["Jam", "Jam", "Menit", "Menit", "Detik", "Detik", "lalu"],
-            $diff
-        );
+        return \Carbon\Carbon::createFromDate($date)->diffForHumans();
     }
 }
 

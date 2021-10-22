@@ -51,9 +51,12 @@
                 >
                     <option value="ALL">SEMUA DATA</option>
                     <option value="ATTEND">SEMUA HADIR</option>
-                    <option value="ABSENT">SEMUA IZIN</option>
+                    <option value="ABSENT">SEMUA TIDAK HADIR</option>
                     @foreach($absentTypes as $type)
-                        <option value="{{$type->id}}">IZIN : {{strtoupper($type->description)}} ({{$type->name}})</option>
+                        <option value="{{$type->id}}">
+                            {{((int)$type->id === \App\Models\AbsentType::TANPA_KETERANGAN) ? '' : 'IZIN : '}}
+                            {{strtoupper($type->description)}} ({{$type->name}})
+                        </option>
                     @endforeach
                 </select>
             </div>

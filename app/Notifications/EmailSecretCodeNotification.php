@@ -45,12 +45,7 @@ class EmailSecretCodeNotification extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject("Kode verifikasi melalui alamat email")
             ->greeting("Halo, $notifiable->name!")
-            ->line(trans(
-                "notify.new_code",
-                ['code' => $this->secret_code]
-            ) . ". " . trans(
-                "notify.ignore_message",
-                ['platform' => 'Telegram Messenger']
-            ))->line('Terimakasih telah menggunana aplikasi ini!');
+            ->line("Kode akses anda adalah: $this->secret_code, kode hanya berlaku dalam 10 menit. Abaikan pesan ini jika Anda sudah menerima kode melalui Telegram Messenger!")
+            ->line('Terimakasih telah menggunana aplikasi ini!');
     }
 }

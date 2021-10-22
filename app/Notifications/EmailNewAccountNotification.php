@@ -55,7 +55,7 @@ class EmailNewAccountNotification extends Notification implements ShouldQueue
                     ->line("Mohon ikuti instruksi dibawah ini untuk mengakses akun anda: ")
                     ->line(new HtmlString("1. Unduh <a href='https://play.google.com/store/apps/details?id=org.telegram.messenger&hl=in&gl=US'>Telegram Messenger</a>"))
                     ->line(new HtmlString("2. Hubungkan dengan <a href='https://t.me/OkSetdaBot'>OkSetdaBot</a>"))
-                    ->line(new HtmlString("3. Integrasi akun OkSetda Absensi dengan OkSetdaBot dengan mengirimkan pesan berformat: <br> <b>CONNECT#USERNAME#INTEGRATION_CODE </b>"))
+                    ->line(new HtmlString("3. Integrasi akun OkSetda Absensi dan OkSetdaBot dengan mengirimkan pesan berformat: <br> <b>CONNECT#USERNAME#INTEGRATION_CODE </b>"))
                     ->line(new HtmlString("<br>"))
                     ->line(new HtmlString("<b>Nama Pengguna Anda:</b> <span style='border-style: solid; padding: 3px;'>$notifiable->username</span>"))
                     ->line(new HtmlString("<b>Kode Integrasi Anda:</b> <span style='border-style: solid; padding: 3px;'>$this->integration_code</span>"))

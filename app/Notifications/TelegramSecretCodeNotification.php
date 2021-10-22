@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -45,12 +46,6 @@ class TelegramSecretCodeNotification extends Notification implements ShouldQueue
     {
         return TelegramMessage::create()
             ->to($notifiable->telegram_id)
-            ->content(trans(
-                "notify.new_code",
-                ['code' => $this->secret_code]
-            ) . ". " . trans(
-                    "notify.ignore_message",
-                    ['platform' => 'your Email Address']
-            ));
+            ->content("Kode akses anda adalah: $this->secret_code, kode hanya berlaku dalam 10 menit. Abaikan pesan ini jika Anda sudah menerima kode melalui email!");
     }
 }

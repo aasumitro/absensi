@@ -1,2 +1,16 @@
-- ## Get Started
-    - [Overview](/{{route}}/{{version}}/overview)
+- ## Memulai
+  - [Ikhtisar](/{{route}}/{{version}}/overview)
+  - [Arsitektur](/{{route}}/{{version}}/)
+  - [Cara Kerja](/{{route}}/{{version}}/)
+  - [Dukungan](/{{route}}/{{version}}/)
+- ## Web App
+  - [Ikhtisar](/{{route}}/{{version}}/web/overview)
+- ## Mobile App
+  - [Ikhtisar](/{{route}}/{{version}}/mobile/overview)
+- ## Telegram Bot
+  - [Ikhtisar](/{{route}}/{{version}}/bot/overview)
+  - [Penggunaan](/{{route}}/{{version}}/bot/usages)
+- ## Desktop App
+  - [Ikhtisar](/{{route}}/{{version}}/desktop/overview)
+  - [Penggunaan](/{{route}}/{{version}}/desktop/usages)
+

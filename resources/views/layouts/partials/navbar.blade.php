@@ -21,61 +21,8 @@
             </div>
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center">
+                @livewire('notification')
 
-                <li class="nav-item dropdown">
-                    <a
-                        class="nav-link text-dark me-lg-3 icon-notifications dropdown-toggle"
-                        data-unread-notifications="true"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        <span class="icon icon-sm">
-                            <span class="fas fa-bell bell-shake"></span>
-                            <span class="icon-badge rounded-circle unread-notifications"></span>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-lg dropdown-menu-center mt-2 py-0">
-                        <div class="list-group list-group-flush">
-                            <a href="#" class="text-center text-primary fw-bold border-bottom border-light py-3">
-                                Notifikasi
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action border-bottom border-light">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img
-                                            alt="Image placeholder"
-                                            src="{{default_profile_picture("Jose Leos")}}"
-                                            class="user-avatar lg-avatar rounded-circle"
-                                        >
-                                    </div>
-                                    <div class="col ps-0 ms-2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="h6 mb-0 text-small">Jose Leos</h4>
-                                            </div>
-                                            <div class="text-end">
-                                                <small class="text-danger">a few moments ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="font-small mt-1 mb-0">
-                                            Added you to an event "Project stand-up" tomorrow at 12:30 AM.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a
-                                href="#"
-                                class="dropdown-item text-center text-primary fw-bold rounded-bottom py-3"
-                            >
-                                Lihat semua
-                            </a>
-                        </div>
-                    </div>
-                </li>
                 <li class="nav-item dropdown">
                     <a
                         class="nav-link dropdown-toggle pt-1 px-0"

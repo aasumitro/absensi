@@ -83,7 +83,7 @@
     {{-- [START] FOOTER --}}
     <tr><th colspan="8"></th></tr>
     <tr>
-        <th colspan="8" rowspan="4" style="border: 2px solid black; font-weight: bold; font-style: italic">
+        <th colspan="8" rowspan="5" style="border: 2px solid black; font-weight: bold; font-style: italic">
             TOTAL HADIR : {{$reports['attend_total']}} ({{$reports['attend_overtime_total']}} TERLAMBAT) <br>
             TOTAL TIDAK HADIR : {{$reports['absent_total']}} <br>
             TOTAL TIDAK HADIR (SAKIT) : {{$reports['absent_sick_total']}} <br>

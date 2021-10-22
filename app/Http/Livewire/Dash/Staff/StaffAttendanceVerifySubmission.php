@@ -159,7 +159,9 @@ class StaffAttendanceVerifySubmission extends Component
                 $data['attachment_id'] = $attachment->id ?? null;
             }
 
-            $submission = Submission::create($data);
+            $submission = Submission::withoutEvents(function () use ($data) {
+               return Submission::create($data);
+            });
 
             $this->validSubmission($submission);
 
@@ -173,11 +175,6 @@ class StaffAttendanceVerifySubmission extends Component
                     " telah dibuat dan diterima oleh " . auth()->user()->name
                 ));
             }
-
-            $this->dispatchBrowserEvent('showNotify', [
-                'type' => 'success',
-                'message' => "Action <b>[UPDATE]</b> success"
-            ]);
         } catch (Exception $exception) {
             DB::rollback();
 
@@ -354,7 +351,7 @@ class StaffAttendanceVerifySubmission extends Component
             $submissions->where('absent_type_id', $this->absent_type_id);
         }
 
-        return $submissions->paginate(10);
+        return $submissions->orderBy('created_at', 'DESC')->paginate(10);
     }
 
     private function validSubmission(Submission $submission)
@@ -362,17 +359,38 @@ class StaffAttendanceVerifySubmission extends Component
         $period = CarbonPeriod::create($submission->start_at, $submission->end_at);
 
         foreach ($period as $date) {
-            Attendance::create([
+            $attendance = Attendance::where([
                 'user_id' => $submission->user_id,
-                'absent_type_id' => $submission->absent_type_id,
-                'device_id' => $this->default_device,
-                'department_id' => $submission->department_id,
-                'attachment_id' => $submission->attachment_id,
                 'date' => $date->format('Y-m-d'),
-                'type' => 'NONE',
-                'status' => 'ABSENT',
-                'by' => 'ADMIN/OPERATOR'
-            ]);
+            ])->first();
+
+            if (!$attendance) {
+                Attendance::create([
+                    'user_id' => $submission->user_id,
+                    'absent_type_id' => $submission->absent_type_id,
+                    'device_id' => $this->default_device,
+                    'department_id' => $submission->department_id,
+                    'attachment_id' => $submission->attachment_id,
+                    'date' => $date->format('Y-m-d'),
+                    'type' => 'NONE',
+                    'status' => 'ABSENT',
+                    'by' => 'ADMIN/OPERATOR'
+                ]);
+
+                $this->dispatchBrowserEvent('showNotify', [
+                    'type' => 'success',
+                    'message' => "Data absensi tanggal " . $date->format('Y-m-d') .
+                        " berhasil ditambahkan!"
+                ]);
+            }
+
+            if ($attendance) {
+                $this->dispatchBrowserEvent('showNotify', [
+                    'type' => 'error',
+                    'message' => 'Tidak dapat membuat data absensi pada tanggal ' .
+                        $date->format('Y-m-d') . ' karena data pada tanggan tersebut sudah ada!'
+                ]);
+            }
         }
     }
 }

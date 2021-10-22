@@ -32,6 +32,11 @@ class Submission extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function department(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function absentType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(AbsentType::class);

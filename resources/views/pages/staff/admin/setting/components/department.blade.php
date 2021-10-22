@@ -78,7 +78,7 @@
                         >
                         <div id="maxAttAccHelp" class="form-text">
                             Toleransi batas <code>maksimum</code> absensi masuk secara default adalah <code>60 menit</code>
-                            atau <code>1 jam</code> jadi, ketika jam masuk adalah pukul 08:00 pagi maka batas maksimum
+                            atau <code>1 jam</code> jadi, ketika jam masuk adalah pukul <code>08:00 pagi</code> maka batas maksimum
                             melakukan absensi adalah pukul <code>09:00 pagi</code>.
                         </div>
                     </div>

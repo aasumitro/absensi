@@ -6,6 +6,12 @@ use App\Http\Controllers\Api\Mobile\References\{
     SliderController
 };
 
+use App\Http\Controllers\Api\Mobile\Attendances\{
+    ClaimQrcodeTodayController,
+    GenerateAttendTokenController,
+    UserAttendanceReportController
+};
+
 use App\Http\Controllers\Api\Mobile\Submissions\{
     SubmissionIssuedController,
     SubmissionReportController
@@ -109,15 +115,30 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
         });
 
         Route::prefix('submissions')->name('submissions.')->group(function () {
-             Route::get('/', [SubmissionReportController::class, 'index'])->name('list');
-             Route::post('/make', [SubmissionIssuedController::class, 'index'])->name('issue');
+             Route::get('/', [
+                 SubmissionReportController::class,
+                 'index'
+             ])->name('list');
+             Route::post('/make', [
+                 SubmissionIssuedController::class,
+                 'index'
+             ])->name('issue');
         });
 
         Route::prefix('attendances')->name('attendances.')->group(function () {
-            // Route::get('/', [])->name('list');
-            // Route::post('scan', [])->name('issue');
+             Route::get('/', [
+                 UserAttendanceReportController::class,
+                 'index'
+             ])->name('list');
+             Route::post('scan', [
+                 ClaimQrcodeTodayController::class,
+                 'index'
+             ])->name('issue.claim-qrcode');
             // Route::post('take', [])->name('issue');
-            // Route::get('token', [])->name('issue');
+             Route::get('token', [
+                 GenerateAttendTokenController::class,
+                 'index'
+             ])->name('issue.attend-token');
         });
     });
 });

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\CanAttendToday;
 use App\Models\Concerns\HasAttendToken;
 use App\Models\Concerns\HasIntegrationCode;
 use App\Models\Concerns\HasOneTimePassword;
@@ -19,7 +20,13 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasRole, HasOneTimePassword, HasAttendToken, HasIntegrationCode;
+    use Notifiable, HasRole, HasOneTimePassword, HasAttendToken, HasIntegrationCode, CanAttendToday;
+
+    public const ACCEPTED_ATTENDANCE_CLAIM_MODE = ['QRCODE_SCAN', 'PICTURE'];
+
+    public const CLAIM_MODE_QRCODE = 'QRCODE_SCAN';
+
+    public const CLAIM_MODE_PICTURE = 'PICTURE';
 
     /**
      * The attributes that are mass assignable.

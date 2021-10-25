@@ -18,6 +18,19 @@ trait DeviceApiManager
 
     public static function login(Request $request)
     {
+        $device = Device::where([
+            'unique_id' => $request->unique_id
+        ])->firstOrFail();
+
+        if (!$device->device_id) {
+            $device->device_id = $request->device_id;
+            $device->save();
+        }
+
+        if ($device->device_id !== $request->device_id) {
+            throw new \Exception("Sepertinya anda menggunakan data kredensial ini pada perangkat baru, segera hubungi admin untuk melakukan reset agar data kredensial bisa digunakan pada perangkat baru ini!");
+        }
+
         return Auth::guard('device-api')->setTTL(JWT_TTL_IN_MINUTE)->attempt(
             $request->only('unique_id', 'password')
         );

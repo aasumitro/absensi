@@ -14,32 +14,34 @@ class GrantAccessController extends ApiController
 
     public function index(DeviceLoginRequest $request)
     {
-       if ($jwt = DeviceApiManager::login($request)) {
-           $data = jwt_decode($jwt);
+        try {
+            $jwt = DeviceApiManager::login($request);
 
-           return ApiResponder::success(
-               [
-                   'access' => [
-                       'token' => $jwt,
-                       'expires_in' => $data->exp,
-                   ],
-                   'session' => DeviceApiManager::generateSessionToken($jwt),
-                   'branch_name' => $data->payload->department,
-                   'device_name' => $data->payload->name,
-                   'timezone' => [
-                       'area' => $data->payload->timezone->area,
-                       'locale' => $data->payload->timezone->locale,
-                       'format' => $data->payload->timezone->format
-                   ]
-               ],
-               strtoupper(SUCCESS_AUTHENTICATED_DESCRIPTION),
-               Response::HTTP_CREATED
-           );
-       }
+            $data = jwt_decode($jwt);
 
-        return ApiResponder::error(
-            strtoupper(FAILED_AUTHENTICATED_DESCRIPTION),
-            Response::HTTP_UNPROCESSABLE_ENTITY
-        );
+            return ApiResponder::success(
+                [
+                    'access' => [
+                        'token' => $jwt,
+                        'expires_in' => $data->exp,
+                    ],
+                    'session' => DeviceApiManager::generateSessionToken($jwt),
+                    'branch_name' => $data->payload->department,
+                    'device_name' => $data->payload->name,
+                    'timezone' => [
+                        'area' => $data->payload->timezone->area,
+                        'locale' => $data->payload->timezone->locale,
+                        'format' => $data->payload->timezone->format
+                    ]
+                ],
+                strtoupper(SUCCESS_AUTHENTICATED_DESCRIPTION),
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $exception) {
+            return ApiResponder::error(
+                $exception->getMessage(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
     }
 }

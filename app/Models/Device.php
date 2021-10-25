@@ -23,6 +23,7 @@ class Device extends Model implements AuthenticatableContract, AuthorizableContr
     protected $fillable = [
         'department_id',
         'unique_id',
+        'device_id',
         'display',
         'name',
         'password',

@@ -61,7 +61,7 @@
 
         @if($requests->count() <= 0)
             <div class="mt-4 text-center">
-                Data tidak tersedia
+                Belum ada pengajuan baru
             </div>
         @endif
 

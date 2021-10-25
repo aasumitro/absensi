@@ -19,13 +19,10 @@ class AbsentTypeParamImpl implements Params
     {
         if ($value === Params::ALL) return $builder;
 
-        $selected_id = $value;
+        if (!in_array($value, params::AVAILABLE_ABSENT_TYPE)) return $builder;
 
-        if (is_string($value)) {
-            $absent_type = AbsentType::where('name', $value)->first();
-            $selected_id = $absent_type->id;
-        }
+        $absent_type = AbsentType::where('name', $value)->first();
 
-        return $builder->where('absent_type_id', $selected_id);
+        return $builder->where('absent_type_id', $absent_type->id);
     }
 }

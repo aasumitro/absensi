@@ -12,6 +12,8 @@ interface Params
 
     const AVAILABLE_SUBMISSION_STATUS = ['ISSUED', 'ACCEPTED', 'REJECTED'];
 
+    const AVAILABLE_ABSENT_TYPE = ['CT', 'SK'];
+
     /**
      * Apply a given search value to the builder instance.
      *

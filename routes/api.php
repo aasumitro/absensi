@@ -6,6 +6,11 @@ use App\Http\Controllers\Api\Mobile\References\{
     SliderController
 };
 
+use App\Http\Controllers\Api\Mobile\Submissions\{
+    SubmissionIssuedController,
+    SubmissionReportController
+};
+
 use App\Http\Controllers\Api\Mobile\Profiles\{
     UserDetailController,
     UpdateProfilePictureController,
@@ -104,8 +109,8 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
         });
 
         Route::prefix('submissions')->name('submissions.')->group(function () {
-            // Route::get('/', [])->name('list');
-            // Route::post('/make', [])->name('issue');
+             Route::get('/', [SubmissionReportController::class, 'index'])->name('list');
+             Route::post('/make', [SubmissionIssuedController::class, 'index'])->name('issue');
         });
 
         Route::prefix('attendances')->name('attendances.')->group(function () {

@@ -16,12 +16,16 @@ trait ReferenceManager
 
     private int $cache_time = 120;
 
-    protected function fetchAbsentTypes()
+    protected function fetchAbsentTypes(array $except)
     {
-        return Cache::remember($this->fetch_absent_type_key, $this->cache_time, function ()
-        {
-            return AbsentType::all();
-        });
+        return Cache::remember(
+            $this->fetch_absent_type_key . $except[0],
+            $this->cache_time, function () use ($except)
+            {
+                return (is_null($except))
+                    ? AbsentType::all()
+                    : AbsentType::whereNotIn('id', $except)->get();
+            });
     }
 
     protected function fetchAnnouncements()

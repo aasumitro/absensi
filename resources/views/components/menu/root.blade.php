@@ -37,26 +37,24 @@
             </span>
         </span>
         <div
-            class="multi-level collapse"
+            class="multi-level collapse {{ Route::is('dashboard.*') ? 'show' : '' }}"
             role="list"
             id="submenu-dashboard"
             aria-expanded="false"
         >
             <ul class="flex-column nav">
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('dashboard.summary') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('dashboard.summary') }}"
                     >
                         <span class="sidebar-text">Ringkasan</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('dashboard.scope-office') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        target="_blank"
-                        href="#"
+                        href="{{ route('dashboard.scope-office') }}"
                     >
                         <span class="sidebar-text">Berdasarkan SKPD</span>
                     </a>
@@ -188,8 +186,7 @@
                 <li class="nav-item {{ Route::is('settings.system') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        href="{{-- route('settings.system') --}}#"
-                        onclick="showNotification('error', 'This feature currently unavailable')"
+                        href="{{ route('settings.system') }}"
                     >
                         <span class="sidebar-text">Dashboard</span>
                     </a>

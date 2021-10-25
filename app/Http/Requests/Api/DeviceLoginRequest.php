@@ -15,6 +15,7 @@ class DeviceLoginRequest extends FormRequest
     {
         return [
             'unique_id' => 'required',
+            'device_id' => 'required',
             'password' => 'required',
         ];
     }

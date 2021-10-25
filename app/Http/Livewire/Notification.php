@@ -20,6 +20,8 @@ class Notification extends Component
 
     private function loadSubmissionNotification()
     {
-        $this->notifications = \DB::table('observe_submissions')->get();
+        $this->notifications = \DB::table('observe_submissions')
+            ->limit(3)
+            ->get();
     }
 }

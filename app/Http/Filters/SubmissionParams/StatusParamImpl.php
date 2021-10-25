@@ -16,8 +16,6 @@ class StatusParamImpl implements Params
      */
     public static function apply(Builder $builder, $value)
     {
-        if ($value === params::TRASHED) return $builder->onlyTrashed();
-
         if (in_array($value, params::AVAILABLE_SUBMISSION_STATUS)) {
             return $builder->where('status',  $value);
         }

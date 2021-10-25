@@ -42,6 +42,13 @@
                                         Data umum (Edit)
                                     </a>
                                     <a
+                                        wire:click="selectedDepartmentDevice({{$device}}, 'RESET')"
+                                        class="dropdown-item"
+                                    >
+                                        <span class="fas fa-microchip me-2"></span>
+                                        Reset Perangkat
+                                    </a>
+                                    <a
                                         wire:click="selectedDepartmentDevice({{$device}}, 'UPDATE_PASSWORD')"
                                         class="dropdown-item"
                                     >
@@ -82,6 +89,7 @@
     @include('pages.staff.admin.device.components.edit-modal')
     @include('pages.staff.admin.device.components.edit-password-modal')
     @include('pages.staff.admin.device.components.detail-modal')
+    @include('pages.staff.admin.device.components.reset-modal')
     @include('components.delete-modal')
 </div>
 
@@ -97,6 +105,8 @@
         let bsDeleteDeviceModal = new bootstrap.Modal(deleteDeviceModal)
         let detailDeviceModal = document.getElementById('detailDepartmentDeviceModal')
         let bsDetailDeviceActivityModal = new bootstrap.Modal(detailDeviceModal)
+        let resetDeviceModal = document.getElementById('resetModal')
+        let bsResetDeviceModal = new bootstrap.Modal(resetDeviceModal)
 
         window.addEventListener('openModal', event => {
             if (event.detail.type === "DESTROY") {
@@ -112,8 +122,11 @@
             }
 
             if (event.detail.type === "DETAIL") {
-                console.log('test')
                 bsDetailDeviceActivityModal.show()
+            }
+
+            if (event.detail.type === 'RESET') {
+                bsResetDeviceModal.show()
             }
          })
 
@@ -132,6 +145,10 @@
 
             if (event.detail.type === "UPDATE_PASSWORD") {
                 bsUpdateDevicePasswordModal.hide()
+            }
+
+            if (event.detail.type === 'RESET') {
+                bsResetDeviceModal.hide()
             }
         })
 

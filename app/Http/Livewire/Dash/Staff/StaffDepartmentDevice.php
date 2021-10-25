@@ -208,6 +208,37 @@ class StaffDepartmentDevice extends Component
         $this->reset();
     }
 
+    public function performResetDevice()
+    {
+        try {
+            $user_department_id = auth()->user()->profile->department_id;
+
+            $device = Device::findOrFail($this->selected_id);
+            $device->device_id = null;
+            $device->save();
+
+            Cache::forget("office_department_device_for_root_${user_department_id}");
+            Cache::forget("office_department_device_detail_{$this->selected_id}");
+
+            $this->dispatchBrowserEvent('showNotify', [
+                'type' => 'success',
+                'message' => "Action <b>[RESET]</b> success"
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatchBrowserEvent('showNotify', [
+                'type' => 'error',
+                'message' => "Action <b>[RESET]</b> failed :" . $e->getMessage()
+            ]);
+        }
+
+        $this->dispatchBrowserEvent(
+            'closeModal',
+            ['type' => 'RESET']
+        );
+
+        $this->emit('staffDepartmentDeviceListSectionRefresh');
+    }
+
     public function performDestroy()
     {
         try {

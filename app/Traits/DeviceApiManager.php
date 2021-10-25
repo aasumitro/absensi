@@ -153,8 +153,6 @@ trait DeviceApiManager
     protected static function sendNotify(User $user, $message)
     {
         event(new AttendEvent($user, $message));
-
-        // TODO create new notify message (table)
     }
 
     protected function getCurrentMessage(): string

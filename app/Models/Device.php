@@ -29,7 +29,9 @@ class Device extends Model implements AuthenticatableContract, AuthorizableContr
         'password',
         'refresh_time_mode',
         'refresh_time',
-        'session_token'
+        'session_token',
+        'latitude',
+        'longitude'
     ];
 
     /**

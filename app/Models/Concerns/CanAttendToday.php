@@ -3,42 +3,35 @@
 namespace App\Models\Concerns;
 
 use App\Events\AttendEvent;
+use App\Exceptions\Attendances\CouldNotClaimAttendance;
 use App\Models\Attendance;
 use App\Models\Device;
+use App\Models\Managers\AttachmentManager;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 trait CanAttendToday
 {
+    use AttachmentManager;
+
     public function claimNewAttendance(string $mode, Request $request): array
     {
-        if (!in_array($mode, $this::ACCEPTED_ATTENDANCE_CLAIM_MODE)) {
-            throw new Exception("Mode tidak tersedia");
+        if (!in_array($mode, Attendance::ACCEPTED_ATTENDANCE_CLAIM_MODE)) {
+            throw CouldNotClaimAttendance::couldNotAcceptMode();
         }
 
         $attendance = $this->getAttendance();
 
         $device_id = null;
-        if ($mode === $this::CLAIM_MODE_QRCODE) {
+        if ($mode === Attendance::CLAIM_MODE_QRCODE) {
             $device = $this->getDevice($request->device_uid);
-            $device_id = $device->id;
+            $device_id = $device->id ?? null;
 
             // validasi session token yang dikirim dan device_session_token
             if (!$this->isSessionValid($request->session_token, $device->session_token)) {
-                throw new Exception("QrCode tidak valid lagi, silahkan tekan tombol refresh pada layar perangkat!");
+                throw CouldNotClaimAttendance::invalidQrCodeSession();
             }
-        }
-
-        if ($mode === $this::CLAIM_MODE_PICTURE) {
-            $device = Device::where([
-                'department_id' => auth()->user()->profile->department_id,
-                'display' => 'DASHBOARD'
-            ])->first();
-            $device_id = $device->id;
-
-
-            // TODO UPLOAD FILE AND SET ATTACHMENT
         }
 
         $current_session_time = $this->getSessionTime();
@@ -47,6 +40,17 @@ trait CanAttendToday
         // TODO: jika belum ada buat baru untuk attend masuk dengan ketentuan attend masuk:
         if (!$attendance) {
             $status = $this->isUserCanClaim($current_session_time);
+
+             if ($mode === Attendance::CLAIM_MODE_PICTURE) {
+                 $device_id = Device::where([
+                     'department_id' => auth()->user()->profile->department_id,
+                     'display' => 'DASHBOARD'
+                 ])->first()->id ?? null;
+
+                 if (in_array(substr($request->file->extension(), -3), ['jpg','png','jpeg'])) {
+                     $attachment_id = $this->createNewAttachment($request->file)->id;
+                 }
+             }
 
             $payload = [
                 'user_id' => auth()->id(),
@@ -58,11 +62,10 @@ trait CanAttendToday
                 'date' => $current_session_time['current_locale_time']['date'],
                 'datetime_in' => $current_session_time['current_locale_time']['datetime'],
                 'timestamp_in' => $current_session_time['current_locale_time']['timestamp'],
+                'latitude' => $request->latitude ?? null,
+                'longitude' => $request->longitude ?? null,
+                'attachment_id' => $attachment_id ?? null
             ];
-
-            // if ($mode === $this::CLAIM_MODE_PICTURE) {
-                // $payload['attachment_id'] = $attachment->id;
-            // }
 
             return $this->attendIn($payload);
         }
@@ -71,21 +74,22 @@ trait CanAttendToday
         // jika belum cek sudah jam pulang atau belum
         if ($this->isCanGoHome($current_session_time, $attendance)) {
             // jika belum kasi notifikasi anda sudah absen datang kembali pukul sekian untuk absen pualng
-            throw new Exception(
-                "Anda sudah melakukan absensi datang silahkan ".
-                "kembali pukul {$current_session_time['min_att_out']['time']} untuk absensi pulang"
-            );
+            throw CouldNotClaimAttendance::userHasAttendIn($current_session_time['min_att_out']['time']);
         }
 
         // cek dulu sudah absensi pulang atau belum
         if ($this->isCantAttendOut($attendance)) {
             // jika sudah absensi pulang kirim pesan sudah absen datang dan pulang
-            throw new Exception("Hari ini Anda sudah melakukan absensi datang dan pulang");
+            throw CouldNotClaimAttendance::userHasAttend();
         }
 
         // jika sudah masuk sessi absensi pulang dan belum absen pulang
         // update data absensi pulang dan kirim notifikasi
-        return $this->attendOut($current_session_time, $attendance);
+        return $this->attendOut(
+            $current_session_time,
+            $attendance,
+            (($mode === Attendance::CLAIM_MODE_PICTURE) ? $request->file : null)
+        );
     }
 
     private function attendIn($payload): array
@@ -95,7 +99,7 @@ trait CanAttendToday
         $attendance = Attendance::create($payload);
 
         if (!$attendance) {
-            throw new Exception("Gagal melakukan absensi masuk pada {$payload['datetime_in']}");
+            throw CouldNotClaimAttendance::failedCreateNewAttendance($payload['datetime_in']);
         }
 
         event(new AttendEvent(auth()->user(), $message));
@@ -103,9 +107,15 @@ trait CanAttendToday
         return ['action' => $message];
     }
 
-    private function attendOut($session_time, Attendance $attendance): array
+    private function attendOut($session_time, Attendance $attendance, UploadedFile $file = null): array
     {
         $message = "Anda berhasil melakukan absensi Pulang pada {$session_time['current_locale_time']['datetime']}";
+
+        if ($file && in_array(substr($file->extension(), -3), ['jpg','png','jpeg'])) {
+            $attachment_id = $this->createNewAttachment($file)->id;
+            $attendance->attachment_out_id = $attachment_id ?? null;
+        }
+
         $attendance->datetime_out = $session_time['current_locale_time']['datetime'];
         $attendance->timestamp_out = $session_time['current_locale_time']['timestamp'];
         $attendance->save();
@@ -119,20 +129,15 @@ trait CanAttendToday
     {
         // validasi sudah bisa absen masuk atau tidak (min_att_acc)
         if (!$this->isSessionOpen($session_time)) {
-            throw new Exception(
-                "Gagal melakukan absensi, ".
-                "sesi absensi masuk akan dibuka mulai pukul: " .
-                "{$session_time['min_att_acc']['time']}"
-            );
+            throw CouldNotClaimAttendance::sessionNotYetOpened($session_time['min_att_acc']['time']);
         }
 
         // validasi masih bisa absen masuk atau tidak (max_att_acc)
         if (!$this->isOverdueSessionEnd($session_time)) {
-            throw new Exception(
-                "Sesi absensi sudah ditutup, " .
-                "Anda hanya bisa melakukan absensi dari pukul " .
-                "{$session_time['min_att_acc']['time']} pagi - {$session_time['max_att_acc']['time']} pagi, " .
-                "dimana diatas pukul {$session_time['max_att_in']['time']} dihitung terlambat."
+            throw CouldNotClaimAttendance::sessionClosed(
+                $session_time['min_att_acc']['time'],
+                $session_time['max_att_acc']['time'],
+                $session_time['max_att_acc']['time']
             );
         }
 
@@ -200,15 +205,23 @@ trait CanAttendToday
             'unique_id',
             $device_unique_id
         )->firstOr(function () use ($device_unique_id) {
-            throw new Exception("QrCode dari perangkat ini tidak valid, silahkan hubungi admin!");
+            throw CouldNotClaimAttendance::invalidDeviceCredentials();
         });
+    }
+
+    private function createNewAttachment(UploadedFile $file)
+    {
+        return $this->newAttachment([
+            'type' => 'IMAGE',
+            'file'=> $file
+        ], 'PRIVATE') ?? null;
     }
 
     private function getSessionTime(): array
     {
         // TODO change $now
-        // $now = Carbon::now($this->profile->department->timezone->locale);
-        $now = Carbon::parse("2021-10-25 16:31", $this->profile->department->timezone->locale);
+        $now = Carbon::now($this->profile->department->timezone->locale);
+        // $now = Carbon::parse("2021-10-28 16:31", $this->profile->department->timezone->locale);
         $max_att_in = Carbon::parse("{$now->format('Y-m-d')} {$this->profile->department->max_att_in}");
         $min_att_out = Carbon::parse("{$now->format('Y-m-d')} {$this->profile->department->min_att_out}");
         $min_att_acc = Carbon::parse($max_att_in->format('Y-m-d H:i'))

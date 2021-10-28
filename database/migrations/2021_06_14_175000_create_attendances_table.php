@@ -35,6 +35,8 @@ class CreateAttendancesTable extends Migration
                 ->nullable()
                 ->constrained('attachments')
                 ->onDelete('SET NULL');
+            $table->foreignId('attachment_out_id')
+                ->nullable();
 
             $table->enum('type', [
                 'NONE', 'QRCODE_SCAN', 'QRCODE_GEN', 'PICTURE'
@@ -50,7 +52,8 @@ class CreateAttendancesTable extends Migration
             $table->enum('by', [
                 'USER', 'SYSTEM', 'ADMIN/OPERATOR'
             ])->default('USER');
-
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->timestamps();
         });
     }

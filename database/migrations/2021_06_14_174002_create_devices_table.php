@@ -27,6 +27,10 @@ class CreateDevicesTable extends Migration
             $table->string('device_id')
                 ->unique()
                 ->nullable();
+            $table->decimal('latitude', 10, 8)
+                ->nullable();
+            $table->decimal('longitude', 11, 8)
+                ->nullable();
             $table->string('password');
 
             $table->enum('refresh_time_mode', ['MINUTES', 'SECONDS'])

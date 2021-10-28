@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Mobile\References\{
 };
 
 use App\Http\Controllers\Api\Mobile\Attendances\{
+    ClaimPictureTodayController,
     ClaimQrcodeTodayController,
     GenerateAttendTokenController,
     UserAttendanceReportController
@@ -134,7 +135,10 @@ Route::prefix('/v1/mobile')->name('api.mobile.')->group(function () {
                  ClaimQrcodeTodayController::class,
                  'index'
              ])->name('issue.claim-qrcode');
-            // Route::post('take', [])->name('issue');
+             Route::post('take', [
+                 ClaimPictureTodayController::class,
+                 'index'
+             ])->name('issue.claim-picture');
              Route::get('token', [
                  GenerateAttendTokenController::class,
                  'index'

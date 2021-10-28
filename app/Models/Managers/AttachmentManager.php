@@ -40,9 +40,7 @@ trait AttachmentManager
             unset($data['file']);
         }
 
-        $attachment = Attachment::create($data);
-
-        return $attachment;
+        return Attachment::create($data);
     }
 
     public function modifyAttachment($id, $data, $status = "NO_CONTENT")

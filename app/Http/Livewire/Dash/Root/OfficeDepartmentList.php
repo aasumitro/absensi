@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Dash\Root;
 
 use App\Models\Department;
+use App\Models\Device;
 use App\Models\Timezone;
 use Exception;
+use Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Str;
 
 class OfficeDepartmentList extends Component
 {
@@ -91,7 +94,16 @@ class OfficeDepartmentList extends Component
             $data['timezone_id'] = $data['timezone'];
             unset($data['timezone']);
 
-            Department::create($data);
+            $department = Department::create($data);
+
+            Device::create([
+                'department_id' => $department->id,
+                'display' => 'DASHBOARD',
+                'name' => "[{$data['name']}] default",
+                'unique_id' => Str::uuid(),
+                'password' => Hash::make('secret'),
+                'session_token' => Str::random(32)
+            ]);
 
             $this->dispatchBrowserEvent('showNotify', [
                 'type' => 'success',

@@ -22,7 +22,9 @@
             <tbody>
             @foreach($departments as $department)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        {{ ($departments->currentPage()-1) * $departments->perPage() + $loop->index + 1 }}
+                    </td>
                     <td>{{ $department->name }}</td>
                     <td>{{ $department->max_att_in }}</td>
                     <td>{{ $department->min_att_out}}</td>

@@ -16,7 +16,9 @@
             <tbody>
             @foreach($members as $member)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        {{ ($members->currentPage()-1) * $members->perPage() + $loop->index + 1 }}
+                    </td>
                     <td>
                          <span class="badge bg-primary py-1 px-2">
                              {{ $member->department->name }}

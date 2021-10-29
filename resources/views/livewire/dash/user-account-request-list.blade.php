@@ -14,7 +14,9 @@
             @foreach($requests as $request)
                 @php($user = json_decode($request->value))
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        {{ ($requests->currentPage()-1) * $requests->perPage() + $loop->index + 1 }}
+                    </td>
                     <td>
                         REQ_AKUN_ADMIN <br>
                         <span class="badge bg-primary py-1 px-2">

@@ -16,7 +16,9 @@
             <tbody>
             @foreach($attendances as $attendance)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
+                    <td>
+                        {{ ($attendances->currentPage()-1) * $attendances->perPage() + $loop->index + 1 }}
+                    </td>
                     <td>{{$attendance->department->name}}</td>
                     <td>{{$attendance->user->name}}</td>
                     <td>

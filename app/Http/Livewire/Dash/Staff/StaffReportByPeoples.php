@@ -9,12 +9,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Excel;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class StaffReportByPeoples extends Component
 {
-    use WithPagination;
-
     public $query;
 
     public $department_id;

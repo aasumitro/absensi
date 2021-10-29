@@ -15,7 +15,9 @@
             <tbody>
             @foreach($members as $account)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        {{ ($members->currentPage()-1) * $members->perPage() + $loop->index + 1 }}
+                    </td>
                     <td>{{ $account->user->name }}</td>
                     <td>{{ $account->user->username }}</td>
                     <td>{{ $account->user->email ?? "NOT_SET" }}</td>

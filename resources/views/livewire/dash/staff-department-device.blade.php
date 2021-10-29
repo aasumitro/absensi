@@ -13,7 +13,9 @@
             <tbody>
             @foreach($devices as $device)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        {{ ($devices->currentPage()-1) * $devices->perPage() + $loop->index + 1 }}
+                    </td>
                     <td>{{ $device->unique_id }}</td>
                     <td>{{ $device->name }} - {{ $device->display }}</td>
                     <td>{{ $device->refresh_time}} ({{ $device->refresh_time_mode}}) </td>

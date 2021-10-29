@@ -15,7 +15,9 @@
         <tbody>
         @foreach($submissions as $submission)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>
+                    {{ ($submissions->currentPage()-1) * $submissions->perPage() + $loop->index + 1 }}
+                </td>
                 <td>{{ $submission->user->name }}</td>
                 <td>{{ strtoupper($submission->absentType->description) }} ({{ $submission->absentType->name }})</td>
                 <td>{{

@@ -8,7 +8,7 @@
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Peganturan sistem</h1>
                 <p class="mb-0">
-                    System Settings and Preferences like favicon, logo, name, contacts and others!
+                    Pengaturan umum aplikasi seperti favicon, logo, nama, contacts and others!
                 </p>
             </div>
         </div>

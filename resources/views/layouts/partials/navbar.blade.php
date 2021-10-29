@@ -48,7 +48,7 @@
                         <a
                             class="dropdown-item rounded-top fw-bold"
                             href="#"
-                            onclick="showNotification('error', 'Feature currently not implemented yet!')"
+                            onclick="showNotification('error', 'Aksi tidak diizinkan, silahkan lakukan perubahan pada menu [Pengguna/Akun]', 10000)"
                         >
                             <span class="far fa-user-circle"></span>
                             Profil Saya

@@ -186,7 +186,8 @@
                 <li class="nav-item {{ Route::is('settings.system') ? 'active' : '' }}">
                     <a
                         class="nav-link"
-                        href="{{ route('settings.system') }}"
+                        onclick="showNotification('error', 'Aksi tidak diizinkan')"
+                        href="#{{-- route('settings.system') --}}"
                     >
                         <span class="sidebar-text">Dashboard</span>
                     </a>

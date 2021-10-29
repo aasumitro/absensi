@@ -18,6 +18,7 @@
                     data-bs-target="#departmentAddMemberModal"
                     type="button"
                     class="btn btn-dark h-75"
+                    onclick="clearSelectedFormInput('username', 'name', 'email', 'phone')"
                 >Tambah pegawai baru</button>
             </div>
         </div>
@@ -28,6 +29,3 @@
     </section>
 @endsection
 
-@section('content-modal')
-    @livewire('dash.root.office-department-member-create')
-@endsection

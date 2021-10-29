@@ -3,21 +3,23 @@
     class="modal fade"
     tabindex="-1"
     role="dialog"
-    id="editUserAccountRequestModal"
+    id="departmentEditMemberModal"
 >
     <div
         class="modal-dialog modal-md"
         role="document"
-        tabindex="-1"
     >
-        <form wire:submit.prevent="performConfirmRequest">
+        <form wire:submit.prevent="performUpdateMember">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Konfirmasi</h5>
+                    <h5 class="modal-title">Perbaharui data pegawai</h5>
                 </div>
                 <div class="modal-body">
-                    Anda yakin ingin melakukan aksi ini?
-                    tekan terima untuk konfirmasi pengajuan!
+                    @include('components.input.username-input', ['isReadOnly' => true])
+                    @include('components.input.email-input', ['isReadOnly' => true])
+                    @include('components.input.phone-input', ['isReadOnly' => true])
+                    @include('components.input.name-input')
+                    @include('components.input.department-select')
                 </div>
                 <div class="modal-footer">
                     <button
@@ -31,7 +33,7 @@
                         type="submit"
                         class="btn btn-danger"
                     >
-                        Terima
+                        Perbaharui
                     </button>
                 </div>
             </div>

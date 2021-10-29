@@ -42,11 +42,15 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu" data-popper-placement="bottom-end">
-                                    <a href="#" class="dropdown-item">
+                                    <a
+                                        wire:click="selectedMember({{$member}}, 'UPDATE')"
+                                        class="dropdown-item">
                                         <span class="fas fa-edit me-2"></span>
                                         Perbaharui
                                     </a>
-                                    <a href="#"  class="dropdown-item text-danger rounded-bottom">
+                                    <a
+                                        wire:click="selectedMember({{$member}}, 'DESTROY')"
+                                        class="dropdown-item text-danger rounded-bottom">
                                         <span class="fas fa-trash-alt me-2"></span>
                                         Hapus
                                     </a>
@@ -82,4 +86,50 @@
             </nav>
         </div>
     </div>
+
+    @include('pages.root.offices.people.components.add-modal')
+    @include('pages.root.offices.people.components.edit-modal')
+    @include('components.delete-modal')
 </div>
+
+@section('custom-script')
+    <script>
+        let addMemberModal = document.getElementById('departmentAddMemberModal')
+        let bsAddMemberModal = new bootstrap.Modal(addMemberModal)
+        let editMemberModal = document.getElementById('departmentEditMemberModal')
+        let bsEditMemberModal = new bootstrap.Modal(editMemberModal)
+        let deleteUserModal = document.getElementById('deleteModal')
+        let bsDeleteUserModal = new bootstrap.Modal(deleteUserModal)
+
+        window.addEventListener('openModal', event => {
+            if (event.detail.type === "DESTROY") {
+                bsDeleteUserModal.show()
+            }
+
+            if (event.detail.type === "UPDATE") {
+                bsEditMemberModal.show()
+            }
+        })
+
+        window.addEventListener('closeModal', event => {
+            if (event.detail.type === "DESTROY") {
+                bsDeleteUserModal.hide()
+            }
+
+            if (event.detail.type === "CREATE") {
+                bsAddMemberModal.hide()
+            }
+
+            if (event.detail.type === "UPDATE") {
+                bsEditMemberModal.hide()
+            }
+        })
+
+        window.addEventListener('showNotify', event => {
+            showNotification(
+                event.detail.type,
+                event.detail.message
+            )
+        })
+    </script>
+@endsection

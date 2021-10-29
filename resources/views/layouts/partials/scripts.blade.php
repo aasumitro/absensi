@@ -21,6 +21,7 @@
 <script src="{{ asset('assets/vendor/volt/dist/js/volt.js') }}"></script>
 
 <script src="{{ asset('assets/js/notify.js') }}"></script>
+<script src="{{ asset('assets/js/form-value.js') }}"></script>
 
 <script>
     window.onload = () => {

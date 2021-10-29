@@ -7,6 +7,7 @@ use App\Exports\AttendanceByDateFormatTotal;
 use App\Models\AbsentType;
 use App\Models\Attendance;
 use App\Models\Department;
+use App\Models\Device;
 use App\Models\Profile;
 use Excel;
 use Illuminate\Support\Carbon;
@@ -24,6 +25,8 @@ class StaffReportByDates extends Component
     public $to_date;
 
     public $absent_type_id;
+
+    public $device_id;
 
     public $department_id;
     public $department_timezone;
@@ -46,6 +49,7 @@ class StaffReportByDates extends Component
         $this->to_date = Carbon::now($this->department_timezone)->endOfMonth()->format('Y-m-d');
         $this->from_date = Carbon::now($this->department_timezone)->startOfMonth()->format('Y-m-d');
         $this->absent_type_id = 'ALL';
+        $this->device_id = 'ALL';
         $this->format = "DETAIL";
     }
 
@@ -53,6 +57,7 @@ class StaffReportByDates extends Component
     {
         return view('livewire.dash.staff.staff-report-by-dates', [
             'absentTypes' => AbsentType::all(),
+            'devices' => Device::where('department_id', $this->department_id)->get(),
             'attendances' => ($this->format === 'DETAIL')
                 ? $this->loadAttendancesFormatDetail()->paginate(15)
                 : $this->loadAttendancesFormatTotal()->paginate(15)
@@ -116,6 +121,10 @@ class StaffReportByDates extends Component
             } else {
                 $attendances->where('status', $this->absent_type_id);
             }
+        }
+
+        if ((string) $this->device_id !== 'ALL') {
+            $attendances->where('device_id', $this->device_id);
         }
 
         $attendances->orderBy('date', 'DESC');

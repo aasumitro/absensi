@@ -1,5 +1,27 @@
 <div class="card-header-filter">
     <div class="d-flex p-3 float-end">
+        @if($format === 'DETAIL')
+        <div class="form-group ms-3">
+            <label for="device_id">PERANGKAT</label>
+            <div id="device_id_group" class="input-group">
+                <select
+                    name="device_id"
+                    wire:model="device_id"
+                    id="device_id"
+                    class="form-control"
+                    style="width: 180px; border-radius: 30px 30px 30px 30px !important; height: 32px !important; font-size:13px; padding: 0 10px !important;"
+                >
+                    <option value="ALL">SEMUA PERANGKAT</option>
+                    @foreach($devices as $device)
+                        <option value="{{$device->id}}">
+                            {{strtoupper($device->name)}} ({{$device->display}})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        @endif
+
         <div class="form-group ms-3">
             <label for="format">FORMAT</label>
             <div id="format" class="input-group">
@@ -15,6 +37,7 @@
                 </select>
             </div>
         </div>
+
         <div class="form-group ms-3">
             <label for="for_date">TANGGAL</label>
             <div id="for_date" class="d-flex">
@@ -38,6 +61,7 @@
                 >
             </div>
         </div>
+
         @if($format === 'DETAIL')
         <div class="form-group ms-3">
             <label for="for_absent_type">TIPE</label>

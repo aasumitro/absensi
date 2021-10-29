@@ -10,7 +10,6 @@ use App\Http\Controllers\Dash\Root\Dashboard\{
 use App\Http\Controllers\Dash\Root\MobileSettingController;
 use App\Http\Controllers\Dash\Root\SystemSettingController;
 use App\Http\Controllers\Dash\Staff\Reports\{
-    SummaryReportController as DepartmentSummaryReportController,
     ByPeopleReportController as DepartmentByPeopleReportController,
     ByDateRangeReportController as DepartmentByDateRangeReportController
 };
@@ -140,9 +139,8 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
 
             // [START-REPORT]
             Route::prefix('reports')->group(function () {
-                Route::get('/summaries',  DepartmentSummaryReportController::class)->name('staff.reports.summaries');
-                 Route::get('/peoples', DepartmentByPeopleReportController::class)->name('staff.reports.by-people');
-                 Route::get('/dates', DepartmentByDateRangeReportController::class)->name('staff.reports.by-dates');
+                Route::get('/peoples', DepartmentByPeopleReportController::class)->name('staff.reports.by-people');
+                Route::get('/dates', DepartmentByDateRangeReportController::class)->name('staff.reports.by-dates');
             });
             // [END-REPORT]
         });

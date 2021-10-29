@@ -40,6 +40,18 @@
                                     ? \Carbon\Carbon::parse($attendance->datetime_out)->format('H:i')
                                     : "BELUM ABSEN"
                             }}
+                            <br>
+                            @if($attendance->type === 'PICTURE')
+                                Absen dengan Foto:
+                                <br>
+                                @if($attendance->attachment_id)
+                                    1. <a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">lampiran masuk</a>
+                                @endif
+                                <br>
+                                @if($attendance->attachment_out_id)
+                                    2. <a href="{{route('private.file', ['id' => optional($attendance->attachmentOut)->id])}}" target="_blank" class="text-info text-underline">lampiran keluar</a>
+                                @endif
+                            @endif
                         @else
                             -
                         @endif

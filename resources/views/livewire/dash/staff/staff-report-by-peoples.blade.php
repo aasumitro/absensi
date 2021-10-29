@@ -292,6 +292,11 @@
                                                @if($attendance->status === 'ATTEND')
                                                    {{\Carbon\Carbon::parse($attendance->datetime_in)->format('H:i:s')}}
                                                    ({{$attendance->overdue ? 'TERLAMBAT' : 'TEPAT WAKTU'}})
+
+                                                   @if($attendance->type === 'PICTURE' && $attendance->attachment_id)
+                                                       <br>
+                                                       Absen dengan Foto:: <a href="{{route('private.file', ['id' => optional($attendance->attachment)->id])}}" target="_blank" class="text-info text-underline">lampiran</a>
+                                                   @endif
                                                @else
                                                    -
                                                @endif
@@ -303,6 +308,11 @@
                                                        ? \Carbon\Carbon::parse($attendance->datetime_out)->format('H:i:s')
                                                        : "BELUM ABSEN"
                                                    }}
+
+                                                   @if($attendance->type === 'PICTURE' && $attendance->attachment_out_id)
+                                                       <br>
+                                                       Absen dengan Foto: <a href="{{route('private.file', ['id' => optional($attendance->attachmentOut)->id])}}" target="_blank" class="text-info text-underline">lampiran</a>
+                                                   @endif
                                                @else
                                                    -
                                                @endif

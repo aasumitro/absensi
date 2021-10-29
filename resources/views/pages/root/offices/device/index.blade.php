@@ -15,9 +15,10 @@
             <div class="btn-toolbar mb-2 mb-md-0">
                 <button
                     data-bs-toggle="modal"
-                    data-bs-target="#add-patient"
+                    data-bs-target="#departmentAddDeviceModal"
                     type="button"
                     class="btn btn-dark h-75"
+                    onclick="clearSelectedFormInput('name', 'password', 'refresh_time')"
                 >Tambah perangkat baru</button>
             </div>
         </div>

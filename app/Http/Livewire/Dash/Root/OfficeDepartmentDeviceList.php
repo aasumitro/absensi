@@ -43,13 +43,6 @@ class OfficeDepartmentDeviceList extends Component
             'openModal',
             ['type' => $action]
         );
-
-        if ($action === 'UPDATE') {
-            $this->name = $device->name;
-            $this->department = $device->department_id;
-            $this->refresh_time_mode = $device->refresh_time_mode;
-            $this->refresh_time = $device->refresh_time;
-        }
     }
 
     public function performDestroy()

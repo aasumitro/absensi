@@ -11,6 +11,20 @@ class Department extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'timezone_id',
+        'max_att_in',
+        'min_att_out',
+        'min_att_acc',
+        'max_att_acc'
+    ];
+
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);

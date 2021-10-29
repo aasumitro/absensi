@@ -1,4 +1,4 @@
-<div class="form-group mb-4">
+<div class="form-group mb-1">
     <label for="min_att_out">Jam pulang (mulai)</label>
     <div class="input-group">
         <span class="input-group-text" id="min_att_out_icon">

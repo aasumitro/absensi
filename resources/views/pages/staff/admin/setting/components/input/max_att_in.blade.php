@@ -1,4 +1,4 @@
-<div class="form-group mb-4">
+<div class="form-group mb-1">
     <label for="max_att_in">Jam masuk (batas)</label>
     <div class="input-group">
         <span class="input-group-text" id="max_att_in_icon">

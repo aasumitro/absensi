@@ -11,7 +11,7 @@ But, you can run via Docker & docker-compose if you didn't have a time, KISS (KE
 2. MySql or MariaDb latest version
 3. Redis latest version
 4. Nginx latest version
-5. PHP version ^7.4
+5. PHP version ^7.4-`{fpm,cli,mysql,zip,json,common,bcmath,pdo,mbstring,xml,gd,curl,redis}`
 6. Composer version ^2.1
 
 

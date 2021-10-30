@@ -71,7 +71,7 @@ class AdminAndOperatorHomeView extends Component
             "JUMAT ($this->end_of_the_week)",
         ];
 
-        $data = $this->latest_activities = DB::table('observe_attendances')
+        $data = DB::table('observe_attendances')
             ->whereBetween('date', [
                     $this->now->startOfWeek(CarbonInterface::MONDAY)->format('Y-m-d'),
                     $this->now->endOfWeek(CarbonInterface::FRIDAY)->format('Y-m-d')

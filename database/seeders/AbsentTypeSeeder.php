@@ -16,7 +16,7 @@ class AbsentTypeSeeder extends Seeder
     {
         DB::table('absent_types')->insert([
            ['name' => 'CT', 'description' => 'cuti'],
-           ['name' => 'SIK', 'description' => 'sakit'],
+           ['name' => 'SK', 'description' => 'sakit'],
            ['name' => 'TK', 'description' => 'tanpa keterangan']
         ]);
     }

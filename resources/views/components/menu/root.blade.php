@@ -20,48 +20,6 @@
             <span class="sidebar-text">Beranda</span>
         </a>
     </li>
-    <li class="nav-item">
-        <span
-            class="nav-link  d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse"
-            data-bs-target="#submenu-dashboard"
-        >
-            <span>
-                <span class="sidebar-icon">
-                    <span class="fas fa-chart-pie"></span>
-                </span>
-                <span class="sidebar-text">Dashboard</span>
-            </span>
-            <span class="link-arrow">
-                <span class="fas fa-chevron-right"></span>
-            </span>
-        </span>
-        <div
-            class="multi-level collapse {{ Route::is('dashboard.*') ? 'show' : '' }}"
-            role="list"
-            id="submenu-dashboard"
-            aria-expanded="false"
-        >
-            <ul class="flex-column nav">
-                <li class="nav-item {{ Route::is('dashboard.summary') ? 'active' : '' }}">
-                    <a
-                        class="nav-link"
-                        href="{{ route('dashboard.summary') }}"
-                    >
-                        <span class="sidebar-text">Ringkasan</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ Route::is('dashboard.scope-office') ? 'active' : '' }}">
-                    <a
-                        class="nav-link"
-                        href="{{ route('dashboard.scope-office') }}"
-                    >
-                        <span class="sidebar-text">Berdasarkan SKPD</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
 
     <li role="separator" class="dropdown-divider mt-4 mb-4 border-black"></li>
     <li class="nav-item">

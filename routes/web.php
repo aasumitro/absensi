@@ -3,10 +3,10 @@
 use App\Http\Controllers\Api\Web\QrCodeController;
 use App\Http\Controllers\Dash\Authentications\GrantAccessController;
 use App\Http\Controllers\Dash\HomeController;
-use App\Http\Controllers\Dash\Root\Dashboard\{
-    SummaryDashboardController,
-    ByOfficeDashboardController
-};
+//use App\Http\Controllers\Dash\Root\Dashboard\{
+//    SummaryDashboardController,
+//    ByOfficeDashboardController
+//};
 use App\Http\Controllers\Dash\Root\MobileSettingController;
 use App\Http\Controllers\Dash\Root\SystemSettingController;
 use App\Http\Controllers\Dash\Staff\Reports\{
@@ -86,8 +86,8 @@ Route::middleware(['auth', 'accepted.role'])->group(function () {
 
     Route::middleware('role:root')->group(function () {
         // [START-DASHBOARD]
-         Route::get('dashboard/summaries', SummaryDashboardController::class)->name('dashboard.summary');
-         Route::get('dashboard/department', ByOfficeDashboardController::class)->name('dashboard.scope-office');
+        // Route::get('dashboard/summaries', SummaryDashboardController::class)->name('dashboard.summary');
+        // Route::get('dashboard/department', ByOfficeDashboardController::class)->name('dashboard.scope-office');
         // [END-DASHBOARD]
 
         // [START-REPORT]

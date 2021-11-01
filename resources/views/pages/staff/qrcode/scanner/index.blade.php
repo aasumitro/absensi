@@ -68,6 +68,8 @@
             "qrcodeReader", { fps: 10, qrbox: 200 }
         );
 
+        html5QrcodeScanner.render(onScanSuccess);
+
         function onScanSuccess(decodedText, decodedResult) {
             // contoh data dalam bentuk JSON
             // {
@@ -79,8 +81,6 @@
 
             makeAttendanceFromQrcodeReader(dataObj.user_uuid, dataObj.attend_token)
         }
-
-        html5QrcodeScanner.render(onScanSuccess);
 
         function makeAttendanceFromQrcodeReader(user_uuid, attend_token) {
             let device_uuid = `{{$device_unique_id}}`
@@ -104,19 +104,16 @@
 
                 alert(response.data)
 
-                setTimeout(function(){
+                setTimeout(function() {
                     // TODO replace reload page with refresh qr-scanner
                     window.location.reload()
                 }, 1500);
             }).catch((error) => {
                 document.getElementById('audioAttendFailed').play();
 
-                alert(error.data)
+                alert(error.response.data)
 
-                setTimeout(function(){
-                    // TODO replace reload page with refresh qr-scanner
-                    window.location.reload()
-                }, 1500);
+                window.location.reload()
             })
         }
 

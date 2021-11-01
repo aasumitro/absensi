@@ -35,15 +35,11 @@ trait HasAttendToken
     public function isAttendTokenValid($attend_token): bool
     {
         if ($this->isTokenExpired()) {
-            throw ValidationException::withMessages([
-                'token' => "Token is expired",
-            ]);
+            return false;
         }
 
         if (!$this->isTokenMatch($attend_token)) {
-            throw ValidationException::withMessages([
-                'token' => "Token is not valid",
-            ]);
+            return false;
         }
 
         return true;

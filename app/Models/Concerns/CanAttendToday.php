@@ -15,6 +15,9 @@ trait CanAttendToday
 {
     use AttachmentManager;
 
+    /**
+     * @throws CouldNotClaimAttendance
+     */
     public function claimNewAttendance(string $mode, Request $request): array
     {
         if (!in_array($mode, Attendance::ACCEPTED_ATTENDANCE_CLAIM_MODE)) {
@@ -92,7 +95,7 @@ trait CanAttendToday
         );
     }
 
-    private function attendIn($payload): array
+    public function attendIn($payload, $user = null): array
     {
         $message = "Anda berhasil melakukan absensi MASUK pada {$payload['datetime_in']}";
 
@@ -102,12 +105,12 @@ trait CanAttendToday
             throw CouldNotClaimAttendance::failedCreateNewAttendance($payload['datetime_in']);
         }
 
-        event(new AttendEvent(auth()->user(), $message));
+        event(new AttendEvent($user ?? auth()->user(), $message));
 
         return ['action' => $message];
     }
 
-    private function attendOut($session_time, Attendance $attendance, UploadedFile $file = null): array
+    public function attendOut($session_time, Attendance $attendance, UploadedFile $file = null, $user = null): array
     {
         $message = "Anda berhasil melakukan absensi Pulang pada {$session_time['current_locale_time']['datetime']}";
 
@@ -120,12 +123,12 @@ trait CanAttendToday
         $attendance->timestamp_out = $session_time['current_locale_time']['timestamp'];
         $attendance->save();
 
-        event(new AttendEvent(auth()->user(), $message));
+        event(new AttendEvent($user ?? auth()->user(), $message));
 
         return ['action' => $message];
     }
 
-    private function isUserCanClaim(array $session_time): int
+    public function isUserCanClaim(array $session_time): int
     {
         // validasi sudah bisa absen masuk atau tidak (min_att_acc)
         if (!$this->isSessionOpen($session_time)) {
@@ -145,12 +148,12 @@ trait CanAttendToday
         return $this->isOverdue($session_time) ? 1 : 0;
     }
 
-    private function isSessionValid($session_from_user, $device_session): bool
+    public function isSessionValid($session_from_user, $device_session): bool
     {
         return $session_from_user === $device_session;
     }
 
-    private function isSessionOpen(array $session_time): bool
+    public function isSessionOpen(array $session_time): bool
     {
         return (bool)compare_time_greater_than(
             $session_time['current_locale_time']['time'],
@@ -158,7 +161,7 @@ trait CanAttendToday
         );
     }
 
-    private function isOverdueSessionEnd(array $session_time): bool
+    public function isOverdueSessionEnd(array $session_time): bool
     {
         return (bool)compare_time_less_than(
             $session_time['current_locale_time']['time'],
@@ -166,7 +169,7 @@ trait CanAttendToday
         );
     }
 
-    private function isOverdue(array $session_time): bool
+    public function isOverdue(array $session_time): bool
     {
         return (bool)compare_time_greater_than(
             $session_time['current_locale_time']['time'],
@@ -174,7 +177,7 @@ trait CanAttendToday
         );
     }
 
-    private function isCanGoHome(array $session_time, Attendance $attendance): bool
+    public function isCanGoHome(array $session_time, Attendance $attendance): bool
     {
         return (compare_time_less_than(
                 $session_time['current_locale_time']['time'],
@@ -185,21 +188,21 @@ trait CanAttendToday
             ));
     }
 
-    private function isCantAttendOut(Attendance $attendance): bool
+    public function isCantAttendOut(Attendance $attendance): bool
     {
         return ($attendance->datetime_out !== null && $attendance->timestamp_out !== null);
     }
 
-    private function getAttendance()
+    public function getAttendance($user_id = null, $timezone = null)
     {
         return Attendance::where([
-            'user_id' => auth()->id(),
-            'date' => Carbon::now($this->profile->department->timezone->locale)
+            'user_id' => $user_id ?? auth()->id(),
+            'date' => Carbon::now($timezone ?? $this->profile->department->timezone->locale)
                 ->format('Y-m-d')
-        ])->first();
+        ])->latest('date')->first();
     }
 
-    private function getDevice($device_unique_id)
+    public function getDevice($device_unique_id)
     {
         return Device::where(
             'unique_id',
@@ -209,7 +212,7 @@ trait CanAttendToday
         });
     }
 
-    private function createNewAttachment(UploadedFile $file)
+    public function createNewAttachment(UploadedFile $file)
     {
         return $this->newAttachment([
             'type' => 'IMAGE',
@@ -217,17 +220,18 @@ trait CanAttendToday
         ], 'PRIVATE') ?? null;
     }
 
-    private function getSessionTime(): array
+    public function getSessionTime($profile = null): array
     {
+        $profile = $profile ?? $this->profile;
         // TODO change $now
-        $now = Carbon::now($this->profile->department->timezone->locale);
-        // $now = Carbon::parse("2021-10-28 16:31", $this->profile->department->timezone->locale);
-        $max_att_in = Carbon::parse("{$now->format('Y-m-d')} {$this->profile->department->max_att_in}");
-        $min_att_out = Carbon::parse("{$now->format('Y-m-d')} {$this->profile->department->min_att_out}");
+        $now = Carbon::now($profile->department->timezone->locale);
+        //$now = Carbon::parse("2021-11-01 16:31", $profile->department->timezone->locale);
+        $max_att_in = Carbon::parse("{$now->format('Y-m-d')} {$profile->department->max_att_in}");
+        $min_att_out = Carbon::parse("{$now->format('Y-m-d')} {$profile->department->min_att_out}");
         $min_att_acc = Carbon::parse($max_att_in->format('Y-m-d H:i'))
-            ->subMinutes($this->profile->department->min_att_acc);
+            ->subMinutes($profile->department->min_att_acc);
         $max_att_acc = Carbon::parse($max_att_in->format('Y-m-d H:i'))
-            ->addMinutes($this->profile->department->max_att_acc);
+            ->addMinutes($profile->department->max_att_acc);
 
         return [
             'max_att_in' => [
@@ -244,13 +248,13 @@ trait CanAttendToday
                 'datetime' => $min_att_acc->format('Y-m-d H:i:s'),
                 'date' => $min_att_acc->format('Y-m-d'),
                 'time' => $min_att_acc->format('H:i'),
-                'minute_total' => $this->profile->department->min_att_acc
+                'minute_total' => $profile->department->min_att_acc
             ],
             'max_att_acc' => [
                 'datetime' => $max_att_acc->format('Y-m-d H:i:s'),
                 'date' => $max_att_acc->format('Y-m-d'),
                 'time' => $max_att_acc->format('H:i'),
-                'minute_total' => $this->profile->department->max_att_acc
+                'minute_total' => $profile->department->max_att_acc
             ],
             'current_locale_time' => [
                 'datetime' => $now->format('Y-m-d H:i:s'),

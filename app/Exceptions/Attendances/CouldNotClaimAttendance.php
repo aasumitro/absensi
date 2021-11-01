@@ -45,4 +45,9 @@ class CouldNotClaimAttendance extends Exception
     {
         return new static("QrCode dari perangkat ini tidak valid, silahkan hubungi admin!");
     }
+
+    public static function attendTokenNotValid(): self
+    {
+        return new static("Token presensi tidak valid lagi silahkan disegarkan!");
+    }
 }

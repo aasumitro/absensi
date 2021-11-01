@@ -7,6 +7,7 @@ use App\Http\Requests\Api\DeviceScanQrcodeRequest;
 use App\Models\Device;
 use App\Traits\DeviceApiManager;
 use Illuminate\Support\Str;
+use Exception;
 
 class QrCodeController extends ApiController
 {
@@ -28,14 +29,16 @@ class QrCodeController extends ApiController
 
     public function scan(DeviceScanQrcodeRequest $request): \Illuminate\Http\JsonResponse
     {
-        if ($this->attendUserByToken($request)) {
+        try {
+            $callback = $this->attendUserByToken($request);
+
             return response()
-                ->json($this->getCurrentMessage(), 201)
+                ->json($callback['action'], 201)
+                ->header('Content-Type', 'application/json');
+        } catch (Exception $exception) {
+            return response()
+                ->json($exception->getMessage(), 403)
                 ->header('Content-Type', 'application/json');
         }
-
-        return response()
-            ->json('ATTEND_FAILED', 403)
-            ->header('Content-Type', 'application/json');
     }
 }

@@ -1,10 +1,9 @@
-# OkSetda Absensi
+# Absensi Server
 
-OkSetda e-Attendance Server Platform
+e-Attendance Server Platform
 
 ### Deployment Instructions
-Follow this instruction below to deploy this application on the server at no pain.
-But, you can run via Docker & docker-compose if you didn't have a time, KISS (KEEP IT SIMPLE STUPID) #LOL!
+Follow this instruction below to deploy this application on the server.
 
 ##### System Requirement
 1. Basic/Standard Server 

@@ -42,6 +42,7 @@ class EmailSecretCodeNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable): MailMessage
     {
+        error_log($this->secret_code);
         return (new MailMessage)
             ->subject("Kode verifikasi melalui alamat email")
             ->greeting("Halo, $notifiable->name!")

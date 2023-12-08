@@ -16,7 +16,9 @@
                 Diharapkan ketika Anda menggunakan Sistem ini,
                 Browser (pramban) Anda adalah versi update tebaru, dan disarankan
                 menggunakan sesuai dengan daftar yang ada dibawah ini : <br>
-                1. <a href="https://www.google.com/intl/id_id/chrome/" class="text-info text-underline" target="_blank">Google Chrome</a> <br> <br>
+                1. <a href="https://www.google.com/intl/id_id/chrome/" class="text-info text-underline" target="_blank">Chrome</a> <br>
+                2. <a href="https://brave.com/id/download/" class="text-info text-underline" target="_blank">Brave</a> <br>
+                3. <a href="https://www.microsoft.com/id-id/edge/download/" class="text-info text-underline" target="_blank">Edge</a> <br>
                 Hal ini bertujuan untuk meminimalisir Bug pada front-end <br>
                 Atas perhatiannya diucapkan terimakasih, <br>
                 Salam.

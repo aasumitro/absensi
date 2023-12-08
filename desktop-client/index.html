@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' *; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; connect-src 'seft' *; script-src 'self'">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/qrcode-generator.js"></script>
+    <script src="./assets/js/qrcode-scanner.js"></script>
+    <title>OkSetda Absensi | Raspberry Platform</title>
+  </head>
+  <body>
+
+    <button
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#modalCredential"
+      class="position-absolute top-0 start-0 m-2 btn btn-outline-danger btn-sm"
+      id="buttonCredential"
+    >
+      <img
+        src="./assets/img/key-with-padlock.png"
+        alt="logo-with-title"
+        class="img-fluid align-content-center"
+        width="20"
+        height="20"
+      >
+    </button>
+
+    <button
+      type="button"
+      class="position-absolute top-0 end-0 m-2 btn btn-outline-danger btn-sm"
+      id="buttonCloseWindow"
+    >X</button>
+
+    <section id="main" class="text-center p-2">
+      <img
+        src="./assets/img/oksetda_absensi_250px.png"
+        alt="logo-with-title"
+        class="img-fluid align-content-center w-25 mb-2 mt-2"
+      >
+      <p>
+        <!-- <span class="fs-5 fw-bold"> Electronic Attendance </span> <br> -->
+        <span class="fw-bold" id="currentBranch"> - </span> <br>
+        <span class="fst-italic" id="currentDevice"> - </span> <br>
+        <span class="fst-italic" id="currentDatetime"> - </span>
+      </p>
+      <div class="d-none" id="qrcode"></div>
+      <div class="d-none" id="qrcodeReader" style="width: auto"></div>
+      <p class="d-none fw-bold" id="qrcodeRefresh">-</p>
+    </section>
+
+    <section id="footer" class="position-absolute bottom-0 start-50 translate-middle-x mb-2 text-center">
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          id="buttonReloadPage"
+        >REFRESH</button>
+        <small class="d-block text-muted py-1" id="build-version"></small>
+    </section>
+
+
+    <div
+      class="modal fade"
+      id="modalCredential"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="modalCredentialLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCredentialLabel">Credential</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="inputMODE" class="form-label">DEVICE MODE</label>
+              <select id="inputMODE" class="form-select">
+                <option value="GENERATOR">GENERATOR</option>
+                <option value="SCANNER">SCANNER</option>
+              </select>
+              <div id="inputMODEHelp" class="form-text">
+                Mode <b>GENERATOR</b> akan menampilkan Kode QR yang bisa di pindai melalui Aplikasi Mobile,
+                sedangkan mode <b>SCANNER</b> akan membuka Kamera yang bisa memindai Kode QR dari Aplikasi Mobile
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputUUID" class="form-label">UNIQUE ID</label>
+              <input type="text" class="form-control" id="inputUUID" aria-describedby="uudiHelp">
+              <div id="uudiHelp" class="form-text">Device Universally unique identifier.</div>
+            </div>
+            <div class="mb-3">
+              <label for="inputSECRET" class="form-label">SECRET KEY</label>
+              <input type="password" class="form-control" id="inputSECRET">
+            </div>
+            <div class="mb-3">
+              <label for="inputAPIURL" class="form-label">API URL</label>
+              <input type="text" class="form-control" id="inputAPIURL">
+              <div id="inputAPIURLDesc" class="form-text">
+                API Url valid : <code>http://localhost:8000</code>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >Close</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              id="buttonSaveCredentials"
+            >Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="audioAttendSuccess" src="./assets/sounds/presensi-berhasil-sound.mp3"></audio>
+    <audio id="audioAttendFailed" src="./assets/sounds/presensi-gagal-sound.mp3"></audio>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

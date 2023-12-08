@@ -1,0 +1,40 @@
+{
+  "name": "oksetda-eabsen-raspy",
+  "version": "v2021.1.0",
+  "description": "OkSetda Absensi Qr-Code Scanner and Generator",
+  "author": "A. A. Sumitro <hello@aasumitro.id>",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "rm -rf build/ .cache dist/ && electron-builder --linux"
+  },
+  "keywords": [
+    "Electron",
+    "Raspberry",
+    "Attendance",
+    "QrCode Generator",
+    "QrCode Scanner"
+  ],
+  "devDependencies": {
+    "electron": "^11.1.0",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-machine-id": "^1.1.12"
+  },
+  "build": {
+    "appId": "id.go.sulutprov.oksetda.absensi",
+    "extraResources" : ["assets/db/oksetda-absensi.sqlite"],
+    "linux": {
+      "target": [{
+        "target" : "appimage",
+        "arch": ["armv7l"]
+      }],
+      "icon": "assets/img/oksetda-absensi-logo.png",
+      "category": "production"
+    }
+  }
+}

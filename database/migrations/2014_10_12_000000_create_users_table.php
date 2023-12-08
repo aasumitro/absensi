@@ -19,8 +19,7 @@ class CreateUsersTable extends Migration
 
             // token as credentials (device & service)
             $table->string('fcm_token')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('phone_id')
                 ->nullable()
                 ->unique();

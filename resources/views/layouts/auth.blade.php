@@ -3,7 +3,7 @@
     <head>
         @include('layouts.partials.meta')
 
-        <title>@yield('title') | OkSetda Absensi</title>
+        <title>@yield('title') | Absensi</title>
 
         <!-- plugins:css -->
         <link rel="stylesheet" href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">

@@ -31,17 +31,17 @@ class CouldNotClaimAttendance extends Exception
         return new static("Gagal melakukan absensi masuk pada $datetime_in");
     }
 
-    public static function sessionNotYetOpened(string $time):self
+    public static function sessionNotYetOpened(string $time): self
     {
         return new static("Gagal melakukan absensi, sesi absensi masuk akan dibuka mulai pukul: $time");
     }
 
-    public static function sessionClosed(string $open_session, string $close_session, string $max_session):self
+    public static function sessionClosed(string $open_session, string $close_session, string $max_session): self
     {
         return new static("Sesi absensi sudah ditutup, Anda hanya bisa melakukan absensi dari pukul $open_session pagi sampai $close_session pagi, dimana diatas pukul $max_session dihitung terlambat.");
     }
 
-    public static function invalidDeviceCredentials():self
+    public static function invalidDeviceCredentials(): self
     {
         return new static("QrCode dari perangkat ini tidak valid, silahkan hubungi admin!");
     }

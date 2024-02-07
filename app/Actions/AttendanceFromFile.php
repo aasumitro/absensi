@@ -22,7 +22,6 @@ class AttendanceFromFile
                 'department_id' => auth()->user()->profile->department_id
             ])->firstOrFail();
 
-
         foreach ($apply_filter as $data) {
             $time_in = Carbon::createFromFormat(
                 'Y-m-d H:i:s',

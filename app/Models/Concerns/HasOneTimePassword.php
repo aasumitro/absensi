@@ -24,7 +24,6 @@ trait HasOneTimePassword
         $this->passwordless = Hash::make($new_one_time_password);
         $this->passwordless_expiry = Carbon::now()->addMinutes(10);
         $this->save();
-
         return $new_one_time_password;
     }
 

@@ -36,15 +36,12 @@
 
 <script>
     window.addEventListener('recountingTime', event => {
-        console.log("called")
         if (event.detail.next_time >= 1) {
-            console.log("called12")
             countingTime(event.detail.next_time)
         }
     })
 
     function countingTime(time) {
-        console.log('calledss')
         let countingSection = document
             .getElementById('counting-before-retry')
         let trySendOTPButton = document

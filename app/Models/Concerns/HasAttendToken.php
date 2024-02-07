@@ -12,11 +12,9 @@ trait HasAttendToken
     public function generateAttendToken(): string
     {
         $new_attend_token = Str::random(32);
-
         $this->attend_token = Hash::make($new_attend_token);
         $this->attend_token_expiry = Carbon::now()->addMinutes(10);
         $this->save();
-
         return $new_attend_token;
     }
 
@@ -34,15 +32,8 @@ trait HasAttendToken
      */
     public function isAttendTokenValid($attend_token): bool
     {
-        if ($this->isTokenExpired()) {
-            return false;
-        }
-
-        if (!$this->isTokenMatch($attend_token)) {
-            return false;
-        }
-
-        return true;
+        // If the token is not expired AND the token matches, return true.
+        return !$this->isTokenExpired() && $this->isTokenMatch($attend_token);
     }
 
     /**

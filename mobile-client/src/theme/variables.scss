@@ -1,0 +1,163 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+/** Ionic CSS Variables **/
+:root,
+:root[mode='ios'],
+:root[mode='md'] {
+
+  // POPPINS
+  --ion-font-family: 'Poppins', sans-serif;
+  --ion-default-font: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
+
+  // COLORS
+  --ion-color-blue-nadi: #ed1844;
+  --ion-color-yellow-label: #FFB800;
+  --ion-color-pink: #EE7090;
+
+  --ion-color-main-text-light: rgba(58, 79, 92, 0.6);
+  --ion-color-main-text: #3A4F5C;
+  --ion-color-main-text-dark: #3A4F5C;
+
+  --ion-color-border: #E7EDF3;
+
+  --ion-color-bg-grey: #f8f8f8;
+  // --ion-color-bg-grey-2: #f2f8f9;
+  --ion-color-bg-grey-2: #f2f6f9;
+
+  --ion-shadow-global: 0px 16px 32px rgba(6, 9, 39, 0.08);
+
+  /** primary **/
+  --ion-color-primary: #ed1844;
+  --ion-color-primary-rgb: 18, 216, 208;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #c5082f;
+  --ion-color-primary-tint: #e85876;
+
+  /** secondary **/
+  --ion-color-secondary: #3dc2ff;
+  --ion-color-secondary-rgb: 61, 194, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #36abe0;
+  --ion-color-secondary-tint: #50c8ff;
+
+  /** tertiary **/
+  --ion-color-tertiary: #5260ff;
+  --ion-color-tertiary-rgb: 82, 96, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #4854e0;
+  --ion-color-tertiary-tint: #6370ff;
+
+  /** success **/
+  --ion-color-success: #2dd36f;
+  --ion-color-success-rgb: 45, 211, 111;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #28ba62;
+  --ion-color-success-tint: #42d77d;
+
+  /** warning **/
+  --ion-color-warning: #ffc409;
+  --ion-color-warning-rgb: 255, 196, 9;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0ac08;
+  --ion-color-warning-tint: #ffca22;
+
+  /** danger **/
+  --ion-color-danger: #eb445a;
+  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #cf3c4f;
+  --ion-color-danger-tint: #ed576b;
+
+  /** dark **/
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 36, 40;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --ion-color-medium: #92949c;
+  --ion-color-medium-rgb: 146, 148, 156;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #808289;
+  --ion-color-medium-tint: #9d9fa6;
+
+  /** light **/
+  --ion-color-light: #f4f5f8;
+  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+}
+
+// Custom font
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/poppins/Poppins-Light.eot');
+  src: url('../assets/fonts/poppins/Poppins-Light.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/poppins/Poppins-Light.woff2') format('woff2'),
+  url('../assets/fonts/poppins/Poppins-Light.woff') format('woff'),
+  url('../assets/fonts/poppins/Poppins-Light.ttf') format('truetype'),
+  url('../assets/fonts/poppins/Poppins-Light.svg#Poppins-Light') format('svg');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/poppins/Poppins-Regular.eot');
+  src: url('../assets/fonts/poppins/Poppins-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/poppins/Poppins-Regular.woff2') format('woff2'),
+  url('../assets/fonts/poppins/Poppins-Regular.woff') format('woff'),
+  url('../assets/fonts/poppins/Poppins-Regular.ttf') format('truetype'),
+  url('../assets/fonts/poppins/Poppins-Regular.svg#Poppins-Regular') format('svg');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/poppins/Poppins-Medium.eot');
+  src: url('../assets/fonts/poppins/Poppins-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/poppins/Poppins-Medium.woff2') format('woff2'),
+  url('../assets/fonts/poppins/Poppins-Medium.woff') format('woff'),
+  url('../assets/fonts/poppins/Poppins-Medium.ttf') format('truetype'),
+  url('../assets/fonts/poppins/Poppins-Medium.svg#Poppins-Medium') format('svg');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/poppins/Poppins-SemiBold.eot');
+  src: url('../assets/fonts/poppins/Poppins-SemiBold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/poppins/Poppins-SemiBold.woff2') format('woff2'),
+  url('../assets/fonts/poppins/Poppins-SemiBold.woff') format('woff'),
+  url('../assets/fonts/poppins/Poppins-SemiBold.ttf') format('truetype'),
+  url('../assets/fonts/poppins/Poppins-SemiBold.svg#Poppins-SemiBold') format('svg');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/poppins/Poppins-Bold.eot');
+  src: url('../assets/fonts/poppins/Poppins-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/poppins/Poppins-Bold.woff2') format('woff2'),
+  url('../assets/fonts/poppins/Poppins-Bold.woff') format('woff'),
+  url('../assets/fonts/poppins/Poppins-Bold.ttf') format('truetype'),
+  url('../assets/fonts/poppins/Poppins-Bold.svg#Poppins-Bold') format('svg');
+}

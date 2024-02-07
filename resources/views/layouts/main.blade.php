@@ -3,7 +3,7 @@
     <head>
         @include('layouts.partials.meta')
 
-        <title>@yield('title') | OkSetda Absensi</title>
+        <title>@yield('title') | Absensi</title>
 
         @include('layouts.partials.styles')
     </head>

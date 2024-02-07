@@ -1,0 +1,85 @@
+.avatar {
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ececec;
+  transition: background-color 0.3s;
+  :active {
+    padding: 12px;
+    border-radius: 50%;
+    background-color: #c5c5c5;
+  }
+  ion-img {
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.presence {
+  .presence-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .presence-content {
+    .presence-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      ion-button {
+        --background: transparent !important;
+        padding: 12px;
+        width: 100%;
+        .presence-time {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          .presence-time-status {
+            text-align: start ;
+          }
+        }
+      }
+    }
+  }
+}
+
+.submission {
+  .submission-content {
+    h5 {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  position: absolute;
+  inset-inline-start: 12px;
+  top: 12px;
+}
+.overdue {
+  background: var(--ion-color-primary);
+}
+.leave {
+  background: var(--ion-color-yellow-label);
+}
+.ontime {
+  background: var(--ion-color-success);
+}
+
+ion-label strong {
+  display: block;
+  max-width: calc(100% - 60px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ion-label ion-note {
+  font-size: 0.9rem;
+}

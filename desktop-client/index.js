@@ -90,18 +90,15 @@ function initCredentialsModal() {
   credentialModalView.addEventListener('show.bs.modal', () => {
     modalInputUUIDView.focus()
     buttonSaveView.addEventListener('click', () => {
-      if (!isNotEmpty(modalInputUUIDView)) return
-      else if (!isNotEmpty(modalInputPasswordView)) return
-      else if (!isNotEmpty(modalInputAPIURLView)) return
-      else {
-        localStorage.setItem('mode', modalInputModeView.value)
-        localStorage.setItem('uuid', modalInputUUIDView.value)
-        localStorage.setItem('pass', modalInputPasswordView.value)
-        localStorage.setItem('api_url', modalInputAPIURLView.value)
-        localStorage.removeItem("access_token");
-        alert('Data diperbaharui!')
-        reload()
-      }
+        if (isNotEmpty(modalInputUUIDView) && isNotEmpty(modalInputPasswordView) && isNotEmpty(modalInputAPIURLView)) {
+            localStorage.setItem('mode', modalInputModeView.value);
+            localStorage.setItem('uuid', modalInputUUIDView.value);
+            localStorage.setItem('pass', modalInputPasswordView.value);
+            localStorage.setItem('api_url', modalInputAPIURLView.value);
+            localStorage.removeItem("access_token");
+            alert('Data diperbaharui!');
+            reload();
+        }
     })
   })
 }
@@ -124,7 +121,7 @@ function isNotEmpty(field) {
  */
 function initCurrentDatetime() {
   let currentDatetimeView = document.getElementById('currentDatetime')
- 
+
   const today = new Date()
 
   const date = today.toLocaleDateString('id-ID', {
@@ -281,7 +278,6 @@ function refreshSession() {
     localStorage.setItem('session_refresh', response.data.data.refresh_time)
     localStorage.setItem('session_refresh_mode', response.data.data.refresh_time_mode)
     reload()
-
     console.log("success refreshing device session")
   }).catch((error) => {
     clearQr()
@@ -299,24 +295,24 @@ function clearQr() {
 }
 
 function qrcodeReader() {
-  let attend_token = null 
+  let attend_token = null
   var html5QrCode = new Html5Qrcode("qrcodeReader");
 
   Html5Qrcode.getCameras().then(devices => {
     if (devices && devices.length) {
       html5QrCode.start(
-        devices[0].id, 
+        devices[0].id,
         {fps: 3, qrbox: 175},
         qrCodeMessage => {
           const qrData = String(qrCodeMessage.slice(1,-1))
           let dataObj = JSON.parse(qrData)
-          
+
           if (attend_token == null) {
-            if (attend_token != dataObj.attend_token) {
+            if (attend_token !== dataObj.attend_token) {
               attend_token = dataObj.user_uuid
-            
+
               makeAttendanceFromQrcodeReader(
-                dataObj.user_uuid, 
+                dataObj.user_uuid,
                 dataObj.attend_token
               )
 
@@ -352,18 +348,14 @@ function makeAttendanceFromQrcodeReader(user_uuid, attend_token) {
       'Authorization': `Bearer ${access_token}`
     }
   }).then((response) => {
-    console.log(response); 
-
     document.getElementById('audioAttendSuccess').play();
 
     setTimeout(function(){
       reload()
     }, 1500);
   }).catch((error) => {
-    console.log(error)
-    
     document.getElementById('audioAttendFailed').play();
-   
+
     setTimeout(function(){
       reload()
     }, 1500);
@@ -383,20 +375,20 @@ reloadBtn.addEventListener('click', function () {
 
 function currentTimezone() {
   let timezone = localStorage.getItem('timezone') ?? "WITA"
-  
-  switch(timezone) { 
+
+  switch(timezone) {
     case "WIB":
       return "Asia/Jakarta"
-    case "WITA": 
+    case "WITA":
       return "Asia/Makassar"
-    case "WIT": 
+    case "WIT":
       return "Asia/Jayapura"
   }
 }
 
 function errorMapping(error) {
   switch(error.message) {
-    case "Network Error": 
+    case "Network Error":
       alert("Tidak dapat menghubungkan ke server, mohon periksa koneksi internet atau API_URL!")
       break
     case "Request failed with status code 404":
@@ -408,7 +400,7 @@ function errorMapping(error) {
     case "Request failed with status code 500":
       alert("Terjadi masalah pada server, mohon hubungi tim IT!")
       break
-    default: 
+    default:
       alert(`Terjadi kesalahan tak terduga: ${error}, ${error.response.data.errors}, mohon difoto dan kirim ke tim IT`)
   }
 }

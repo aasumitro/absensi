@@ -45,7 +45,7 @@ class EmailExportFileNotification extends Notification
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
-                    ->attach();
+                    ->attach($this->file);
     }
 
     /**

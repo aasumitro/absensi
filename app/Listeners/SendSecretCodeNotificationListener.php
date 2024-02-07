@@ -23,12 +23,14 @@ class SendSecretCodeNotificationListener implements ShouldQueue
 
         $secret_code = $user->generateSecretCode();
 
-        if ($user->telegram_id) {
-            $user->notify(new TelegramSecretCodeNotification($secret_code));
-        }
+        // if ($user->telegram_id) {
+        //    $user->notify(new TelegramSecretCodeNotification($secret_code));
+        // }
 
-        if ($user->email) {
-            $user->notify(new EmailSecretCodeNotification($secret_code));
-        }
+        // if ($user->email) {
+        //    $user->notify(new EmailSecretCodeNotification($secret_code));
+        // }
+
+        error_log($secret_code);
     }
 }

@@ -40,7 +40,7 @@ trait CanAttendToday
         $current_session_time = $this->getSessionTime();
 
         // validasi presensi hari ini sudah ada apa belum
-        // TODO: jika belum ada buat baru untuk attend masuk dengan ketentuan attend masuk:
+        // jika belum ada buat baru untuk attend masuk dengan ketentuan attend masuk
         if (!$attendance) {
             $status = $this->isUserCanClaim($current_session_time);
 
@@ -73,7 +73,7 @@ trait CanAttendToday
             return $this->attendIn($payload);
         }
 
-        // TODO: jika sudah ada buat baru untuk attend pulang dengan ketentuan attend pulang:
+        // jika sudah ada buat baru untuk attend pulang dengan ketentuan attend pulang:
         // jika belum cek sudah jam pulang atau belum
         if ($this->isCanGoHome($current_session_time, $attendance)) {
             // jika belum kasi notifikasi anda sudah absen datang kembali pukul sekian untuk absen pualng
@@ -223,9 +223,7 @@ trait CanAttendToday
     public function getSessionTime($profile = null): array
     {
         $profile = $profile ?? $this->profile;
-        // TODO change $now
         $now = Carbon::now($profile->department->timezone->locale);
-        //$now = Carbon::parse("2021-11-01 16:31", $profile->department->timezone->locale);
         $max_att_in = Carbon::parse("{$now->format('Y-m-d')} {$profile->department->max_att_in}");
         $min_att_out = Carbon::parse("{$now->format('Y-m-d')} {$profile->department->min_att_out}");
         $min_att_acc = Carbon::parse($max_att_in->format('Y-m-d H:i'))

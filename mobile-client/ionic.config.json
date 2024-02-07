@@ -1,0 +1,7 @@
+{
+  "name": "absensi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

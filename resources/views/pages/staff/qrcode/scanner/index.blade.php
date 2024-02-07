@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <img
-                        src="{{ asset('assets/img/oksetda-absensi-logo.png') }}"
+                        src="{{ asset('assets/img/absensi.png') }}"
                         alt="logo-with-title"
                         class="img-fluid align-content-center mb-3 mt-3"
                         height="150"

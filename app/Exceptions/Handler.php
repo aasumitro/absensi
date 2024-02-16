@@ -5,10 +5,10 @@ namespace App\Exceptions;
 use App\Traits\ApiResponder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -16,9 +16,18 @@ class Handler extends ExceptionHandler
     use ApiResponder;
 
     /**
+     * A list of exception types with their corresponding custom log levels.
+     *
+     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
+     */
+    protected $levels = [
+        //
+    ];
+
+    /**
      * A list of the exception types that are not reported.
      *
-     * @var array
+     * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
         //
@@ -40,43 +49,48 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        $this->reportable(function (Throwable $e) {});
     }
 
-    protected function unauthenticated($request, AuthenticationException $exception)
+    /**
+     * Unauthenticated handler
+     *
+     * @param $request
+     * @param AuthenticationException $exception
+     * @return \Illuminate\Http\JsonResponse|Response|\Illuminate\Http\RedirectResponse
+     */
+    protected function unauthenticated($request, AuthenticationException $exception): \Illuminate\Http\JsonResponse|Response|\Illuminate\Http\RedirectResponse
     {
         return $request->expectsJson()
-            ? ApiResponder::error(strtoupper(UNAUTHENTICATED_DESCRIPTION), Response::HTTP_UNAUTHORIZED)
+            ? self::error(strtoupper(UNAUTHENTICATED_DESCRIPTION), Response::HTTP_UNAUTHORIZED)
             : redirect()->guest($exception->redirectTo() ?? route('login'));
     }
 
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|Response
     {
         if ($request->expectsJson()) {
-            if ($exception instanceof HttpException) {
-                $code = $exception->getStatusCode();
+            if ($e instanceof HttpException) {
+                $code = $e->getStatusCode();
                 $message = Response::$statusTexts[$code];
                 return ApiResponder::error($message, $code);
             }
 
-            if ($exception instanceof ModelNotFoundException) {
-                $model = strtolower(class_basename($exception->getModel()));
+            if ($e instanceof ModelNotFoundException) {
+                $model = strtolower(class_basename($e->getModel()));
                 return ApiResponder::error(
                     strtoupper("DATA_NOT_FOUND_$model"),
                     Response::HTTP_NOT_FOUND
                 );
             }
 
-            if ($exception instanceof ValidationException) {
-                $errors = $exception->validator->errors()->getMessages();
+            if ($e instanceof ValidationException) {
+                $errors = $e->validator->errors()->getMessages();
                 return ApiResponder::error($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 }

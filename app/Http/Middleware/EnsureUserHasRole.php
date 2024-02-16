@@ -18,11 +18,9 @@ class EnsureUserHasRole
     {
         $accepted = false;
 
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($request->user()->hasRole($role)) {
-                    $accepted = true;
-                }
+        foreach ($roles as $role) {
+            if ($request->user()->hasRole($role)) {
+                $accepted = true;
             }
         }
 

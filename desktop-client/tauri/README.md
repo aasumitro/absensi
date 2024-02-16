@@ -1,1 +1,1 @@
-# Absensi Desktop App with Tauri
+# Absensi Desktop Client with Tauri (Scanner & Generator)

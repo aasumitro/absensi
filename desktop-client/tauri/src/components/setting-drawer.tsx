@@ -3,7 +3,6 @@
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -81,9 +80,9 @@ function SettingDrawer(props: SettingDrawerProps) {
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer dismissible={false} open={open}>
       <DrawerTrigger asChild>
-        <Button size="icon" variant="ghost" className="rounded-full">
+        <Button size="icon" variant="ghost" className="rounded-full" onClick={() => setOpen(true)}>
           <Settings2 className="h-4 w-4" />
         </Button>
       </DrawerTrigger>
@@ -182,11 +181,9 @@ function SettingDrawer(props: SettingDrawerProps) {
               <Button className="w-full" type="submit">
                 Simpan
               </Button>
-              <DrawerClose className="w-full">
-                <Button className="w-full" variant="outline">
-                  Batal
-                </Button>
-              </DrawerClose>
+              <Button type="button" onClick={() => setOpen(false)} className="w-full" variant="outline">
+                 Batal
+              </Button>
             </DrawerFooter>
           </form>
         </Form>

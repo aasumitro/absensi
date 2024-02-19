@@ -31,10 +31,8 @@ function ConfirmExitDrawer() {
           <Button className="w-full" variant="destructive" onClick={exitApp}>
             Ya, tutup!
           </Button>
-          <DrawerClose className="w-full">
-            <Button className="w-full" variant="outline">
+          <DrawerClose className="w-full border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
               Batal
-            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

@@ -15,7 +15,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
       >
         <ion-item>
           <ion-label label="Username" position="stacked">
-            Your username
+            Nama Pengguna
           </ion-label>
           <ion-input
             aria-label="Username"
@@ -28,7 +28,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
         <ion-button
           [disabled]="!form.valid"
           (click)="performGrantAccess()"
-        >Continue</ion-button>
+        >Lanjutkan</ion-button>
       </div>
     </section>
   `,

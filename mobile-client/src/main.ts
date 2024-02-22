@@ -28,4 +28,4 @@ bootstrapApplication(AppComponent, {
       driverOrder: [Drivers.IndexedDB]
     }))
   ],
-});
+}).catch(err => alert(err));

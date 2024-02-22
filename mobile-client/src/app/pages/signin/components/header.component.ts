@@ -4,10 +4,10 @@ import {Component} from "@angular/core";
   selector: 'app-signin-header',
   template: `
     <section class="heading ion-margin-top">
-      Hey, hello 👋
+      Hai, halo
     </section>
     <section class="subheading ion-margin-top">
-      One step closer to continue!
+      Tinggal satu langkah lagi untuk masuk ke akun kamu 🎉
     </section>
   `,
   styles: [`

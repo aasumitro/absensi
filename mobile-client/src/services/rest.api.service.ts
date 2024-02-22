@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root'})
 export class RestAPIService {
-  private baseUrl: string = `${environment.apiURL}`
+  private baseUrl: string = `${environment.apiUrl}`
 
   constructor(
     public http: HttpClient,

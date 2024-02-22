@@ -48,27 +48,28 @@ function App() {
     }
   };
 
-  const startCamera =  () => {
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          alert("Kamera tidak ditemukan. Pastikan kamera sudah terpasang.");
-      }
+  const startCamera = () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert("Kamera tidak ditemukan. Pastikan kamera sudah terpasang.");
+    }
 
-      navigator.mediaDevices.getUserMedia({ video: true })
-          .then((stream) => setMediaStream(stream))
-          .catch((error)=> {
-              alert(error)
-              // window.__TAURI__.shell.open({
-              //     uri: 'tauri://settings',
-              // });
-              // removeFile("id.aasumitro.absensi-desktop-client/EBWebView/Default/Preferences", {
-              //     dir: path.BaseDirectory.LocalData,
-              // }).then(r => console.log(r)).catch(e => alert(e));
-          })
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => setMediaStream(stream))
+      .catch((error) => {
+        alert(error);
+        // window.__TAURI__.shell.open({
+        //     uri: 'tauri://settings',
+        // });
+        // removeFile("id.aasumitro.absensi-desktop-client/EBWebView/Default/Preferences", {
+        //     dir: path.BaseDirectory.LocalData,
+        // }).then(r => console.log(r)).catch(e => alert(e));
+      });
   };
 
-    // https://publishing-project.rivendellweb.net/asking-the-user-for-permission/
-    // https://stackoverflow.com/questions/15993581/reprompt-for-permissions-with-getusermedia-after-initial-denial
-    // https://tauri.app/v1/api/config/
+  // https://publishing-project.rivendellweb.net/asking-the-user-for-permission/
+  // https://stackoverflow.com/questions/15993581/reprompt-for-permissions-with-getusermedia-after-initial-denial
+  // https://tauri.app/v1/api/config/
   return (
     <div className="relative flex h-screen w-screen flex-col p-2">
       <section className="item-center flex flex-row items-center justify-between">
@@ -77,7 +78,7 @@ function App() {
       </section>
       <section className="m-auto mb-4 mt-0 flex flex-col items-center">
         <div className="flex flex-col items-center">
-            <img className="mb-2 w-16" src="./src/assets/absensi.png" alt="logo" />
+          <img className="mb-2 w-16" src="./src/assets/absensi.png" alt="logo" />
           {refresh ? (
             <Skeleton className="mt-1 h-6 w-28" />
           ) : (
@@ -90,25 +91,40 @@ function App() {
           )}
           {refresh ? <Skeleton className="mt-1 h-2 w-36" /> : <CurrentTime />}
           {refresh ? (
-            <Skeleton className="mt-4 h-36 w-36" />
+            <>
+              <Skeleton className="mt-4 h-36 w-36" />
+              {settings?.device_mode === "scanner" ? (
+                <></>
+              ) : (
+                <Skeleton className="mt-4 h-2 w-20" />
+              )}
+            </>
           ) : (
             <>
               {settings?.device_mode === "scanner" ? (
-                <div className="mt-4  h-36 w-36">
+                <div className="mt-4 h-36 w-36">
                   <QrScanner
-                    // deviceId={settings?.device_id}
                     tracker={true}
+                    hideCount={false}
+                    constraints={{
+                      facingMode: "environment",
+                      width: { min: 640, ideal: 720, max: 1920 },
+                      height: { min: 640, ideal: 720, max: 1080 },
+                    }}
+                    scanDelay={100}
                     onResult={(result) => console.log(result)}
                     onDecode={(result) => console.log(result)}
                     onError={(error) => console.log(error?.message)}
                   />
                 </div>
               ) : (
-                <QRCodeSVG className="mt-4 h-36 w-36" value="https://reactjs.org/" />
+                <>
+                  <QRCodeSVG className="mt-4 h-36 w-36" value="https://reactjs.org/" />
+                  <RefreshCountdown />
+                </>
               )}
             </>
           )}
-          {refresh ? <Skeleton className="mt-4 h-2 w-20" /> : <RefreshCountdown />}
         </div>
       </section>
       <Button

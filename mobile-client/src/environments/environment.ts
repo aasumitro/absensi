@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   storageName : 'absensi_db',
-  apiURL : 'http://localhost:8000/api/v1/mobile'
+  apiUrl : 'http://localhost:8000/api/v1/mobile',
+  googleCalendarApiUrl : 'https://www.googleapis.com/calendar/v3/calendars',
+  googleCalendarId: 'id.indonesian%23holiday%40group.v.calendar.google.com',
+  googleCalendarApiKey: 'AIzaSyB3a_OuRk08ewpWvR-TkKWpK1Lc3HxS64o',
 };
 
 /*

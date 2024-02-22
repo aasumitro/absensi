@@ -8,7 +8,7 @@ import {isEmpty} from "../../../utils/validation";
   template: `
     <section class="section-input-code">
       <ion-list>
-        <p>Verification Code</p>
+        <p>Kode Verifikasi</p>
         <ion-item>
           <ion-input
             [(ngModel)]="code1"
@@ -62,8 +62,12 @@ import {isEmpty} from "../../../utils/validation";
         </ion-item>
       </ion-list>
       <div class="desc">
-        <div class="ask">Didn't receive a verification code?</div>
-        <div class="action" (click)="performResendVerificationCode()">Resend</div>
+        <div class="ask">
+          Tidak menerima kode verifikasi?
+        </div>
+        <button class="action" (click)="performResendVerificationCode()">
+          Kirim ulang
+        </button>
       </div>
     </section>
   `,
@@ -123,7 +127,7 @@ import {isEmpty} from "../../../utils/validation";
       margin-top: 10px;
       color: var(--ion-color-main-text-dark);
       .ask { padding-right: 5px; color: var(--ion-color-main-text); }
-      .action { font-weight: 600; color: var(--ion-color-main-text-dark); }
+      .action { font-weight: 600; color: var(--ion-color-main-text-dark); text-decoration: underline; }
     }
   `],
   standalone: true,
@@ -147,7 +151,7 @@ export class VerifyAccessComponent {
 
   constructor() {}
 
-  verificationCodeController = (
+  verificationCodeController = async (
     event: any, field: any,
     next: any, prev: any,
   ) => {
@@ -163,7 +167,7 @@ export class VerifyAccessComponent {
       this.code5 = codeSplit[4];
       this.code6 = codeSplit[5];
       this.code7 = codeSplit[6];
-      this.performSubmitVerificationCode();
+      await this.performSubmitVerificationCode();
     } else if (event.target.value.length > 1) {
       event.preventDefault();
     } else if (event.keyCode === 8 && event.target.value.length < 1 && prev) {
@@ -171,7 +175,7 @@ export class VerifyAccessComponent {
     } else if (next && event.target.value.length > 0) {
       next.setFocus();
     } else if (isEmpty(next)) {
-      this.performSubmitVerificationCode();
+      await this.performSubmitVerificationCode();
     }
   }
 
@@ -190,7 +194,7 @@ export class VerifyAccessComponent {
     }
   }
 
-  performResendVerificationCode = () => {}
+  performResendVerificationCode = () => console.log("Resend verification code")
 
   combineInputValue = (): string => (
     `${this.code1}${this.code2}${this.code3}` +

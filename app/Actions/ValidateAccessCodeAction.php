@@ -17,9 +17,7 @@ class ValidateAccessCodeAction
             'username' => $request->username
         ])->firstOrFail();
 
-        // when device id is not empty
-        // && device id given is not equals
-        // with registered device id
+        // when device id is not empty and given device id not equal with registered device id
          if ($user->phone_id && ($user->phone_id !== $request->phone_id)) {
              throw ValidationException::withMessages([
                  'action' => "NEW_DEVICE",

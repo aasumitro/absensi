@@ -9,7 +9,7 @@
                     alt="Volt Logo"
                 >
             </span>
-            <span class="mt-1 ms-1 sidebar-text">OkSetda Absensi</span>
+            <span class="mt-1 ms-1 sidebar-text">Absensi</span>
         </a>
     </li>
 

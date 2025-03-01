@@ -58,7 +58,7 @@ class RootHomeView extends Component
 
     public function mount()
     {
-        $this->now = Carbon::now(`Asia/Makassar`);
+        $this->now = Carbon::now("Asia/Makassar");
 
         $this->start_of_the_week = $this->now->startOfWeek(CarbonInterface::MONDAY)->format('d');
         $this->end_of_the_week = $this->now->endOfWeek(CarbonInterface::FRIDAY)->format('d');

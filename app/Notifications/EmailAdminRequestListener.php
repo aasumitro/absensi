@@ -50,6 +50,4 @@ class EmailAdminRequestListener extends Notification implements ShouldQueue
                 ->greeting("Hello, $notifiable->name.")
                 ->line($this->body);
     }
-
-
 }

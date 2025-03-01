@@ -4,7 +4,7 @@
     <nav class="flex items-center justify-between text-black bg-navbar shadow-xs h-16">
         <div class="flex items-center flex-no-shrink">
             <a href="{{ url('/') }}" class="flex items-center flex-no-shrink text-black mx-4">
-                <img src="{{asset('assets/img/oksetda_absensi_250px.png')}}" alt="app-logo" width="50">
+                <img src="{{asset('assets/img/absensi.png')}}" alt="app-logo" width="50">
 
                 <p class="inline-block font-semibold mx-1 text-grey-dark">
                     {{ config('app.name') }}

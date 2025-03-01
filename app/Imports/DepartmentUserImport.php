@@ -5,7 +5,7 @@ namespace App\Imports;
 use App\Models\Managers\AccountManager;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class DepartmentUserImport implements ToCollection
 {

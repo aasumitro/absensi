@@ -125,6 +125,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Maintenance Mode Driver
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the driver used to determine and
+    | manage Laravel's "maintenance mode" status. The "cache" driver will
+    | allow maintenance mode to be controlled across multiple machines.
+    |
+    | Supported drivers: "file", "cache"
+    |
+    */
+
+    'maintenance' => [
+        'driver' => 'file',
+        // 'store' => 'redis',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -181,6 +199,11 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
+    // TODO: Migrate to this new format
+    //    'providers' => ServiceProvider::defaultProviders()->merge([
+    //        Path\Of\Providers\ExampleProvider::class,
+    //    ])->toArray(),
+
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
@@ -234,4 +257,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
+    // TODO: Migrate to this new format
+    //  'aliases' => Facade::defaultAliases()->merge([
+    //      // 'Example' => App\Facades\Example::class,
+    //  ])->toArray(),
 ];

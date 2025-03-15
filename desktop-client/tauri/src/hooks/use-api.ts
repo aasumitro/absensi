@@ -6,7 +6,7 @@ function getAuthNHeader(): string | null {
   return localStorage.getItem("access_token");
 }
 
-async function aquireAccessToken() {
+async function acquireAccessToken() {
   const credential = getCredentials();
   if (!credential) {
     throw new Error("No credentials found");
@@ -43,9 +43,9 @@ async function refreshSession() {}
 async function attendFromQRCodeReader() {}
 
 export {
-  getAuthNHeader,
-  aquireAccessToken,
-  generateQRCodeData,
-  refreshSession,
-  attendFromQRCodeReader,
+    getAuthNHeader,
+    acquireAccessToken,
+    generateQRCodeData,
+    refreshSession,
+    attendFromQRCodeReader,
 };

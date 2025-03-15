@@ -1,1 +1,1 @@
-# Absensi Desktop Client with Electron (Scanner & Generator)
+# [DEPRECATED] Absensi Desktop Client with Electron (Scanner & Generator)
